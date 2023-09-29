@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Welcome to Our Home Design Product Finder</h1>
+  <div class="product-list">
+    {% for product in featured_products %}
+      <div class="product">
+        <img
+          src="{{ product.image.url }}"
+          alt="{{ product.name }}"
+          class="product-image"
+          onclick="zoomIn(this)"
+        >
+        <h2 class="product-name">{{ product.name }}</h2>
+        <p class="product-description">{{ product.description }}</p>
+        <p class="product-price">$ {{ product.price }}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Modal for image zoom -->
+  <div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="zoomedImg" class="modal-content">
+  </div>
+{% endblock %}
