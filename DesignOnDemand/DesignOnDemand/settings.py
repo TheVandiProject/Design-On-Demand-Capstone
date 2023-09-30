@@ -31,13 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'designs.apps.DesignsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'DesignOnDemand',
 ]
 
 MIDDLEWARE = [
@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC-4'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -118,9 +118,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "DesignOnDemand/static",
-    "DesignOnDemand/static/DesignOnDemand/css",
-    "DesignOnDemand/static/images",
+    BASE_DIR / "designs/static",
+    "designs/static/designs/css",
+    "designs/static/images",
     
 ]
 
