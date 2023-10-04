@@ -1,0 +1,173 @@
+/* Reset some default styles for consistency */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Header Styles */
+header {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+nav li {
+  margin-right: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.user-actions {
+  display: flex;
+}
+
+.login, .signup {
+  color: white;
+  margin-right: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Hero Section Styles */
+.hero {
+  background-image: url('hero-image.jpg');
+  background-size: cover;
+  text-align: center;
+  padding: 100px 0;
+}
+
+.hero h1 {
+  color: black;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  background-color: #FF5722;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Featured Categories Styles */
+.featured-categories {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.category {
+  text-align: center;
+}
+
+.category img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* Product Showcase Styles */
+.product-showcase {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.product {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.product img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.details-button {
+  background-color: #FF5722;
+  color: white;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #333333;
+  color: white;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer ul {
+  list-style: none;
+  display: flex;
+}
+
+footer li {
+  margin-right: 20px;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.social-icons a {
+  margin-right: 10px;
+}
+
+/* .search-bar {
+  position: relative;
+}
+
+.search-bar input {
+  padding: 5px 30px 5px 10px;
+  border: none;
+  border-radius: 20px;
+  width: 200px;
+  font-size: 14px;
+}
+
+.search-icon, .camera-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.search-icon i, .camera-icon i {
+  font-size: 20px;
+  color: #fff;
+}
+
+.camera-icon {
+  right: 35px;
+} */

@@ -120,7 +120,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "designs/static",
     "designs/static/designs/css",
-    "designs/static/images",
+    "designs/static/designs/images",
+    "designs/static/designs/js",
     
 ]
 
