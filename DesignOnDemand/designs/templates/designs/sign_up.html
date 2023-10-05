@@ -1,0 +1,24 @@
+{% extends "designs/base.html" %}
+{% load static %}
+
+{% block title %}Login or Sign Up{% endblock %}
+
+{% block stylesheet %}
+    <!-- Add the path to your custom login/signup stylesheet -->
+    <link rel="stylesheet" href="{% static 'designs/css/login_signup.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-signup-form">
+       {% comment %} {% url 'signup' %} {% endcomment %}
+       <form action="" method="post">
+        {% csrf_token %}
+        <!-- Form fields for registration -->
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password1" placeholder="Password">
+        <input type="password" name="password2" placeholder="Confirm Password">
+        <button type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</div>
+{% endblock %}
