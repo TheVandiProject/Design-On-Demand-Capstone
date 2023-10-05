@@ -1,0 +1,89 @@
+{% extends "designs/base.html" %}
+
+{% block title %}Home{% endblock %}
+{% block stylesheet%}
+    <link rel="stylesheet" href="..\static\designs\css\home.css">
+{% endblock %}
+
+{% block content %}
+    <!-- Header Section -->
+    <header>
+        <div class="logo">Design on Demand</div>
+        <nav>
+            <ul>
+                <li><a href="#">Explore</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">Ideas</a></li>
+                <li><a href="#">Favorites</a></li>
+                <li><a href="#">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for designs...">
+            <span class="search-icon"><i class="fas fa-search"></i></span>
+            <span class="camera-icon"><i class="fas fa-camera"></i></span>
+        </div>
+        <div class="user-actions">
+            <a href="#" class="login">Login</a>
+            <a href="#" class="signup">Sign Up</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Design Your Home, Shape Your Story</h1>
+        <a href="#" class="cta-button">Get Started</a>
+    </section>
+
+    <!-- Featured Categories Section -->
+    <section class="featured-categories">
+        <!-- Category 1 -->
+        <div class="category">
+            <img src="category1.jpg" alt="Modern Home">
+            <h2>Modern</h2>
+        </div>
+        <!-- Category 2 -->
+        <div class="category">
+            <img src="category2.jpg" alt="Traditional Home">
+            <h2>Traditional</h2>
+        </div>
+        <!-- Add more categories as needed -->
+    </section>
+
+    <!-- Product Showcase Section -->
+    <section class="product-showcase">
+        <!-- Product 1 -->
+        <div class="product">
+            <img src="product1.jpg" alt="Product 1">
+            <h3>Stylish Sofa Set</h3>
+            <p>Elevate your home with a stylish sofa set that combines contemporary design and luxurious comfort.</p>
+            <a href="#" class="details-button">View Details</a>
+        </div>
+        <!-- Product 2 -->
+        <div class="product">
+            <img src="product2.jpg" alt="Product 2">
+            <h3>Minimalist Dining Table</h3>
+            <p>Discover minimalist dining tables for a stylish and uncluttered dining space.</p>
+            <a href="#" class="details-button">View Details</a>
+        </div>
+        <!-- Add more products as needed -->
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-logo">Design On Demand</div>
+        <nav>
+            <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </nav>
+        <div class="social-icons">
+            <a href="#"><img src="..\static\designs\images\facebook-logo-secondary.png" alt="Facebook" class="resize"></a>
+            <a href="#"><img src="..\static\designs\images\x-logo-white.png" alt="Twitter" class="resize"></a>
+            <!-- Add more social icons as needed -->
+        </div>
+    </footer>
+{% endblock %}
