@@ -144,7 +144,7 @@ footer a {
   margin-right: 10px;
 }
 
-/* .search-bar {
+.search-bar {
   position: relative;
 }
 
@@ -165,9 +165,9 @@ footer a {
 
 .search-icon i, .camera-icon i {
   font-size: 20px;
-  color: #fff;
+  color: black;
 }
 
 .camera-icon {
   right: 35px;
-} */
+}
