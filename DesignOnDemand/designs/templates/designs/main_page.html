@@ -1,10 +1,14 @@
 {% extends "designs/base.html" %}
-{% load static %}
+
+{% block title %}Home{% endblock %}
+{% block stylesheet%}
+    <link rel="stylesheet" href="..\static\designs\css\home.css">
+{% endblock %}
 
 {% block content %}
     <!-- Header Section -->
     <header>
-        <div class="logo">Home Design Hub</div>
+        <div class="logo">Design on Demand</div>
         <nav>
             <ul>
                 <li><a href="#">Explore</a></li>
@@ -27,7 +31,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Discover Your Dream Home</h1>
+        <h1>Design Your Home, Shape Your Story</h1>
         <a href="#" class="cta-button">Get Started</a>
     </section>
 
@@ -52,14 +56,14 @@
         <div class="product">
             <img src="product1.jpg" alt="Product 1">
             <h3>Stylish Sofa Set</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Elevate your home with a stylish sofa set that combines contemporary design and luxurious comfort.</p>
             <a href="#" class="details-button">View Details</a>
         </div>
         <!-- Product 2 -->
         <div class="product">
             <img src="product2.jpg" alt="Product 2">
             <h3>Minimalist Dining Table</h3>
-            <p>Nullam consectetur fermentum eros a consectetur.</p>
+            <p>Discover minimalist dining tables for a stylish and uncluttered dining space.</p>
             <a href="#" class="details-button">View Details</a>
         </div>
         <!-- Add more products as needed -->
@@ -67,7 +71,7 @@
 
     <!-- Footer Section -->
     <footer>
-        <div class="footer-logo">Home Design Hub</div>
+        <div class="footer-logo">Design On Demand</div>
         <nav>
             <ul>
                 <li><a href="#">About Us</a></li>
@@ -77,8 +81,8 @@
             </ul>
         </nav>
         <div class="social-icons">
-            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="..\static\designs\images\facebook-logo-secondary.png" alt="Facebook" class="resize"></a>
+            <a href="#"><img src="..\static\designs\images\x-logo-white.png" alt="Twitter" class="resize"></a>
             <!-- Add more social icons as needed -->
         </div>
     </footer>

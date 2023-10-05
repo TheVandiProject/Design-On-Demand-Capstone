@@ -45,6 +45,35 @@ nav a {
   font-weight: bold;
 }
 
+
+.search-bar {
+  position: relative;
+}
+
+.search-bar input {
+  padding: 5px 30px 5px 10px;
+  border: none;
+  border-radius: 20px;
+  width: 200px;
+  font-size: 14px;
+}
+
+.search-icon, .camera-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.search-icon i, .camera-icon i {
+  font-size: 20px;
+  color: black;
+}
+
+.camera-icon {
+  right: 35px;
+}
+
 /* Hero Section Styles */
 .hero {
   background-image: url('hero-image.jpg');
@@ -144,30 +173,7 @@ footer a {
   margin-right: 10px;
 }
 
-.search-bar {
-  position: relative;
-}
-
-.search-bar input {
-  padding: 5px 30px 5px 10px;
-  border: none;
-  border-radius: 20px;
-  width: 200px;
-  font-size: 14px;
-}
-
-.search-icon, .camera-icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-.search-icon i, .camera-icon i {
-  font-size: 20px;
-  color: black;
-}
-
-.camera-icon {
-  right: 35px;
+.resize {
+  width: 10px;
+  height: 10px;
 }
