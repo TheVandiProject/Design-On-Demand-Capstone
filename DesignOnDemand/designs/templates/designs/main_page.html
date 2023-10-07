@@ -1,10 +1,10 @@
 {% extends "designs/base.html" %}
+
 {% load static %}
 
 {% block title %}Home{% endblock %}
 {% block stylesheet%}
-    {% comment %} <link rel="stylesheet" href="..\static\designs\css\home.css"> {% endcomment %}
-    <link rel="stylesheet" href="{% static 'designs\css\home.css'%}">
+    <link rel="stylesheet" href="{% static "designs/css/home.css" %}">
 {% endblock %}
 
 {% block content %}
@@ -70,7 +70,7 @@
         </div>
         <!-- Add more products as needed -->
     </section>
-
+    
     <!-- Footer Section -->
     <footer>
         <div class="footer-logo">Design On Demand</div>
@@ -83,9 +83,9 @@
             </ul>
         </nav>
         <div class="social-icons">
-            <a href="#"><img src="{% static 'designs\images\facebook-logo-secondary.png' %}" alt="Facebook" class="resize"></a>
-            <a href="#"><img src="s{% static 'designs\images\x-logo-white.png'%}" alt="Twitter" class="resize"></a>
+            <a href="#"><img src="{% static "designs/images/facebook-logo-secondary.png" %}" alt="Facebook" class=".resize"></a>
+            <a href="#"><img src="{% static "designs/images/x-logo-white.png" %}" alt="Twitter" class=".resize"></a>
             <!-- Add more social icons as needed -->
         </div>
     </footer>
-{% endblock %}
+    {% endblock %}

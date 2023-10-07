@@ -5,7 +5,7 @@ def main_page(request):
     return render(request, 'designs/main_page.html')
 
 def login_view(request):
-    return render(request, 'designs/LogIn.html')
+    return render(request, 'designs/login_page.html')
 
 def signup_view(request):
     return render(request, 'designs/sign_up.html')

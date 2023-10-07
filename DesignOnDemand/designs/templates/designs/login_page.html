@@ -1,7 +1,7 @@
 {% extends "designs/base.html" %}
 {% load static %}
 
-{% block title %}Sign Up{% endblock %}
+{% block title %}Log In{% endblock %}
 
 {% block stylesheet %}
     <!-- Add the path to your custom login/signup stylesheet -->
@@ -22,25 +22,21 @@
             </ul>
         </nav>
     </header>
+
    <div class="container">
        <div class="login-form">
-           <h2 class="login-title">Sign Up</h2>
+           <h2 class="login-title">Log In</h2>
            <form action="" method="post"> 
                {% csrf_token %}
                <div class="form-group">
                    <input type="text" name="username" placeholder="Username">
                </div>
                <div class="form-group">
-                   <input type="password" name="password1" placeholder="Password">
+                   <input type="password" name="password" placeholder="Password">
                </div>
-               <div class="form-group">
-                   <input type="password" name="password2" placeholder="Confirm Password">
-               </div>
-               <button type="submit">Sign Up</button>
+               <button type="submit">Login</button>
            </form>
-           <p>Already have an account? <a href="{% url 'login' %}" class="login-link">Log In</a></p>
-           <p>By creating an account you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></p>
-           {% comment %} {% url 'terms_and_conditions' %} {% url 'privacy_policy' %} {% endcomment %}
+           <p>Don't have an account? <a href="{% url 'signup' %}" class="login-link">Sign Up</a></p>
        </div>
    </div>
 
