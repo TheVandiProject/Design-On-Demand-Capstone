@@ -27,8 +27,11 @@
            <h2 class="login-title">Sign Up</h2>
            <form action="" method="post"> 
                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Username">
+                </div>
                <div class="form-group">
-                   <input type="text" name="username" placeholder="Username">
+                   <input type="text" name="email" placeholder="Email">
                </div>
                <div class="form-group">
                    <input type="password" name="password1" placeholder="Password">
