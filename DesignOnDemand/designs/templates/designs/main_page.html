@@ -26,8 +26,8 @@
             <span class="camera-icon"><i class="fas fa-camera"></i></span>
         </div>
         <div class="user-actions">
-            <a href="#" class="login">Login</a>
-            <a href="#" class="signup">Sign Up</a>
+            <a href="{% url 'login' %}" class="login">Login</a>
+            <a href="{% url 'signup' %}" class="signup">Sign Up</a>
         </div>
     </header>
 
@@ -70,7 +70,7 @@
         </div>
         <!-- Add more products as needed -->
     </section>
-
+    
     <!-- Footer Section -->
     <footer>
         <div class="footer-logo">Design On Demand</div>
@@ -88,4 +88,4 @@
             <!-- Add more social icons as needed -->
         </div>
     </footer>
-{% endblock %}
+    {% endblock %}
