@@ -26,7 +26,9 @@
        <div class="login-form">
            <h2 class="login-title">Sign Up</h2>
            <form action="" method="post"> 
-               {% csrf_token %}
+                {% csrf_token %}
+                {{ form.username.label_tag }} {{ form.username }}
+                {{ form.password.label_tag }} {{ form.password }}
                 <div class="form-group">
                     <input type="text" name="username" placeholder="Username">
                 </div>
@@ -41,9 +43,20 @@
                </div>
                <button type="submit">Sign Up</button>
            </form>
+            {% comment %} {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <li class="error-message">{{ message }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %} {% endcomment %}
+           
            <p>Already have an account? <a href="{% url 'login' %}" class="login-link">Log In</a></p>
            <p>By creating an account you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></p>
-           {% comment %} {% url 'terms_and_conditions' %} {% url 'privacy_policy' %} {% endcomment %}
+           {% comment %} TODO Would need to add these pages later 
+           {% url 'terms_and_conditions' %} {% url 'privacy_policy' %} {% endcomment %}
        </div>
    </div>
 
