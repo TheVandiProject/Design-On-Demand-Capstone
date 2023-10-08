@@ -11,9 +11,10 @@ body {
 
 /* Header Styles */
 header {
-  background-color: #007BFF;
+  background-color: #0091ff;
+  background-image: linear-gradient(to right, #0091ff, #ad2affe8);
   color: white;
-  padding: 10px 0;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -74,22 +75,33 @@ nav a {
   right: 35px;
 }
 
+/* Background main page color */
+.background-main {
+  background-color: rgb(255, 253, 250);
+}
+
 /* Hero Section Styles */
 .hero {
-  background-image: url('hero-image.jpg');
-  background-size: cover;
+  background-image: url(/static/designs/images/hero-image.jpg);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 70%;
   text-align: center;
-  padding: 100px 0;
 }
 
 .hero h1 {
-  color: black;
+  color: white;
+  text-shadow: 0px 0px 10px black;
   font-size: 36px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  padding-top: 70px;
 }
 
 .cta-button {
-  background-color: #FF5722;
+  background-color: #22a3ff;
+  text-shadow: 0px 0px 5px black;
   color: white;
   padding: 10px 20px;
   text-decoration: none;
@@ -109,9 +121,10 @@ nav a {
 }
 
 .category img {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
+  width: 400px;
+  height: 300px;
+  object-fit: fill;
+  border-radius: 20px;
   margin-bottom: 10px;
 }
 
@@ -136,7 +149,8 @@ nav a {
 }
 
 .details-button {
-  background-color: #FF5722;
+  background-color: #22a3ff;
+  text-shadow: 0px 0px 5px black;
   color: white;
   padding: 5px 10px;
   text-decoration: none;
@@ -152,6 +166,7 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
 }
 
 footer ul {
@@ -174,6 +189,10 @@ footer a {
 }
 
 .resize {
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.footer-logo{
+  padding: 5px;
 }
