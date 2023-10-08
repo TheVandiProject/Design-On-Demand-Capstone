@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'designs.apps.DesignsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -77,8 +78,12 @@ WSGI_APPLICATION = 'DesignOnDemand.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd7o8f65il34huo',
+        'USER': 'houhehpskldghs',
+        'PASSWORD': '8b2254462b259c543e2187f4c98544a2f67260f1bf55361b592c29dad4359d4c',
+        'HOST': 'ec2-35-169-9-79.compute-1.amazonaws.com',  # Replace with your PostgreSQL server's address if necessary
+        'PORT': '5432',          # Leave empty to use the default PostgreSQL port (usually 5432)
     }
 }
 
