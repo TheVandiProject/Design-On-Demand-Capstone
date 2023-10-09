@@ -5,9 +5,10 @@ body {
 
 /* Header Styles */
 header {
-  background-color: #007BFF;
+  background-color: #0091ff;
+  background-image: linear-gradient(to right, #0091ff, #ad2affe8);
   color: white;
-  padding: 10px 0;
+  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

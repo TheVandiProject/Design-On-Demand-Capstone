@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from .forms import RegisterForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 
 def main_page(request):
     return render(request, 'designs/main_page.html')
+
+def user_home_view(request):
+    return render(request, 'designs/user_home.html')
 
 def login_view(request):
     if request.method == "POST":
@@ -17,7 +20,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.", extra_tags='success')
-                return redirect("/designs") #TODO change later to the user home page
+                return redirect('/designs/home') #TODO change later to the user home page
             else:
                 messages.error(request,"Invalid username or password.", extra_tags='error')
                 # form.add_error(None, "Invalid username or password.")
@@ -34,8 +37,13 @@ def signup_view(request):
             user = form.save()
             login(request, user)
             messages.success(request, f"Account created successfully!", extra_tags='success')
-            return redirect("/designs") #TODO change later to the user home page       
+            return redirect('/designs/home') #TODO change later to the user home page       
         messages.error(request, "Unsuccessful registration. Invalid information.", extra_tags='error')
         # form.add_error(None, "Unsuccessful registration. Invalid information.")
     form = RegisterForm()   
     return render(request, 'designs/sign_up.html', {'signin_form': form})
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.", extra_tags='success')
+    return redirect("/designs/") 
