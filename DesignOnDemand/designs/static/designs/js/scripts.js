@@ -31,6 +31,7 @@ window.onclick = function(event) {
     }
 }
 
+
 // function setupProductCarousel() {
 //     const productContainer = $(".product-container");
 //     const leftArrow = $(".left-arrow");
