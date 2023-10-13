@@ -29,6 +29,19 @@
             <li><a href="#">Favorites</a></li>
         </ul>
     </nav>
+    <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
+        {% csrf_token %}
+        <label for="image">Select an image:</label>
+        <input type="file" name="image" id="image">
+        <input type="submit" value="Upload Image">
+        <!--{{ form.as_p }}
+        <button type="submit">Upload</button>-->
+    </form>
+    {% if img_obj %}  
+    <h3>Succesfully uploaded : {{img_obj.caption}}</h3>  
+    <!--This would be where we'd call the machine learning model to start searching-->
+    {% endif %}
+
         <div class="user-profile">
             <img src="{% static 'designs/images/user-icon-default-96.png' %}" alt="User Profile" id="profile-icon" onclick="toggleDropdown()">            
             <!-- User profile menu -->

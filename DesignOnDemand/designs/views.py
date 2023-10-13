@@ -1,8 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from .forms import RegisterForm
+from .forms import *
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import UploadDesign
+from designs.forms import UploadDesignForm
+from django.core.files.storage import FileSystemStorage
+from PIL import Image # Pillow library for image resizing
+
+
 
 def main_page(request):
     return render(request, 'designs/main_page.html')
@@ -47,3 +54,43 @@ def logout_view(request):
     logout(request)
     messages.info(request, "You have successfully logged out.", extra_tags='success')
     return redirect("/designs/") 
+
+def upload_design_view(request):
+    if request.method == "POST":
+        form = UploadDesignForm(request.POST, request.FILES)
+        if form.is_valid():
+            uploaded_image = request.FILES["image"]
+            file_path = "designs/static/designs/images/media"  # Specify your file path with the desired format
+            result = handle_uploaded_image(uploaded_image, file_path)
+            if result is True:
+                return HttpResponseRedirect('/designs/home')
+        else:
+            return HttpResponse("Error uploading design")
+    else:
+        form = UploadDesignForm()
+    return render(request, 'designs/user_home.html', {'form': form})
+
+media_storage = 'designs/static/designs/images/media'
+
+def handle_uploaded_image(image, path):
+    try:
+        img = Image.open(image)
+        # Ensure the image is in RGB mode (for common image formats)
+        img = img.convert('RGB')
+
+        # Check the image format and save accordingly (PNG or JPEG)
+        if img.format == "PNG":
+            img.save(path, "PNG")
+        elif img.format == "JPEG":
+            img.save(path, "JPEG")
+        else:
+            return "Unsupported image format"  # Handle unsupported formats
+
+        # Close the image
+        img.close()
+
+        return True  # Success
+    except Exception as e:
+        # Handle any exceptions or errors that may occur
+        print(f"Error handling the uploaded image: {e}")
+        return False  # Return False to indicate an error
