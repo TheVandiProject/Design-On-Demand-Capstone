@@ -118,6 +118,13 @@ nav a {
 
 .category {
   text-align: center;
+  max-width: 400px;
+  padding: 10px;
+
+}
+.category p {
+  text-align: center;
+  max-width: 400px;
 }
 
 .category img {
@@ -130,22 +137,21 @@ nav a {
 
 /* Product Showcase Styles */
 .product-showcase {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  display: block;
+  overflow: hidden;
+  block-size: 100%;
   margin-top: 30px;
 }
 
-.product {
-  text-align: center;
-  margin-bottom: 30px;
+.carousel-item img {
+  width: 100%;
+  height: 900px;
+  object-fit: fill;
 }
 
-.product img {
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 5px;
+.carousel-control-prev,
+.carousel-control-next {
+  height: 10vw;
 }
 
 .details-button {
@@ -156,6 +162,12 @@ nav a {
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
+}
+
+.product-showcase .carousel-inner .card-body h3,
+.product-showcase .carousel-inner .card-body p {
+  color: black;
+  text-shadow: 0px 0px 3px white;
 }
 
 /* Footer Styles */

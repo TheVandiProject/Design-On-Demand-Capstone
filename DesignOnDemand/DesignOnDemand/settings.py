@@ -72,17 +72,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'DesignOnDemand.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd7o8f65il34huo',
-        'USER': 'houhehpskldghs',
-        'PASSWORD': '8b2254462b259c543e2187f4c98544a2f67260f1bf55361b592c29dad4359d4c',
-        'HOST': 'ec2-35-169-9-79.compute-1.amazonaws.com',  # Replace with your PostgreSQL server's address if necessary
+        'NAME': 'dtu9tq452hc5a',
+        'USER': 'vrfdejhjsiuvfb',
+        'PASSWORD': 'd856aa43dd42c8ec18c504e823c52eae2e78269e0a2dc20dec53da6e32c64eb9',
+        'HOST': 'ec2-3-233-79-30.compute-1.amazonaws.com',  # Replace with your PostgreSQL server's address if necessary
         'PORT': '5432',          # Leave empty to use the default PostgreSQL port (usually 5432)
     }
 }
