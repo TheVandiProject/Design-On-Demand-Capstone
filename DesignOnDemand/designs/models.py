@@ -1,6 +1,14 @@
 from django.db import models
 from PIL import Image # Pillow library for image resizing
 
+
+class UploadDesign(models.Model):
+    caption = models.CharField(max_length=200)  
+    image = models.ImageField(upload_to='designs/static/designs/images/media')  # Store design images
+
+    def __str__(self):
+        return self.caption
+
 class DesignProduct(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()

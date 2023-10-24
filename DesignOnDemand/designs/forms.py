@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import fields
+from .models import UploadDesign
+from django.db import models
 
 
 class RegisterForm(UserCreationForm):
@@ -16,3 +19,8 @@ class RegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+    
+class UploadDesignForm(forms.Form):
+    class meta:
+        model = UploadDesign
+        fields = '__all__'
