@@ -12,16 +12,16 @@
         "destination": "/index.html/"
       },
       {
-        "source": "/templates/public/login_page.html",
-        "destination": "/login/"
+        "source": "/login/",
+        "destination": "/templates/public/login_page.html"
       },
       {
-        "source" : "templates/public/sign_up.html",
-        "destination" : "/signup/"
+        "source" : "/signup/",
+        "destination" : "templates/public/sign_up.html"
       },
       {
-        "source" : "/public/user_home.html/",
-        "destination" : "/user_home/"
+        "source" : "/user_home/",
+        "destination" : "/public/user_home.html/"
       },
       {
         "source" : "{% url 'logout' %}",
