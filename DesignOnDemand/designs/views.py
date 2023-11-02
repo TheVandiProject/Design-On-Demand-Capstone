@@ -8,14 +8,29 @@ from .models import UploadDesign
 from designs.forms import UploadDesignForm
 from django.core.files.storage import FileSystemStorage
 from PIL import Image # Pillow library for image resizing
+import pyrebase
 
 
+config = {
+    "apiKey": "AIzaSyCzHuiBOT2JYveaoC1XT6hymVLyvKWqyN4",
+    "authDomain": "design-on-demand.firebaseapp.com",
+    "databaseURL": "https://design-on-demand-default-rtdb.firebaseio.com",
+    "projectId": "design-on-demand",
+    "storageBucket": "design-on-demand.appspot.com",
+    "messagingSenderId": "694337339140",
+    "appId": "1:694337339140:web:79f3c25e1c793fa9a7da51",
+    "measurementId": "G-JNT1SFBQ2M"
+}
 
-def index(request):
-    return render(request, 'index.html')
+firebase = pyrebase.initialize_app(config)
+authe = firebase.auth()
+database = firebase.database()
+
+def main_page_view(request):
+    return render(request, 'designs/main_page.html')
 
 def user_home_view(request):
-    return render(request, 'public/user_home.html')
+    return render(request, 'designs/user_home.html')
 
 def login_view(request):
     if request.method == "POST":
@@ -27,7 +42,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.", extra_tags='success')
-                return redirect('/public/home') #TODO change later to the user home page
+                return redirect('/designs/home') #TODO change later to the user home page
             else:
                 messages.error(request,"Invalid username or password.", extra_tags='error')
                 # form.add_error(None, "Invalid username or password.")
@@ -35,7 +50,7 @@ def login_view(request):
             messages.error(request,"Invalid username or password.", extra_tags='error')
             # form.add_error(None, "Invalid username or password.")
     form = AuthenticationForm()    
-    return render(request, 'public/login_page.html', {'login_form': form})
+    return render(request, 'designs/login_page.html', {'login_form': form})
 
 def signup_view(request):
     if request.method == "POST":
@@ -44,33 +59,33 @@ def signup_view(request):
             user = form.save()
             login(request, user)
             messages.success(request, f"Account created successfully!", extra_tags='success')
-            return redirect('/public/home') #TODO change later to the user home page       
+            return redirect('/designs/home') #TODO change later to the user home page       
         messages.error(request, "Unsuccessful registration. Invalid information.", extra_tags='error')
         # form.add_error(None, "Unsuccessful registration. Invalid information.")
     form = RegisterForm()   
-    return render(request, 'public/sign_up.html', {'signin_form': form})
+    return render(request, 'designs/sign_up.html', {'signin_form': form})
 
 def logout_view(request):
     logout(request)
     messages.info(request, "You have successfully logged out.", extra_tags='success')
-    return redirect("/public/") 
+    return redirect("/designs/") 
 
 def upload_design_view(request):
     if request.method == "POST":
         form = UploadDesignForm(request.POST, request.FILES)
         if form.is_valid():
             uploaded_image = request.FILES["image"]
-            file_path = "designs/static/designs/images/media"  # Specify your file path with the desired format
+            file_path = "designs/images/media"  # Specify your file path with the desired format
             result = handle_uploaded_image(uploaded_image, file_path)
             if result is True:
-                return HttpResponseRedirect('/public/home')
+                return HttpResponseRedirect('/designs/home')
         else:
             return HttpResponse("Error uploading design")
     else:
         form = UploadDesignForm()
-    return render(request, 'public/user_home.html', {'form': form})
+    return render(request, 'designs/user_home.html', {'form': form})
 
-media_storage = 'designs/static/designs/images/media'
+media_storage = 'designs/images/media'
 
 def handle_uploaded_image(image, path):
     try:
