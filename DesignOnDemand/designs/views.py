@@ -8,23 +8,6 @@ from .models import UploadDesign
 from designs.forms import UploadDesignForm
 from django.core.files.storage import FileSystemStorage
 from PIL import Image # Pillow library for image resizing
-import pyrebase
-
-
-config = {
-    "apiKey": "AIzaSyCzHuiBOT2JYveaoC1XT6hymVLyvKWqyN4",
-    "authDomain": "design-on-demand.firebaseapp.com",
-    "databaseURL": "https://design-on-demand-default-rtdb.firebaseio.com",
-    "projectId": "design-on-demand",
-    "storageBucket": "design-on-demand.appspot.com",
-    "messagingSenderId": "694337339140",
-    "appId": "1:694337339140:web:79f3c25e1c793fa9a7da51",
-    "measurementId": "G-JNT1SFBQ2M"
-}
-
-firebase = pyrebase.initialize_app(config)
-authe = firebase.auth()
-database = firebase.database()
 
 def main_page_view(request):
     return render(request, 'designs/main_page.html')
