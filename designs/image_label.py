@@ -19,9 +19,6 @@ def classify_image(request):
      # Get the input and output details of the model.
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
-
-    # check the type of the input tensor
-    floating_model = input_details[0]['dtype'] == np.float32
    
     #Prepare the input data
     img = Image.open(image_file)

@@ -60,11 +60,15 @@ def upload_design_view(request):
     if request.method == "POST":
         form = UploadDesignForm(request.POST, request.FILES)
         if form.is_valid():
-            uploaded_image = request.FILES["image"]
-            file_path = "designs/images/media"  # Specify your file path with the desired format
-            result = handle_uploaded_image(uploaded_image, file_path)
+            file = request.FILES["image"]
+            
+            # Create a path for the image
+            img = Image.open(file)
+            file_path = "media/uploaded/" + file.name
+            img.save(file_path)
+            result = handle_uploaded_image(img, file_path)
             if result is True:
-                return HttpResponseRedirect('user_home')
+                return redirect('user_home')
         else:
             return HttpResponse("Error uploading design")
     else:
@@ -83,9 +87,6 @@ def handle_uploaded_image(image, path):
 
         # Ensure the image is in RGB mode (for common image formats)
         img = img.convert('RGB')
-
-        # Create a path for the image
-        path = os.path.join(settings.MEDIA_ROOT, 'uploaded', filename)
 
         # Check the image format and save accordingly (PNG or JPEG)
         if img_format == "PNG":
