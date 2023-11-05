@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from designs import views
+from designs import image_label, views
 from django.urls.conf import include
 from django.conf import settings
 from django.conf.urls.static import static

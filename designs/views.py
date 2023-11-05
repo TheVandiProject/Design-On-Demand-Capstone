@@ -1,3 +1,4 @@
+from fileinput import filename
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .forms import *
@@ -7,7 +8,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import UploadDesign
 from designs.forms import UploadDesignForm
 from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 from PIL import Image # Pillow library for image resizing
+import os
 
 def main_page_view(request):
     return render(request, 'designs/main_page.html')
@@ -25,7 +28,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.", extra_tags='success')
-                return redirect('/designs/home') #TODO change later to the user home page
+                return redirect('user_home') #TODO change later to the user home page
             else:
                 messages.error(request,"Invalid username or password.", extra_tags='error')
                 # form.add_error(None, "Invalid username or password.")
@@ -42,7 +45,7 @@ def signup_view(request):
             user = form.save()
             login(request, user)
             messages.success(request, f"Account created successfully!", extra_tags='success')
-            return redirect('/designs/home') #TODO change later to the user home page       
+            return redirect('user_home') #TODO change later to the user home page       
         messages.error(request, "Unsuccessful registration. Invalid information.", extra_tags='error')
         # form.add_error(None, "Unsuccessful registration. Invalid information.")
     form = RegisterForm()   
@@ -61,27 +64,36 @@ def upload_design_view(request):
             file_path = "designs/images/media"  # Specify your file path with the desired format
             result = handle_uploaded_image(uploaded_image, file_path)
             if result is True:
-                return HttpResponseRedirect('/designs/home')
+                return HttpResponseRedirect('user_home')
         else:
             return HttpResponse("Error uploading design")
     else:
         form = UploadDesignForm()
     return render(request, 'designs/user_home.html', {'form': form})
 
-media_storage = 'designs/images/media'
+# media_storage = 'designs/images/media'
 
 def handle_uploaded_image(image, path):
+    if image is None:
+        return
     try:
         img = Image.open(image)
+        # Get the format of the image
+        img_format = img.format
+
         # Ensure the image is in RGB mode (for common image formats)
         img = img.convert('RGB')
 
+        # Create a path for the image
+        path = os.path.join(settings.MEDIA_ROOT, 'uploaded', filename)
+
         # Check the image format and save accordingly (PNG or JPEG)
-        if img.format == "PNG":
+        if img_format == "PNG":
             img.save(path, "PNG")
-        elif img.format == "JPEG":
+        elif img_format == "JPEG" or img_format == "JPG":
             img.save(path, "JPEG")
         else:
+            img.close()
             return "Unsupported image format"  # Handle unsupported formats
 
         # Close the image
