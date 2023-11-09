@@ -40,6 +40,16 @@
     {% if img_obj %}  
     <h3>Succesfully uploaded : {{img_obj.caption}}</h3>  
     <!--This would be where we'd call the machine learning model to start searching-->
+     <!-- Display the classification results -->
+            <h4>Classification Results:</h4>
+            <p>Top Predictions: {{ img_obj.top_predictions }}</p>
+            <p>Top Score: {{ img_obj.top_score }}</p>
+            <p>Predictions:</p>
+            <ul>
+                {% for category, score in img_obj.predictions.items %}
+                    <li>{{ category }}: {{ score }}</li>
+                {% endfor %}
+            </ul>
     {% endif %}
 
         <div class="user-profile">

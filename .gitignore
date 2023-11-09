@@ -228,3 +228,5 @@ node_modules/
 
 design-on-demand-b929f032c8a9.json*
 ```
+#Ignore uploaded images
+media\uploaded

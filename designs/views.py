@@ -4,13 +4,14 @@ from django.contrib.auth import login, authenticate, logout
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from django.http import HttpResponse, HttpResponseRedirect
-from .models import UploadDesign
+from django.http import HttpResponse
+# from .models import UploadDesign
 from designs.forms import UploadDesignForm
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from PIL import Image # Pillow library for image resizing
-import os
+from .image_label import classify_image
+
 
 def main_page_view(request):
     return render(request, 'designs/main_page.html')
@@ -46,9 +47,11 @@ def signup_view(request):
             login(request, user)
             messages.success(request, f"Account created successfully!", extra_tags='success')
             return redirect('user_home') #TODO change later to the user home page       
-        messages.error(request, "Unsuccessful registration. Invalid information.", extra_tags='error')
         # form.add_error(None, "Unsuccessful registration. Invalid information.")
-    form = RegisterForm()   
+    else:
+        messages.error(request, "Unsuccessful registration. Invalid information.", extra_tags='error')
+        form = RegisterForm()
+      
     return render(request, 'designs/sign_up.html', {'signin_form': form})
 
 def logout_view(request):
@@ -65,6 +68,7 @@ def upload_design_view(request):
             # Create a path for the image
             img = Image.open(file)
             file_path = "media/uploaded/" + file.name
+            print(file_path)
             img.save(file_path)
             result = handle_uploaded_image(img, file_path)
             if result is True:
@@ -79,29 +83,41 @@ def upload_design_view(request):
 
 def handle_uploaded_image(image, path):
     if image is None:
-        return
+        return "No image was uploaded"
+    
     try:
-        img = Image.open(image)
-        # Get the format of the image
-        img_format = img.format
-
-        # Ensure the image is in RGB mode (for common image formats)
-        img = img.convert('RGB')
-
-        # Check the image format and save accordingly (PNG or JPEG)
-        if img_format == "PNG":
-            img.save(path, "PNG")
-        elif img_format == "JPEG" or img_format == "JPG":
-            img.save(path, "JPEG")
-        else:
-            img.close()
-            return "Unsupported image format"  # Handle unsupported formats
-
-        # Close the image
-        img.close()
-
+        with open(path, 'wb') as destination:
+            for chunk in image.chunks():
+                destination.write(chunk)
         return True  # Success
     except Exception as e:
         # Handle any exceptions or errors that may occur
         print(f"Error handling the uploaded image: {e}")
-        return False  # Return False to indicate an error
+        return str(e)  # Return the error message
+    # try:
+    #     img = Image.open(image)
+    #     # Get the format of the image
+    #     img_format = img.format
+
+    #     # Ensure the image is in RGB mode (for common image formats)
+    #     img = img.convert('RGB')
+
+    #     # Check the image format and save accordingly (PNG or JPEG)
+    #     if img_format == "PNG":
+    #         img.save(path, "PNG")
+    #     elif img_format == "JPEG" or img_format == "JPG":
+    #         img.save(path, "JPEG")
+    #     else:
+    #         img.close()
+    #         return "Unsupported image format"  # Handle unsupported formats
+
+    #     # Close the image
+    #     img.close()
+        
+    #     classification_results = classify_image(path)
+        
+    #     return classification_results
+    # except Exception as e:
+    #     # Handle any exceptions or errors that may occur
+    #     print(f"Error handling the uploaded image: {e}")
+    #     return False  # Return False to indicate an error
