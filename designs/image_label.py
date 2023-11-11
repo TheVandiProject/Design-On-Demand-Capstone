@@ -49,24 +49,29 @@ def classify_image(request):
     #Squeeze to remove extra dimensions
     results = np.squeeze(output_data)
     
-    top_n = results.argsort()[-5:][::-1]
+    softmax_output = tf.nn.softmax(results)
+    
+    score = softmax_output.numpy()
+    
+    top_n = np.argsort(score)[-5:][::-1]
     
     labels = load_labels("designs\models\labels.txt")
     
-    top_predictions = labels[top_n[0]]
-    top_score = float(results[top_n[0]])
+    top_predictions = labels[top_n[0]].replace("_", " ").title()
+    top_score = "{:.2f}%".format(score[top_n[0]] * 100)
     
     predictions = []
-    for i in top_n:
+    for i in top_n[1:]:
         prediction={
-            "label": labels[i],
-            "confidence": results[i]/100.0,
+            "label": labels[i].replace("_", " ").title(),
+            "confidence": "{:.2f}%" .format(score[i]*100),
         }
         predictions.append(prediction)
-        
-    return {
-        "top_predictions": top_predictions,
-        "top_score": top_score,
-        "predictions": predictions,
+
+    final_result = {
+    "top_predictions": top_predictions,
+    "top_score": top_score,
+    "other_predictions": predictions,
     }
+    return final_result
     

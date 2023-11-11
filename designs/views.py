@@ -69,68 +69,13 @@ def upload_design_view(request):
             # Create a path for the image
             img = Image.open(file).convert('RGB')
             file_path = "media/uploaded/" + file.name
-            # print(file_path)
             img.save(file_path)
-            # result = handle_uploaded_image(img, file_path)
-            # if result is True:
-                # Call the classify_image function
+            
+            uploaded_image_url = f"/{file_path}"
             classification_result = classify_image(request)
-            return render(request, 'designs/user_home.html', {'form': form, 'classification_result': classification_result})
+            return render(request, 'designs/user_home.html', {'form': form, 'classification_result': classification_result, 'uploaded_image_url': uploaded_image_url})
         else:
             return HttpResponse("Error uploading image")
     else:
         form = UploadDesignForm()
     return render(request, 'designs/user_home.html', {'form': form})
-
-# media_storage = 'designs/images/media'
-
-# def handle_uploaded_image(image, path):
-# #Handles an uploaded image and sends it to the model.
-#   if image is None:
-#     return "No image was uploaded"
-
-#   try:
-#     # Open the image using Pillow.
-#     img = Image.open(image)
-
-#     # Verify that the image is in a supported format.
-#     supported_formats = ["JPEG", "PNG", "GIF"]
-#     if img.format not in supported_formats:
-#       return "The uploaded image is not in a supported format."
-
-#     # Save the image to the server.
-#     img.save(path)
-#     img.close()
-
-#     return True
-#   except Exception as e:
-#     # Handle any exceptions or errors that may occur.
-#     print(f"Error handling the uploaded image: {e}")
-#     return str(e)
-    # try:
-    #     img = Image.open(image)
-    #     # Get the format of the image
-    #     img_format = img.format
-
-    #     # Ensure the image is in RGB mode (for common image formats)
-    #     img = img.convert('RGB')
-
-    #     # Check the image format and save accordingly (PNG or JPEG)
-    #     if img_format == "PNG":
-    #         img.save(path, "PNG")
-    #     elif img_format == "JPEG" or img_format == "JPG":
-    #         img.save(path, "JPEG")
-    #     else:
-    #         img.close()
-    #         return "Unsupported image format"  # Handle unsupported formats
-
-    #     # Close the image
-    #     img.close()
-        
-    #     classification_results = classify_image(path)
-        
-    #     return classification_results
-    # except Exception as e:
-    #     # Handle any exceptions or errors that may occur
-    #     print(f"Error handling the uploaded image: {e}")
-    #     return False  # Return False to indicate an error
