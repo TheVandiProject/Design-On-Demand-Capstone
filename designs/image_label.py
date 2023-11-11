@@ -60,7 +60,7 @@ def classify_image(request):
     for i in top_n:
         prediction={
             "label": labels[i],
-            "confidence": float(results[i])
+            "confidence": results[i]/100.0,
         }
         predictions.append(prediction)
         
