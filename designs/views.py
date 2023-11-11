@@ -1,4 +1,5 @@
-from fileinput import filename
+# from fileinput import filename
+# from django.core.files.base import ContentFile
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .forms import *
@@ -66,34 +67,46 @@ def upload_design_view(request):
             file = request.FILES["image"]
             
             # Create a path for the image
-            img = Image.open(file)
+            img = Image.open(file).convert('RGB')
             file_path = "media/uploaded/" + file.name
-            print(file_path)
+            # print(file_path)
             img.save(file_path)
-            result = handle_uploaded_image(img, file_path)
-            if result is True:
-                return redirect('user_home')
+            # result = handle_uploaded_image(img, file_path)
+            # if result is True:
+                # Call the classify_image function
+            classification_result = classify_image(request)
+            return render(request, 'designs/user_home.html', {'form': form, 'classification_result': classification_result})
         else:
-            return HttpResponse("Error uploading design")
+            return HttpResponse("Error uploading image")
     else:
         form = UploadDesignForm()
     return render(request, 'designs/user_home.html', {'form': form})
 
 # media_storage = 'designs/images/media'
 
-def handle_uploaded_image(image, path):
-    if image is None:
-        return "No image was uploaded"
-    
-    try:
-        with open(path, 'wb') as destination:
-            for chunk in image.chunks():
-                destination.write(chunk)
-        return True  # Success
-    except Exception as e:
-        # Handle any exceptions or errors that may occur
-        print(f"Error handling the uploaded image: {e}")
-        return str(e)  # Return the error message
+# def handle_uploaded_image(image, path):
+# #Handles an uploaded image and sends it to the model.
+#   if image is None:
+#     return "No image was uploaded"
+
+#   try:
+#     # Open the image using Pillow.
+#     img = Image.open(image)
+
+#     # Verify that the image is in a supported format.
+#     supported_formats = ["JPEG", "PNG", "GIF"]
+#     if img.format not in supported_formats:
+#       return "The uploaded image is not in a supported format."
+
+#     # Save the image to the server.
+#     img.save(path)
+#     img.close()
+
+#     return True
+#   except Exception as e:
+#     # Handle any exceptions or errors that may occur.
+#     print(f"Error handling the uploaded image: {e}")
+#     return str(e)
     # try:
     #     img = Image.open(image)
     #     # Get the format of the image

@@ -37,21 +37,7 @@
         <!--{{ form.as_p }}
         <button type="submit">Upload</button>-->
     </form>
-    {% if img_obj %}  
-    <h3>Succesfully uploaded : {{img_obj.caption}}</h3>  
-    <!--This would be where we'd call the machine learning model to start searching-->
-     <!-- Display the classification results -->
-            <h4>Classification Results:</h4>
-            <p>Top Predictions: {{ img_obj.top_predictions }}</p>
-            <p>Top Score: {{ img_obj.top_score }}</p>
-            <p>Predictions:</p>
-            <ul>
-                {% for category, score in img_obj.predictions.items %}
-                    <li>{{ category }}: {{ score }}</li>
-                {% endfor %}
-            </ul>
-    {% endif %}
-
+    <!-- User profile icon -->
         <div class="user-profile">
             <img src="{% static 'designs/images/user-icon-default-96.png' %}" alt="User Profile" id="profile-icon" onclick="toggleDropdown()">            
             <!-- User profile menu -->
@@ -65,6 +51,17 @@
         </div>
 </header>
 
+{% if classification_result %}
+<h2>Classification Results:</h2>
+<p><strong>Top Prediction:</strong> {{ classification_result.top_predictions.0 }}</p>
+<p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
+<h3>Other Predictions:</h3>
+<ul>
+{% for prediction in classification_result.predictions %}
+    <li>{{ prediction }}</li>
+{% endfor %}
+</ul>
+{% endif %}
 {% comment %} <script src="{% static 'designs/js/carousel.js' %}"></script>    {% endcomment %}
 <div id="car1" class="container text-center my-3">
     <h2 class="font-weight-light">Recommended Items</h2>

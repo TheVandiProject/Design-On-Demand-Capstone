@@ -3,6 +3,7 @@ import numpy as np
 
 from django.http import JsonResponse
 from PIL import Image
+from tensorflow import keras
 
 def load_labels(filename):
   with open(filename, 'r') as f:
@@ -19,14 +20,27 @@ def classify_image(request):
      # Get the input and output details of the model.
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
+    
+    floating_model = input_details[0]['dtype'] == np.float32
    
     #Prepare the input data
-    img = Image.open(image_file)
-    img=img.resize((input_details[0]['shape'][1], input_details[0]['shape'][2]))
-    input_data = (img - 127.5) / 127.5
+    height = input_details[0]['shape'][1]
+    width = input_details[0]['shape'][2]
+    img = Image.open(image_file).resize((width, height))
+    img_array = tf.keras.utils.img_to_array(img)
+    img_array = tf.expand_dims(img_array, 0) # Create a batch
+
+    # score = tf.nn.softmax(predictions[0])
     
+    # img = np.frombuffer(img.tobytes(), dtype=np.uint8)
+    
+    # input_data = np.expand_dims(img, axis=0)
+    
+    if floating_model:
+        input_data = (np.float32(img) - 127.5) / 127.5
+        
     #Set the inpout tensor of the model
-    interpreter.set_tensor(input_details[0]['index'], input_data)
+    interpreter.set_tensor(input_details[0]['index'], img_array)
     interpreter.invoke()
     
     #Get output data of the model
