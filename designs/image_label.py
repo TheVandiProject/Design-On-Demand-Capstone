@@ -14,7 +14,8 @@ def classify_image(request):
     image_file = request.FILES["image"]
     
     #Load model
-    interpreter = tf.lite.Interpreter(model_path="designs\models\DoD-Model.tflite")
+    # interpreter = tf.lite.Interpreter(model_path="designs\models\DoD-Model.tflite")
+    interpreter = tf.lite.Interpreter(model_path="designs\models\Second-DoD-Model.tflite")
     interpreter.allocate_tensors()
     
      # Get the input and output details of the model.
