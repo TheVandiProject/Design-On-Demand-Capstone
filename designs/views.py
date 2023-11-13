@@ -12,6 +12,9 @@ from PIL import Image # Pillow library for image resizing
 def main_page_view(request):
     return render(request, 'designs/main_page.html')
 
+def index_view(request):
+    return render(request, 'designs/index.html')
+
 def user_home_view(request):
     return render(request, 'designs/user_home.html')
 

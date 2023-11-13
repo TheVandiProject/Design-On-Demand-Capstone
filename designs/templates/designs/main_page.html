@@ -12,7 +12,9 @@
 {% block content %}
     <!-- Header Section -->
     <header>
-        <div class="logo">Design On Demand</div>
+        <div class="logo">
+            <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+        </div>
         <nav>
             <ul>
                 <li><a href="#">Explore</a></li>
