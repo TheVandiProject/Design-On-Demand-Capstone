@@ -12,6 +12,8 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from PIL import Image # Pillow library for image resizing
 from .image_label import classify_image
+from datetime import datetime
+from django.db import models
 
 
 def main_page_view(request):
@@ -60,18 +62,24 @@ def logout_view(request):
     messages.info(request, "You have successfully logged out.", extra_tags='success')
     return redirect("/designs/") 
 
+class ImageUpload(models.Model):
+    image = models.ImageField(upload_to='uploaded/')
+
 def upload_design_view(request):
     if request.method == "POST":
         form = UploadDesignForm(request.POST, request.FILES)
         if form.is_valid():
-            file = request.FILES["image"]
+            # file = request.FILES["image"]
+            file = ImageUpload(image = request.FILES['image'])
             
             # Create a path for the image
-            img = Image.open(file).convert('RGB')
-            file_path = "media/uploaded/" + file.name
-            img.save(file_path)
+            # img = Image.open(file).convert('RGB')
+            # file_path = "media/uploaded/" + datetime.now().isoformat().replace(":", ".") + "_" +  file.name
+            # img.save(file_path)
+            file.save()
             
-            uploaded_image_url = f"/{file_path}"
+            # uploaded_image_url = f"/{file_path[6:]}"
+            uploaded_image_url = f"{file.image.url}"
             classification_result = classify_image(request)
             return render(request, 'designs/user_home.html', {'form': form, 'classification_result': classification_result, 'uploaded_image_url': uploaded_image_url})
         else:

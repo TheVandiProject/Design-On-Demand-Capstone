@@ -17,5 +17,5 @@ urlpatterns = [
     path('home/upload/', views.upload_design_view, name="upload_design"),
 ]# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-#if settings.DEBUG:
-# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)    
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)    
