@@ -51,9 +51,9 @@
         </div>
 </header>
 
-<div id="top-result">
+<div class="top-result" id="top-result">
     {% if classification_result and uploaded_image_url %}
-    <div id="top-prediction">
+    <div id="top-prediction" class="top-prediction">
         <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
         <h2>Classification Results:</h2>
         <p><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
@@ -61,11 +61,11 @@
         <h3>Other Predictions:</h3>
     </div>
 
-    <div id="other-predictions">
+    <div class="other-predicitons" id="other-predictions">
         <ul>
             {% for prediction in classification_result.other_predictions %}
                 <li><strong>{{ prediction.label }} </strong> </li>
-                <li>Confidence Level: {{ prediction.confidence }}</li>
+                <li>Confidence: {{ prediction.confidence }}</li>
             {% endfor %}
         </ul>
     </div>
@@ -73,7 +73,7 @@
 </div>
 
 
-{% comment %} <script src="{% static 'designs/js/carousel.js' %}"></script>    {% endcomment %}
+
 <div id="car1" class="container text-center my-3">
     <h2 class="font-weight-light">Recommended Items</h2>
     <div class="row mx-auto my-auto justify-content-center">

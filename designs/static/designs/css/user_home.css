@@ -6,7 +6,8 @@ body, header, nav, ul, li, a {
 
 /* Global Styles */
 body {
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
+    font-family: 'Roboto', sans-serif;
   }
 
 /* Header Styles */
@@ -100,6 +101,44 @@ h2 {
     margin-bottom: 16px;
 }
 
+/* Model Predictions styles
+    * Note: the model predictions are displayed in a carousel
+    *       with 3-5 items per slide
+    */
+.top-result{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.top-prediction {
+    text-align: center;
+    color: white;
+    padding: 20px;
+    background-color: #0091ff;
+    background-image: linear-gradient(to right, #0091ff, #ad2affe8);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+    
+.top-prediction img{
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.top-prediction h2,
+.top-prediction p {
+    margin-bottom: 10px;
+}
+    
+.other-predictions ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+    
+.other-predictions li {
+    margin-bottom: 10px;
+}
+
 @media (max-width: 767px) {
     .carousel-inner .carousel-item > div {
         display: none;
@@ -133,7 +172,6 @@ h2 {
 .carousel-inner .carousel-item-start { 
   transform: translateX(0);
 }
-
 
 
 /* Footer Styles (customize as needed) */
