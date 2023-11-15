@@ -101,6 +101,47 @@ h2 {
     margin-bottom: 16px;
 }
 
+/* Upload Buttons Styles */
+
+.upload-form {
+    text-align: center;
+    padding: 20px;
+    background-color: #0091ff;
+    background-image: linear-gradient(to right, #0091ff, #ad2affe8);
+    /* border-radius: 10px; */
+    margin-bottom: 20px;
+}
+
+.upload-form label {
+    display: block;
+    margin-bottom: 10px;
+    color:white;
+}
+
+.upload-form input[type="file"] {
+    padding: 10px;
+    border: none;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.upload-form input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #0091ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.upload-form input[type="submit"]:hover {
+    background-color: #ad2affe8;
+    color: #fff;
+}
+
+
 /* Model Predictions styles
     * Note: the model predictions are displayed in a carousel
     *       with 3-5 items per slide

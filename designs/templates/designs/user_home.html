@@ -29,14 +29,6 @@
             <li><a href="#">Favorites</a></li>
         </ul>
     </nav>
-    <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
-        {% csrf_token %}
-        <label for="image">Select an image:</label>
-        <input type="file" name="image" id="image" accept="image/*">
-        <input type="submit" value="Upload Image">
-        <!--{{ form.as_p }}
-        <button type="submit">Upload</button>-->
-    </form>
     <!-- User profile icon -->
         <div class="user-profile">
             <img src="{% static 'designs/images/user-icon-default-96.png' %}" alt="User Profile" id="profile-icon" onclick="toggleDropdown()">            
@@ -50,6 +42,15 @@
             </div>
         </div>
 </header>
+
+<div class="upload-form">
+    <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
+        {% csrf_token %}
+        <h2><label for="image">Select an image:</label> </h2>
+        <input type="file" name="image" id="image" accept="image/*">
+        <input type="submit" value="Upload Image">
+    </form>
+</div>
 
 <div class="top-result" id="top-result">
     {% if classification_result and uploaded_image_url %}
