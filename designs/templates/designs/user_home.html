@@ -64,14 +64,48 @@
         <h2>Classification Results:</h2>
         <p><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
         <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
-        <h3>Other Predictions:</h3>
+         <!-- Slider main container -->
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/31f?text=1" class="d-block w-100" alt="..."></div>
+                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/e66?text=2" class="d-block w-100" alt="..."></div>
+                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/7d2?text=3" class="d-block w-100" alt="..."></div>
+                <div class="swiper-slide"><img src="//via.placeholder.com/500x400?text=4" class="d-block w-100" alt="..."></div>
+                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/aba?text=5" class="d-block w-100" alt="..."></div>
+                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/fc0?text=6" class="d-block w-100" alt="..."></div>
+                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/800000/fff.jpg&text=7" class="d-block w-100" alt="..."></div>
+                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ced1/fff.jpg&text=8" class="d-block w-100" alt="..."></div>
+                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ff7f/fff.jpg&text=9" class="d-block w-100" alt="..."></div>
+                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/66cdaa/fff.jpg&text=10" class="d-block w-100" alt="..."></div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
     </div>
 
     <div class="other-predicitons" id="other-predictions">
+        <h3>Other Predictions:</h3>
         <ul>
             {% for prediction in classification_result.other_predictions %}
                 <li><strong>{{ prediction.label }} </strong> </li>
                 <li>Confidence: {{ prediction.confidence }}</li>
+                 <!-- Slider main container -->
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/31f?text=1" class="d-block w-100" alt="..."></div>
+                        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/e66?text=2" class="d-block w-100" alt="..."></div>
+                        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/7d2?text=3" class="d-block w-100" alt="..."></div>
+                        <div class="swiper-slide"><img src="//via.placeholder.com/500x400?text=4" class="d-block w-100" alt="..."></div>
+                        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/aba?text=5" class="d-block w-100" alt="..."></div>
+                        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/fc0?text=6" class="d-block w-100" alt="..."></div>
+                        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/800000/fff.jpg&text=7" class="d-block w-100" alt="..."></div>
+                        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ced1/fff.jpg&text=8" class="d-block w-100" alt="..."></div>
+                        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ff7f/fff.jpg&text=9" class="d-block w-100" alt="..."></div>
+                        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/66cdaa/fff.jpg&text=10" class="d-block w-100" alt="..."></div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
             {% endfor %}
         </ul>
     </div>
