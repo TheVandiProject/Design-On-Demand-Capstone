@@ -15,6 +15,7 @@ urlpatterns = [
     path('home/', views.user_home_view, name='user_home'),
     path('logout/', views.logout_view, name='logout'),
     path('home/upload/', views.upload_design_view, name="upload_design"),
+    path('index/', views.index_view, name='index'),
 ]# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
