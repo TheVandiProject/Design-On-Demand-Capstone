@@ -1,6 +1,7 @@
 bean_bag
 bed
 bed_frame
+bed_sheets
 cabinet
 chair
 closet
