@@ -11,26 +11,60 @@
 
 {% block content %}
 
+
+<div class="profile-section">
+    <h2>User Profile</h2>
+  
+    <div class="profile-picture">
+      <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+      <button type="button" class="change-profile-picture-btn">Change Profile Picture</button>
+    </div>
+  
+    <div class="profile-info">
+      <p>Username: {{ user.username }}</p>
+      <p>Email: {{ user.email }}</p>
+    </div>
+  
+    <div class="profile-edit-form" style="display: none;">
+      <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+  
+        <input type="file" name="profile_picture">
+        <button type="submit">Update Profile</button>
+      </form>
+    </div>
+  </div>
+  
+
 <div class="settings">
     <h2>User Settings</h2>
-    <form method="post" action = "{% url change_password %}">
+  
+    <form method="post" action="{% url 'change_password' %}">
       {% csrf_token %}
-      <!-- Change Password -->
+  
       <div class="setting">
         <label for="new_password">New Password:</label>
-        <input type="password" id="new_password" name="new_password">
+        <input type="password" id="new_password" name="new_password" required>
         <label for="confirm_password">Confirm New Password:</label>
-        <input type="password" id="confirm_password" name="confirm_password">
-        <button type="submit" class="password-btn">Update Password</button>
+  
+        
+  <input  type="password" id="confirm_password" name="confirm_password" required>
+  
+  <button type="submit" class="password-btn">Update Password</button>
       </div>
-
-<!-- Delete Account -->
-<div class="setting">
-    <form action="#" method="post">
-      {% csrf_token %}
-      <button type="submit" class="delete-btn">Delete Account</button>
     </form>
-  </div>
+  
+    <form action="#" method="post" class="delete-account-form">
+      {% csrf_token %}
+  
+      <div class="setting">
+        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+        <input type="checkbox" id="delete_confirmation" name="delete_confirmation" required>
+        <label for="delete_confirmation">I confirm that I want to delete my account.</label>
+  
+        <button type="submit" class="delete-btn">Delete Account</button>
+      </div>
+    </form>
   
 
 {% endblock %}

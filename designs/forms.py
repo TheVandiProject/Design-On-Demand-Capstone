@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.forms import fields
 from .models import UploadDesign
 from django.db import models
+from .models import *
 
 
 class RegisterForm(UserCreationForm):
@@ -24,3 +25,17 @@ class UploadDesignForm(forms.Form):
     class meta:
         model = UploadDesign
         fields = '__all__'
+        
+# Create a UserUpdateForm to update a username and email
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+# Create a ProfileUpdateForm to update image.
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']

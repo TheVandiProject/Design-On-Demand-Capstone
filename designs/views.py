@@ -33,7 +33,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.", extra_tags='success')
-                return redirect('/designs/home') #TODO change later to the user home page
+                return redirect('/home/') #TODO change later to the user home page
             else:
                 messages.error(request,"Invalid username or password.", extra_tags='error')
                 # form.add_error(None, "Invalid username or password.")
@@ -50,7 +50,7 @@ def signup_view(request):
             user = form.save()
             login(request, user)
             messages.success(request, f"Account created successfully!", extra_tags='success')
-            return redirect('/designs/home') #TODO change later to the user home page       
+            return redirect('/designs/user_home') #TODO change later to the user home page       
         messages.error(request, "Unsuccessful registration. Invalid information.", extra_tags='error')
         # form.add_error(None, "Unsuccessful registration. Invalid information.")
     form = RegisterForm()   
@@ -117,4 +117,29 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'designs/user_settings.html', {'form': form})
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('user_settings') # Redirect back to profile page
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'designs/user_settings.html', context)
+
         
