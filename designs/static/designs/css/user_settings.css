@@ -1,0 +1,50 @@
+body {
+    background: linear-gradient(to right, #0091ff, #ad2affe8);
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+  
+  .settings {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+  
+  .setting {
+    margin-bottom: 20px;
+  }
+  
+  .setting label {
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  
+  .setting input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+  }
+
+  
+  
+  button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+  }
+
+  .delete-btn {
+    background: #ff0000;
+    color: #fff;
+  }
+  

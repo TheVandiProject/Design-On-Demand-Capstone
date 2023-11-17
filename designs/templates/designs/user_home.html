@@ -51,7 +51,7 @@
                 <!-- User profile menu -->
                 <div class="profile-menu" id="profile-menu">
                     <ul>
-                        <li><a href="#">Settings</a></li>
+                        <li><a href="{% url 'user_settings' %}">Settings</a></li>
                         <li><a href="{% url 'logout' %}">Log Out</a></li>
                         <!-- Add more menu options (e.g., change password, email) -->
                     </ul>
@@ -59,7 +59,7 @@
             </div>
     </header>
 
-    <body>
+
         <!-- Slider main container -->
         <div class="swiper">
             <div class="swiper-wrapper">
@@ -96,7 +96,6 @@
         </div>
         <script src="{% static 'designs/js/carousel.js' %}"></script>
 
-    </body>
     {% comment %} <footer>
         <!-- Footer content here -->
     </footer> {% endcomment %}

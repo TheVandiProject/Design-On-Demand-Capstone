@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import UploadDesign
+# from .models import UploadDesign
 from designs.forms import UploadDesignForm
-from django.core.files.storage import FileSystemStorage
+# from django.core.files.storage import FileSystemStorage
 from PIL import Image # Pillow library for image resizing
+
 
 def main_page_view(request):
     return render(request, 'designs/main_page.html')
@@ -17,6 +19,9 @@ def index_view(request):
 
 def user_home_view(request):
     return render(request, 'designs/user_home.html')
+
+def user_settings_view(request):
+    return render(request, 'designs/user_settings.html')
 
 def login_view(request):
     if request.method == "POST":
@@ -56,6 +61,7 @@ def logout_view(request):
     messages.info(request, "You have successfully logged out.", extra_tags='success')
     return redirect("/designs/") 
 
+@login_required(login_url='/designs/login/')
 def upload_design_view(request):
     if request.method == "POST":
         form = UploadDesignForm(request.POST, request.FILES)
@@ -95,3 +101,20 @@ def handle_uploaded_image(image, path):
         # Handle any exceptions or errors that may occur
         print(f"Error handling the uploaded image: {e}")
         return False  # Return False to indicate an error
+    
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user=form.save()
+            #add if statement in html to print success message
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!', extra_tags='success')
+            return redirect('/designs/user_settings')
+        else:
+            messages.error(request, 'Please correct the error below.', extra_tags='error')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'designs/user_settings.html', {'form': form})
+        

@@ -1,0 +1,36 @@
+{% extends "designs/base.html" %}
+{% load static %}
+
+{% block title %}User Home Page{% endblock %}
+
+{% block stylesheet %}
+    <script src="{% static 'designs/js/scripts.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'designs/css/user_settings.css' %}"/>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="settings">
+    <h2>User Settings</h2>
+    <form method="post" action = "{% url change_password %}">
+      {% csrf_token %}
+      <!-- Change Password -->
+      <div class="setting">
+        <label for="new_password">New Password:</label>
+        <input type="password" id="new_password" name="new_password">
+        <label for="confirm_password">Confirm New Password:</label>
+        <input type="password" id="confirm_password" name="confirm_password">
+        <button type="submit" class="password-btn">Update Password</button>
+      </div>
+
+<!-- Delete Account -->
+<div class="setting">
+    <form action="#" method="post">
+      {% csrf_token %}
+      <button type="submit" class="delete-btn">Delete Account</button>
+    </form>
+  </div>
+  
+
+{% endblock %}
