@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http import HttpResponse, HttpResponseRedirect
 # from .models import UploadDesign
-from designs.forms import UploadDesignForm
+from designs.forms import *
 # from django.core.files.storage import FileSystemStorage
 from PIL import Image # Pillow library for image resizing
 
