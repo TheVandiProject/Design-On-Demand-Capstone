@@ -29,3 +29,6 @@ class DesignProduct(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+            
+class ImageUpload(models.Model):
+    image = models.ImageField(upload_to='uploaded/')
