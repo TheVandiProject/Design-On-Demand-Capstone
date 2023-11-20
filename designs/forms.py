@@ -25,6 +25,7 @@ class UploadDesignForm(forms.Form):
     class meta:
         model = UploadDesign
         fields = '__all__'
+
         
 #UserUpdateForm to update a username and email
 class UserUpdateForm(forms.ModelForm):

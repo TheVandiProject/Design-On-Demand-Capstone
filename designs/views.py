@@ -119,7 +119,13 @@ def change_password(request):
     return render(request, 'designs/user_settings.html', {'form': form})
 
 @login_required
-def profile(request):
+def update_profile(request):
+    
+    try:
+        user_profile = Profile.objects.get(user=request.user)
+    except Profile.DoesNotExist:
+        return HttpResponse("invalid user_profile!")
+    
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,

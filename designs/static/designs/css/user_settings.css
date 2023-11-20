@@ -1,6 +1,5 @@
 body {
     background: linear-gradient(to right, #0091ff, #ad2affe8);
-    background-color: #ffb74d;
     color: white;
     font-family: Arial, sans-serif;
   }
@@ -36,6 +35,7 @@ body {
   }
 
   .content-section {
+    background: rgba(255, 255, 255, 0.1);
     width: 80%;
     margin: auto;
     padding: 20px;
