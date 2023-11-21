@@ -22,8 +22,11 @@ def main_page_view(request):
 def index_view(request):
     return render(request, 'designs/index.html')
 
-def user_home_view(request):
-    return render(request, 'designs/user_home.html')
+def render_home_view(request):
+    if(request.user.is_authenticated):
+        return render(request, 'designs/user_home.html')
+    else:
+        return render(request, 'designs/NonUser_Home.html')
 
 def login_view(request):
     if request.method == "POST":
@@ -63,30 +66,32 @@ def signup_view(request):
 def logout_view(request):
     logout(request)
     messages.info(request, "You have successfully logged out.", extra_tags='success')
-    return redirect("/designs/") 
-
-# class ImageUpload(models.Model):
-#     image = models.ImageField(upload_to='uploaded/')
+    return redirect("/") 
 
 def upload_design_view(request):
+    form = UploadDesignForm()
+    if request.user.is_authenticated:
+        template_name = 'designs/user_home.html'
+    else:
+        template_name = 'designs/NonUser_Home.html'
+
     if request.method == "POST":
         form = UploadDesignForm(request.POST, request.FILES)
+        
+        if not request.FILES.get('image'):
+            form.errors['image'] = 'Please select an image to upload.'
+            return render(request, template_name, {'form': form})
+            
         if form.is_valid():
             # file = request.FILES["image"]
-            file = ImageUpload(image = request.FILES['image'])
-            
-            # Create a path for the image
-            # img = Image.open(file).convert('RGB')
-            # file_path = "media/uploaded/" + datetime.now().isoformat().replace(":", ".") + "_" +  file.name
-            # img.save(file_path)
+            file = ImageUpload(image = request.FILES['image'])  
             file.save()
             
             # uploaded_image_url = f"/{file_path[6:]}"
             uploaded_image_url = f"{file.image.url}"
             classification_result = classify_image(request)
-            return render(request, 'designs/user_home.html', {'form': form, 'classification_result': classification_result, 'uploaded_image_url': uploaded_image_url})
+            return render(request, template_name, {'form': form, 'classification_result': classification_result, 'uploaded_image_url': uploaded_image_url})
         else:
             return HttpResponse("Error uploading image")
-    else:
-        form = UploadDesignForm()
-    return render(request, 'designs/user_home.html', {'form': form})
+        
+    return render(request, template_name, {'form': form})

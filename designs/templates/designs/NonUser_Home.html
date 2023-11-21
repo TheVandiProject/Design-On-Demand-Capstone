@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{% static 'designs/js/scripts.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'designs/css/user_home.css' %}"/>
+    <link rel="stylesheet" href="{% static 'designs/css/nonuser_home.css' %}"/>
 
 {% endblock %}
 
@@ -16,28 +16,20 @@
 
 <header>
     <div class="logo">
-        <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+        <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
     </div>
     <!-- Navigation and user profile icon -->
     <nav>
         <ul>
-            <li><a href="{% url 'user_home' %}">Home</a></li>
+            <li><a href="{% url 'designs' %}">Main Page</a></li>
             <li><a href="#">Explore</a></li>
             <li><a href="#">Catalog</a></li>
         </ul>
     </nav>
-    <!-- User profile icon -->
-        <div class="user-profile">
-            <img src="{% static 'designs/images/user-icon-default-96.png' %}" alt="User Profile" id="profile-icon" onclick="toggleDropdown()">            
-            <!-- User profile menu -->
-            <div class="profile-menu" id="profile-menu">
-                <ul>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
-                    <!-- Add more menu options (e.g., change password, email) -->
-                </ul>
-            </div>
-        </div>
+    <div class="user-actions">
+        <a href="{% url 'login' %}" class="login">Login</a>
+        <a href="{% url 'signup' %}" class="signup">Create an Account</a>
+    </div>
 </header>
 
 <div class="upload-form">
@@ -48,6 +40,10 @@
         <input type="submit" value="Upload Image">
     </form>
 </div>
+
+{% if form.errors.image %}
+    <h2><p class="error-message">{{ form.errors.image }}</p></h2>
+{% endif %}
 
 <!-- ML Model Results -->
 <div class="top-result" id="top-result">
@@ -77,10 +73,10 @@
     </div>
 
     <div class="other-predicitons" id="other-predictions">
-        <h3>Other Predictions:</h3>
+        <h1>Other Options</h1>
         <ul>
             {% for prediction in classification_result.other_predictions %}
-                <li><strong>{{ prediction.label }} </strong></li>
+                <li><h3><strong>{{ prediction.label }} </h3> </strong></li>
                 <li>Confidence: {{ prediction.confidence }}</li>
                  <!-- Slider main container -->
                 <div class="swiper">
@@ -104,5 +100,6 @@
     </div>
     {% endif %}
 </div>
+<script src="{% static 'designs/js/carousel.js' %}"></script>
 
 {% endblock %}

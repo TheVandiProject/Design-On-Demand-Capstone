@@ -50,7 +50,7 @@ else:
 
 INSTALLED_APPS = [
     'designs.apps.DesignsConfig',
-    #'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -97,6 +97,10 @@ WSGI_APPLICATION = 'DesignOnDemand.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE':'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'postgres_database': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'dfr98j6jq79pek',
         'USER': 'foeasdnbmbaizh',
@@ -105,6 +109,7 @@ DATABASES = {
         'PORT': '5432',          # Leave empty to use the default PostgreSQL port (usually 5432)
     }
 }
+# DEFAULT_DATABASE = 'postgres_database'
 
 
 # Password validation
