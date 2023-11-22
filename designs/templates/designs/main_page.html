@@ -144,12 +144,23 @@
                 </button>
             </div>
         </section>
+        <div class="popup">
+            <button id="close">&times;</button>
+            <h2>Automatic Pop-Up</h2>
+            <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita distinctio fugiat alias iure qui, commodi minima magni ullam aliquam dignissimos?
+            </p>
+            <a href="#">Let's Go</a>
+        </div>
+        <script src="{% static 'designs/js/ad_popup.js' %}"></script>
 
     </section>
     
     <!-- Footer Section -->
     <footer>
-        <div class="footer-logo">Design On Demand</div>
+        <div class="footer-logo">
+            <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+        </div>
         <nav>
             <ul>
                 <li><a href="#">About Us</a></li>

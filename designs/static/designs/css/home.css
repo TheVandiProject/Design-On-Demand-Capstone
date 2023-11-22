@@ -170,11 +170,49 @@ nav a {
   text-shadow: 0px 0px 3px white;
 }
 
+/* Ad Popup Styles */
+.popup{
+  background-color: #ffffff;
+  width: 420px;
+  padding: 30px 40px;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  left: 50%;
+  top: 50%;
+  border-radius: 8px;
+  font-family: "Poppins",sans-serif;
+  display: none; 
+  text-align: center;
+}
+.popup button{
+  display: block;
+  margin:  0 0 20px auto;
+  background-color: transparent;
+  font-size: 30px;
+  color: #ffffff;
+background: #03549a;
+border-radius: 100%;
+width: 40px;
+height: 40px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.popup h2{
+margin-top: -20px;
+}
+.popup p{
+  font-size: 14px;
+  text-align: justify;
+  margin: 20px 0;
+  line-height: 25px;
+}
+
 /* Footer Styles */
 footer {
   background-color: #333333;
   color: white;
-  padding: 20px 0;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -206,5 +244,5 @@ footer a {
 }
 
 .footer-logo{
-  padding: 5px;
+  padding: 10px;
 }
