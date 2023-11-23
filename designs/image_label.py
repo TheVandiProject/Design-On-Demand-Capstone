@@ -78,6 +78,20 @@ def classify_image(request):
             }
             predictions.append(prediction)
 
+    #TODO: ADD A NEW KEY TO THE DICTIONARY TO DIRECT TO IMAGES STORED IN STATIC FOLDER
+    # classification_result = {
+    # "other_predictions": []
+    # }
+
+    # for prediction in original_predictions:
+    #     label = prediction["label"]
+    #     images = get_file_names(label)
+    #     classification_result["other_predictions"].append({
+    #         "label": label,
+    #         "confidence": prediction["confidence"],
+    #         "images": images
+    #     })
+
     final_result = {
     "top_predictions": top_predictions,
     "top_score": top_score,

@@ -152,6 +152,22 @@ def upload_design_view(request):
                 images = get_file_names(label)
                 other_prediction_images[label] = images
             
+            
+            #maybe even apply this to the classify image file itself
+            #use this example maybe: 
+            # classification_result = {
+            #     "other_predictions": []
+            # }
+
+            # for prediction in original_predictions:
+            #     label = prediction["label"]
+            #     images = get_file_names(label)
+            #     classification_result["other_predictions"].append({
+            #         "label": label,
+            #         "confidence": prediction["confidence"],
+            #         "images": images
+            #     })
+            
             context = {
                 'form': form,
                 'classification_result': classification_result,

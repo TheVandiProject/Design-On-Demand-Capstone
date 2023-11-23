@@ -65,25 +65,27 @@
         </div>
     </div>
 
-<div class="other-predictions" id="other-predictions">
-    <h1>Other Options</h1>
-    <ul>
-        {% for prediction in classification_result.other_predictions %}
-            <li><h3><strong>{{ prediction.label }} </h3> </strong></li>
-            <li>Confidence: {{ prediction.confidence }}</li>
-            <!-- Swiper main container for other predictions -->
-            <div class="swiper">
-                <div class="swiper-wrapper">
-                    {% for image_url in other_prediction_images %}
-                        <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
-                    {% endfor %}
+    <div class="other-predictions" id="other-predictions">
+        <h1>Other Options</h1>
+        <ul>
+            {% for prediction in classification_result.other_predictions %}
+                <li><h3><strong>{{ prediction.label }} </strong></h3></li>
+                <li>Confidence: {{ prediction.confidence }}</li>
+                <!-- Swiper main container for other predictions -->
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        {% with images=other_prediction_images.prediction.label %}
+                            {% for image_url in images %}
+                                <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
+                            {% endfor %}
+                        {% endwith %}
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-            </div>
-        {% endfor %}
-    </ul>
-</div>
+            {% endfor %}
+        </ul>
+    </div>
 <script src="{% static 'designs/js/carousel.js' %}"></script>
 {% endif %}
 
