@@ -34,7 +34,7 @@ class DesignProduct(models.Model):
 class ImageUpload(models.Model):
     image = models.ImageField(upload_to='uploaded/')
 
-class Profile(models.Model):
+class Designer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) # Delete profile when user is deleted
     image = models.ImageField(default='user-icon-default-96.png', upload_to='profile_pics')
 

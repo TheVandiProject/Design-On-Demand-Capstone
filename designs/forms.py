@@ -37,6 +37,9 @@ class UserUpdateForm(forms.ModelForm):
 
 #ProfileUpdateForm to update image.
 class ProfileUpdateForm(forms.ModelForm):
+    username = forms.CharField(max_length=255, required=True)
+    email = forms.EmailField(max_length=255, required=True)
+
     class Meta:
-        model = Profile
-        fields = ['image']
+        model = Designer
+        fields = ['username', 'email']

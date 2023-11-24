@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .forms import RegisterForm, UploadDesignForm
+from .forms import RegisterForm, UploadDesignForm, ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http import HttpResponse
@@ -112,45 +112,35 @@ def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
-            user=form.save()
-            #add if statement in html to print success message
-            update_session_auth_hash(request, user)
-            messages.success(request, 'Your password was successfully updated!', extra_tags='success')
-            return redirect('/designs/user_settings')
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('user_settings')
         else:
-            messages.error(request, 'Please correct the error below.', extra_tags='error')
+            messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'designs/user_settings.html', {'form': form})
 
 @login_required
 def update_profile(request):
-    
-    try:
-        user_profile = Profile.objects.get(user=request.user)
-    except Profile.DoesNotExist:
-        return HttpResponse("invalid user_profile!")
-    
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST,
-                                   request.FILES,
-                                   instance=request.user.profile)
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
-            messages.success(request, f'Your account has been updated!')
-            return redirect('user_settings') # Redirect back to profile page
+        new_username = request.POST.get('username')
+        new_email = request.POST.get('email')
 
-    else:
-        u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
+        if new_username:
+            request.user.username = new_username
+            request.user.save()
+            messages.success(request, 'Your username has been updated!')
 
-    context = {
-        'u_form': u_form,
-        'p_form': p_form
-    }
+        if new_email:
+            request.user.email = new_email
+            request.user.save()
+            messages.success(request, 'Your email has been updated!')
 
-    return render(request, 'designs/user_settings.html', context)
+        if not new_username and not new_email:
+            messages.error(request, 'Please enter a valid username or email.')
+
+        return redirect('user_settings')
 
         
