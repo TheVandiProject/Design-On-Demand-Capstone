@@ -1,7 +1,3 @@
-# from fileinput import filename
-# from django.core.files.base import ContentFile
-import os
-import random
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .forms import RegisterForm, UploadDesignForm
@@ -75,53 +71,6 @@ def logout_view(request):
     messages.info(request, "You have successfully logged out.", extra_tags='success')
     return redirect("/") 
 
-
-# def get_random_images(label, num_images=10):
-#     try:
-#         base_path = os.path.join(settings.STATIC_ROOT, 'designs', 'images')
-#         if not os.path.exists(base_path):
-#             return f"The directory {base_path} does not exist."
-
-#         images = [os.path.join('designs', 'images', label, img)
-#                  for img in os.listdir(base_path)
-#                  if os.path.isfile(os.path.join(base_path, img))]
-
-#         if not images:
-#             return "The directory is empty."
-
-#         return random.sample(images, min(num_images, len(images)))
-#     except Exception as e:
-#         return str(e)
-
-
-# def swiper_view(request):
-#     if request.user.is_authenticated:
-#         template_name = 'designs/user_home.html'
-#     else:
-#         template_name = 'designs/NonUser_Home.html'
-#     # Call the classify_image function to get predictions
-#     classification_result = classify_image(request)
-    
-#     top_prediction_images = get_random_images(classification_result["top_predictions"])
-    
-#     other_prediction_images = {}
-#     for prediction in classification_result["other_predictions"]:
-#         label = prediction["label"]
-#         images = get_random_images(label)
-#         other_prediction_images[label] = images
-
-#     return render(request, template_name, {'top_prediction_images': top_prediction_images, 'other_prediction_images': other_prediction_images})
-
-def get_file_names(label):
-    folder_path = os.path.join('static', 'designs', 'images', label.lower())
-    
-    try:
-        files = os.listdir(folder_path)
-        return files
-    except FileNotFoundError:
-        # Handle the case where the folder doesn't exist
-        return []
-
 def upload_design_view(request):
     form = UploadDesignForm()
     if request.user.is_authenticated:
@@ -141,39 +90,13 @@ def upload_design_view(request):
             file = ImageUpload(image = request.FILES['image'])  
             file.save()
             
-            # uploaded_image_url = f"/{file_path[6:]}"
             uploaded_image_url = f"{file.image.url}"
             classification_result = classify_image(request)
-            top_prediction_images = get_file_names(classification_result["top_predictions"])
-    
-            other_prediction_images = {}
-            for prediction in classification_result["other_predictions"]:
-                label = prediction["label"]
-                images = get_file_names(label)
-                other_prediction_images[label] = images
-            
-            
-            #maybe even apply this to the classify image file itself
-            #use this example maybe: 
-            # classification_result = {
-            #     "other_predictions": []
-            # }
-
-            # for prediction in original_predictions:
-            #     label = prediction["label"]
-            #     images = get_file_names(label)
-            #     classification_result["other_predictions"].append({
-            #         "label": label,
-            #         "confidence": prediction["confidence"],
-            #         "images": images
-            #     })
             
             context = {
                 'form': form,
                 'classification_result': classification_result,
                 'uploaded_image_url': uploaded_image_url,
-                'top_prediction_images': top_prediction_images,
-                'other_prediction_images': other_prediction_images
             }
             return render(request, template_name, context)
         else:

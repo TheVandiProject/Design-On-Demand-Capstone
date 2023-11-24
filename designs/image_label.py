@@ -1,13 +1,34 @@
 import tensorflow as tf
 import numpy as np
+import os
+import random
 
 from django.http import JsonResponse
 from PIL import Image
 from tensorflow import keras
+from django.conf import settings
 
 def load_labels(filename):
   with open(filename, 'r') as f:
     return [line.strip() for line in f.readlines()]
+
+def get_random_images(label, num_images=10):
+    try:
+        base_path = os.path.join(settings.STATIC_ROOT, 'designs', 'images', label)
+        if not os.path.exists(base_path):
+            return []
+
+        images = [os.path.join('designs', 'images', label, img)
+                  for img in os.listdir(base_path)
+                  if os.path.isfile(os.path.join(base_path, img))]
+
+        if not images:
+            return []
+
+        return random.sample(images, min(num_images, len(images)))
+    except Exception as e:
+        return []
+
 
 def classify_image(request):
     """Takes an uploaded image as a query and returns the predictions."""
@@ -22,7 +43,7 @@ def classify_image(request):
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
     
-    floating_model = input_details[0]['dtype'] == np.float32
+    # floating_model = input_details[0]['dtype'] == np.float32
    
     #Prepare the input data
     height = input_details[0]['shape'][1]
@@ -37,8 +58,8 @@ def classify_image(request):
     
     # input_data = np.expand_dims(img, axis=0)
     
-    if floating_model:
-        input_data = (np.float32(img) - 127.5) / 127.5
+    # if floating_model:
+    #     input_data = (np.float32(img) - 127.5) / 127.5
         
     #Set the inpout tensor of the model
     interpreter.set_tensor(input_details[0]['index'], img_array)
@@ -61,13 +82,20 @@ def classify_image(request):
     
     top_predictions = labels[top_n[0]].replace("_", " ").title()
     top_score = "{:.2f}%".format(score[top_n[0]] * 100)
+    top_images = get_random_images(top_predictions)
     
     predictions = []
     for i in top_n[1:]:
         if 0 <= i < len(labels):
+            label_title = labels[i].replace("_", " ").title()
+            confidence = "{:.2f}%" .format(score[i]*100)
+            images = get_random_images(label_title)
+            
+            
             prediction={
-                "label": labels[i].replace("_", " ").title(),
-                "confidence": "{:.2f}%" .format(score[i]*100),
+                "label": label_title,
+                "confidence": confidence,
+                "images": images,
             }
             predictions.append(prediction)     
         else:
@@ -75,26 +103,14 @@ def classify_image(request):
                 # "label": f"Invalid index: {i}",
                 "label": "Other",
                 "confidence": "{:.2f}%" .format(score[i]*100),
+                images: [],
             }
             predictions.append(prediction)
-
-    #TODO: ADD A NEW KEY TO THE DICTIONARY TO DIRECT TO IMAGES STORED IN STATIC FOLDER
-    # classification_result = {
-    # "other_predictions": []
-    # }
-
-    # for prediction in original_predictions:
-    #     label = prediction["label"]
-    #     images = get_file_names(label)
-    #     classification_result["other_predictions"].append({
-    #         "label": label,
-    #         "confidence": prediction["confidence"],
-    #         "images": images
-    #     })
 
     final_result = {
     "top_predictions": top_predictions,
     "top_score": top_score,
+    "top_images": top_images,
     "other_predictions": predictions,
     }
     return final_result    
