@@ -102,6 +102,10 @@ WSGI_APPLICATION = 'DesignOnDemand.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE':'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'postgres_database': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'dfr98j6jq79pek',
         'USER': 'foeasdnbmbaizh',
@@ -110,6 +114,7 @@ DATABASES = {
         'PORT': '5432',          # Leave empty to use the default PostgreSQL port (usually 5432)
     }
 }
+# DEFAULT_DATABASE = 'postgres_database'
 
 
 # Password validation
@@ -149,13 +154,17 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
 STORAGES = {
     'default' : {
-    'BACKEND': 'django.core.files.storage.FileSystemStorage',
-    'OPTIONS': {
-        'location': BASE_DIR / 'media',
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        'OPTIONS': {
+            'location': BASE_DIR / 'media',
+            },
         },
-    },
     # Enable WhiteNoise's GZip and Brotli compression of static assets:
     # https://whitenoise.readthedocs.io/en/latest/django.html#add-compression-and-caching-support
     "staticfiles": {

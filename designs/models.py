@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class UploadDesign(models.Model):
     caption = models.CharField(max_length=200)  
-    image = models.ImageField(upload_to='designs/static/designs/images/media')  # Store design images
+    image = models.ImageField(upload_to='media/uploaded')  # Store design images
 
     def __str__(self):
         return self.caption
@@ -30,6 +30,9 @@ class DesignProduct(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+            
+class ImageUpload(models.Model):
+    image = models.ImageField(upload_to='uploaded/')
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) # Delete profile when user is deleted
