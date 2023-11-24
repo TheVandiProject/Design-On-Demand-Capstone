@@ -74,7 +74,6 @@ def logout_view(request):
     messages.info(request, "You have successfully logged out.", extra_tags='success')
     return redirect("/") 
 
-@login_required(login_url='/designs/login/')
 def upload_design_view(request):
     form = UploadDesignForm()
     if request.user.is_authenticated:
