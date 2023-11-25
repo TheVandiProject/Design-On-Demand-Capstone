@@ -1,12 +1,11 @@
-import tensorflow as tf
-import numpy as np
 import os
 import random
 
-from django.http import JsonResponse
+import numpy as np
+import tensorflow as tf
 from PIL import Image
-from tensorflow import keras
 from django.conf import settings
+
 
 def load_labels(filename):
   with open(filename, 'r') as f:
