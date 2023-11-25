@@ -5,98 +5,133 @@
 
 {% block stylesheet %}
     <!-- Add the path to your custom user home page stylesheet -->
-    {% comment %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"/> {% endcomment %}
-    {% comment %} <link rel="stylesheet" href="{% static 'designs/css/carousel.css' %}"> {% endcomment %}
-    {% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"</script> {% endcomment %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{% static 'designs/js/scripts.js' %}"></script>
-    {% comment %} <script src="{% static 'designs/js/carousel.js' %}"></script> {% endcomment %}
-
     <link rel="stylesheet" href="{% static 'designs/css/user_home.css' %}"/>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
 {% endblock %}
 
 {% block content %}
-    <header>
-        <div class="logo">
-            <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+<header>
+    <div class="logo">
+        <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+    </div>
+    <!-- Navigation and user profile icon -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'user_home' %}">Home</a></li>
+            <li><a href="#">Explore</a></li>
+            <li><a href="#">Catalog</a></li>
+        </ul>
+    </nav>
+    <!-- User profile icon -->
+        <div class="user-profile">
+            <img src="{% static 'designs/images/user-icon-default-96.png' %}" alt="User Profile" id="profile-icon" onclick="toggleDropdown()">            
+            <!-- User profile menu -->
+            <div class="profile-menu" id="profile-menu">
+                <ul>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    <!-- Add more menu options (e.g., change password, email) -->
+                </ul>
+            </div>
         </div>
-        <!-- Navigation and user profile icon -->
-        <nav>
-            <ul>
-                <li><a href="{% url 'user_home' %}">Home</a></li>
-                <li><a href="#">Explore</a></li>
-                <li><a href="#">Catalog</a></li>
-                <li><a href="#">Trending</a></li>
-                <li><a href="#">Ideas</a></li>
-                <li><a href="#">Favorites</a></li>
-            </ul>
-        </nav>
-        <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
-            {% csrf_token %}
-            <label for="image">Select an image:</label>
-            <input type="file" name="image" id="image" accept:"image/*">
-            <input type="submit" value="Upload Image">
-            <!--{{ form.as_p }}
-            <button type="submit">Upload</button>-->
-        </form>
-        {% if img_obj %}  
-        <h3>Succesfully uploaded : {{img_obj.caption}}</h3>  
-        <!--This would be where we'd call the machine learning model to start searching-->
-        {% endif %}
+</header>
 
-            <div class="user-profile">
-                <img src="{% static 'designs/images/user-icon-default-96.png' %}" alt="User Profile" id="profile-icon" onclick="toggleDropdown()">            
-                <!-- User profile menu -->
-                <div class="profile-menu" id="profile-menu">
-                    <ul>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="{% url 'logout' %}">Log Out</a></li>
-                        <!-- Add more menu options (e.g., change password, email) -->
-                    </ul>
+<div class="upload-form">
+    <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
+        {% csrf_token %}
+        <label for="image">Upload an image:</label>
+        <input type="file" name="image" id="image" accept="image/*">
+        <input type="submit" value="Upload Image">
+    </form>
+</div>
+
+{% if form.errors.image %}
+    <h2><p class="error-message">{{ form.errors.image }}</p></h2>
+{% endif %}
+
+<!-- ML Model Results -->
+<div class="top-result" id="top-result">
+    {% if classification_result %}
+    <div id="top-prediction" class="top-prediction">
+        <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
+        <h2>Classification Results:</h2>
+        <p><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
+        <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
+        <!-- Swiper main container for top prediction -->
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                    {% for image_url in classification_result.top_images %}
+                        <div class="swiper-slide"><img src="{% static image_url %}" class="d-block w-100" alt="..."></div>
+                    {% endfor %}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+
+    <div class="other-predictions" id="other-predictions">
+        <h1>Other Options</h1>
+        <ul>
+            {% for prediction in classification_result.other_predictions %}
+                <li><h3><strong>{{ prediction.label }} </strong></h3></li>
+                <li>Confidence: {{ prediction.confidence }}</li>
+                <!-- Swiper main container for other predictions -->
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                            {% for image_url in prediction.images %}
+                                <div class="swiper-slide"><img src="{% static image_url %}" class="d-block w-100" alt="..."></div>
+                            {% endfor %}
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
-            </div>
-    </header>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
 
-    <body>
-        <!-- Slider main container -->
-        <div class="swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/31f?text=1" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/e66?text=2" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/7d2?text=3" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400?text=4" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/aba?text=5" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/fc0?text=6" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/800000/fff.jpg&text=7" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ced1/fff.jpg&text=8" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ff7f/fff.jpg&text=9" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/66cdaa/fff.jpg&text=10" class="d-block w-100" alt="..."></div>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-        <!-- Slider main container -->
-        <div class="swiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/31f?text=1" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/e66?text=2" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/7d2?text=3" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400?text=4" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/aba?text=5" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="//via.placeholder.com/500x400/fc0?text=6" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/800000/fff.jpg&text=7" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ced1/fff.jpg&text=8" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ff7f/fff.jpg&text=9" class="d-block w-100" alt="..."></div>
-                <div class="swiper-slide"><img src="https://dummyimage.com/500x400/66cdaa/fff.jpg&text=10" class="d-block w-100" alt="..."></div>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-        <script src="{% static 'designs/js/carousel.js' %}"></script>
 
-    </body>
+
+ <!-- Slider main container -->
+ <div class="swiper">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/31f?text=1" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/e66?text=2" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/7d2?text=3" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400?text=4" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/aba?text=5" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/fc0?text=6" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/800000/fff.jpg&text=7" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ced1/fff.jpg&text=8" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ff7f/fff.jpg&text=9" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/66cdaa/fff.jpg&text=10" class="d-block w-100" alt="..."></div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+<!-- Slider main container -->
+<div class="swiper">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/31f?text=1" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/e66?text=2" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/7d2?text=3" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400?text=4" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/aba?text=5" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/fc0?text=6" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/800000/fff.jpg&text=7" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ced1/fff.jpg&text=8" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ff7f/fff.jpg&text=9" class="d-block w-100" alt="..."></div>
+        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/66cdaa/fff.jpg&text=10" class="d-block w-100" alt="..."></div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+<script src="{% static 'designs/js/carousel.js' %}"></script>
     {% comment %} <footer>
         <!-- Footer content here -->
     </footer> {% endcomment %}
