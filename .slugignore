@@ -1,0 +1,12 @@
+# .slugignore
+
+*.map
+*.less
+*.scss
+*.sass
+*.ts
+*.coffee
+*.log
+*.tmp
+*.bak
+*.swp

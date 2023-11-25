@@ -39,6 +39,7 @@ gunicorn==21.2.0
 h5py==3.10.0
 httplib2==0.22.0
 idna==3.4
+intel-tensorflow==0.0.1
 importlib-metadata==6.8.0
 ipykernel==6.26.0
 ipython==8.17.2
@@ -103,7 +104,7 @@ tensorboard==2.14.1
 tensorboard-data-server==0.7.2
 tensorflow==2.14.0
 tensorflow-estimator==2.14.0
-tensorflow-intel==0.0.1
+tensorflow-intel==2.14.0
 tensorflow-io-gcs-filesystem==0.31.0
 termcolor==2.3.0
 tomli==2.0.1
