@@ -13,16 +13,21 @@ def load_labels(filename):
   with open(filename, 'r') as f:
     return [line.strip() for line in f.readlines()]
 
-class S3Storage(S3Boto3Storage):
+class S3ImageStorage(S3Boto3Storage):
     location = 'static/designs/images/'  # adjust this based on your S3 bucket structure
 
 def get_random_images(label, num_images=10):
     try:
-        base_path = f"static/designs/images/{label}/"
-        storage = S3Storage()
+        base_url = f'https://s3.amazonaws.com/design-on-demand-static/'  # Adjust this based on your S3 bucket structure
+        images = []
 
-        # List files in the S3 bucket using the storage backend
-        images = [f"{base_path}{img.key}" for img in storage.bucket.objects.filter(Prefix=base_path) if img.size > 0]
+        # List files in the S3 bucket
+        objects = S3ImageStorage().bucket.objects.filter(Prefix=f"static/designs/images/{label}/")
+
+        for obj in objects:
+            if obj.size > 0:
+                image_url = f'{base_url}{obj.key}'
+                images.append(image_url)
 
         if not images:
             return []
@@ -30,6 +35,7 @@ def get_random_images(label, num_images=10):
         return random.sample(images, min(num_images, len(images)))
     except Exception as e:
         return []
+
 
 
 
