@@ -162,8 +162,12 @@ STATIC_URL = 's3://design-on-demand-static'
 
 STORAGES = {
     'default' : {
-        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+        'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
         'OPTIONS': {
+            "bucket_name": "design-on-demand-static",
+                "object_parameters": {
+                    "ACL": "public-read",  # Set ACL for public access
+                },
             'location': BASE_DIR / 'media',
             },
     },
