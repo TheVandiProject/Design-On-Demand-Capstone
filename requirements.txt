@@ -7,4 +7,4 @@ python-decouple~=3.8
 tensorflow~=2.15.0
 tensorflow-intel~=0.0.1
 numpy~=1.26.2
-whitenoise~=6.6.0
+# whitenoise~=6.6.0
