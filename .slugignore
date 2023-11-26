@@ -10,6 +10,6 @@
 *.tmp
 *.bak
 *.swp
-staticfiles/*
+staticfiles/**/*
 *.jpg
 *.jpeg
