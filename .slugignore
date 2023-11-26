@@ -14,3 +14,4 @@ staticfiles/**/*
 *.png
 *.jpg
 *.jpeg
+db.sqlite3
