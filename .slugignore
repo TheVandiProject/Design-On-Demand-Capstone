@@ -10,8 +10,10 @@
 *.tmp
 *.bak
 *.swp
-staticfiles/**/*
+staticfiles/
+designs/static/
 *.png
 *.jpg
 *.jpeg
 db.sqlite3
+.venv/
