@@ -11,3 +11,4 @@
 *.bak
 *.swp
 staticfiles/**/*
+designs/static/designs/*
