@@ -11,7 +11,7 @@ from django.conf import settings
 from PIL import Image # Pillow library for image resizing
 from .image_label import classify_image
 # from django.db import models
-from .models import ImageUpload
+from .models import ImageUpload, UploadDesign
 
 
 def main_page_view(request):
