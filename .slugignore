@@ -10,4 +10,4 @@
 *.tmp
 *.bak
 *.swp
-staticfiles/
+staticfiles/*
