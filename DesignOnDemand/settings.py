@@ -143,10 +143,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 # STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
+# MEDIA_URL="s3://design-on-demand-static/media/"
 MEDIA_ROOT = BASE_DIR / 'media'
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
@@ -157,17 +158,14 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 AWS_LOCATION = 'static'
-STATIC_URL = 's3://design-on-demand-static'
+STATIC_URL = 'static/'
+STATIC_ROOT = 's3://design-on-demand-static/'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STORAGES = {
     'default' : {
-        'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
         'OPTIONS': {
-            "bucket_name": "design-on-demand-static",
-                "object_parameters": {
-                    "ACL": "public-read",  # Set ACL for public access
-                },
             'location': BASE_DIR / 'media',
             },
     },

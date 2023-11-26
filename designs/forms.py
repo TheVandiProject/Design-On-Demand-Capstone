@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import UploadDesign
+from .models import UploadDesign, ImageUpload
 
 
 class RegisterForm(UserCreationForm):
@@ -20,6 +20,14 @@ class RegisterForm(UserCreationForm):
         return user
     
 class UploadDesignForm(forms.Form):
-    class meta:
+    class Meta:
         model = UploadDesign
-        fields = '__all__'
+        fields = ("caption", "image")
+    
+    # def save(self, commit=True):
+    #     design = super(UploadDesignForm, self).save(commit=False)
+    #     design.caption = self.cleaned_data["caption"]
+    #     design.image = self.cleaned_data["image"]
+    #     if commit:
+    #         design.save()
+    #     return design

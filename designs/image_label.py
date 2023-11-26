@@ -3,23 +3,26 @@ import random
 
 import numpy as np
 import tensorflow as tf
+import boto3
 from PIL import Image
 from django.conf import settings
+from storages.backends.s3boto3 import S3Boto3Storage
 
 
 def load_labels(filename):
   with open(filename, 'r') as f:
     return [line.strip() for line in f.readlines()]
 
+class S3Storage(S3Boto3Storage):
+    location = 'static/designs/images/'  # adjust this based on your S3 bucket structure
+
 def get_random_images(label, num_images=10):
     try:
-        base_path = os.path.join(settings.STATIC_ROOT, 'designs', 'images', label)
-        if not os.path.exists(base_path):
-            return []
+        base_path = f"static/designs/images/{label}/"
+        storage = S3Storage()
 
-        images = [os.path.join('designs', 'images', label, img)
-                  for img in os.listdir(base_path)
-                  if os.path.isfile(os.path.join(base_path, img))]
+        # List files in the S3 bucket using the storage backend
+        images = [f"{base_path}{img.key}" for img in storage.bucket.objects.filter(Prefix=base_path) if img.size > 0]
 
         if not images:
             return []
@@ -27,6 +30,7 @@ def get_random_images(label, num_images=10):
         return random.sample(images, min(num_images, len(images)))
     except Exception as e:
         return []
+
 
 
 def classify_image(request):
