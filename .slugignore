@@ -16,4 +16,4 @@ designs/static/
 *.jpg
 *.jpeg
 db.sqlite3
-.venv/
+.venv/*
