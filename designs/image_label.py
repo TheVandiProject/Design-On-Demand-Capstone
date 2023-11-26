@@ -37,6 +37,8 @@ def get_random_images(label, num_images=10):
         return []
 
 
+class S3MLStorage(S3Boto3Storage):
+    location = 'static/designs/models/'  # adjust this based on your S3 bucket structure
 
 
 def classify_image(request):
