@@ -4,14 +4,9 @@ from .forms import RegisterForm, UploadDesignForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponse
-# from .models import UploadDesign
 from designs.forms import UploadDesignForm
-# from django.core.files.storage import FileSystemStorage
-from django.conf import settings
-from PIL import Image # Pillow library for image resizing
 from .image_label import classify_image
-# from django.db import models
-from .models import ImageUpload, UploadDesign
+from .models import ImageUpload
 
 
 def main_page_view(request):

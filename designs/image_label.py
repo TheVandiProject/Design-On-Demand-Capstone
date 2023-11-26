@@ -5,7 +5,6 @@ import numpy as np
 import tensorflow as tf
 import boto3
 from PIL import Image
-from django.conf import settings
 from storages.backends.s3boto3 import S3Boto3Storage
 from DesignOnDemand.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
 
