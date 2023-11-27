@@ -148,7 +148,8 @@ USE_TZ = True
 # STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
-# MEDIA_URL="s3://design-on-demand-static/media/"
+# MEDIA_URL = 'media/
+# MEDIA_ROOT="s3://design-on-demand-static/media/"
 MEDIA_ROOT = BASE_DIR / 'media'
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
@@ -185,7 +186,8 @@ STORAGES = {
 
 # Don't store the original (un-hashed filename) version of static files, to reduce slug size:
 # https://whitenoise.readthedocs.io/en/latest/django.html#WHITENOISE_KEEP_ONLY_HASHED_FILES
-WHITENOISE_KEEP_ONLY_HASHED_FILES = True
+WHITENOISE_KEEP_ONLY_HASHED_FILES = False
+#Changed when using S3
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
