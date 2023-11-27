@@ -8,4 +8,4 @@ tensorflow-cpu==2.15.0
 tensorflow-intel==0.0.1
 numpy==1.26.2
 gunicorn==21.2.0
-# whitenoise==6.6.0
+whitenoise==6.6.0
