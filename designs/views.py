@@ -87,9 +87,10 @@ def upload_design_view(request):
             # file = request.FILES["image"]
             file = ImageUpload(image = request.FILES['image'])  
             file.save()
+            image_url = file.image.url
             
-            uploaded_image_url = f"{file.image.url}"
-            classification_result = classify_image(request)
+            uploaded_image_url = f"{image_url}"
+            classification_result = classify_image(image_url)
             
             context = {
                 'form': form,

@@ -150,29 +150,40 @@ USE_TZ = True
 # STATIC_ROOT = BASE_DIR / 'staticfiles'
 # STATIC_URL = 'static/'
 
-MEDIA_URL = '/media/'
-# MEDIA_URL = 'media/
-# MEDIA_ROOT="s3://design-on-demand-static/media/"
-MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = 'design-on-demand-static'
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-AWS_LOCATION = 'static'
+AWS_LOCATION = ''
 STATIC_URL = 'static/'
-STATIC_ROOT = 's3://design-on-demand-static/'
+STATIC_ROOT = f's3://{AWS_STORAGE_BUCKET_NAME}/'
+MEDIA_URL = 'media/'
+MEDIA_ROOT=f"s3://{AWS_STORAGE_BUCKET_NAME}/"
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STORAGES = {
-    'default' : {
-        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    # 'default' : {
+    #     'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    #     'OPTIONS': {
+    #         'location': BASE_DIR / 'media',
+    #         },
+    # },
+    'default': {
+      'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
         'OPTIONS': {
-            'location': BASE_DIR / 'media',
-            },
+            'bucket_name': 'design-on-demand-static',
+            'file_overwrite': False,
+            'location': 'media',
+            'object_parameters': {
+                'ACL': 'public-read',
+                },
+        },
     },
     # Enable WhiteNoise's GZip and Brotli compression of static assets:
     # https://whitenoise.readthedocs.io/en/latest/django.html#add-compression-and-caching-support
@@ -180,6 +191,7 @@ STORAGES = {
             "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
             "OPTIONS": {
                 "bucket_name": "design-on-demand-static",
+                "location": "static",
                 "object_parameters": {
                     "ACL": "public-read",  # Set ACL for public access
                 },

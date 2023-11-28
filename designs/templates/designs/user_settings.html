@@ -1,6 +1,5 @@
 {% extends "designs/base.html" %}
 {% load static %}
-{% load crispy_forms_tags %}
 
 
 
@@ -14,6 +13,7 @@
 {% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'designs/css/user_settings.css' %}"/>
 <header>
   <div class="previous_page">
     <a href="{% url 'user_home' %}">
