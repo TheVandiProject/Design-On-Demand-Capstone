@@ -1,0 +1,18 @@
+# .slugignore
+
+*.map
+*.less
+*.scss
+*.sass
+*.ts
+*.coffee
+*.log
+*.tmp
+*.bak
+*.swp
+staticfiles/
+*.png
+*.jpg
+*.jpeg
+db.sqlite3
+.venv/*

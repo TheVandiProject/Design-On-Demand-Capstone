@@ -65,7 +65,7 @@
         <div class="swiper">
             <div class="swiper-wrapper">
                     {% for image_url in classification_result.top_images %}
-                        <div class="swiper-slide"><img src="{% static image_url %}" class="d-block w-100" alt="..."></div>
+                        <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
                     {% endfor %}
             </div>
             <div class="swiper-button-next"></div>
@@ -83,7 +83,7 @@
                 <div class="swiper">
                     <div class="swiper-wrapper">
                             {% for image_url in prediction.images %}
-                                <div class="swiper-slide"><img src="{% static image_url %}" class="d-block w-100" alt="..."></div>
+                                <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
                             {% endfor %}
                     </div>
                     <div class="swiper-button-next"></div>

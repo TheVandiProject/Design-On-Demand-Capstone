@@ -1,26 +1,33 @@
-import tensorflow as tf
-import numpy as np
 import os
 import random
 
-from django.http import JsonResponse
+import numpy as np
+import tensorflow as tf
+import boto3
 from PIL import Image
-from tensorflow import keras
-from django.conf import settings
+from storages.backends.s3boto3 import S3Boto3Storage
+from DesignOnDemand.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+
 
 def load_labels(filename):
   with open(filename, 'r') as f:
     return [line.strip() for line in f.readlines()]
 
+class S3ImageStorage(S3Boto3Storage):
+    location = 'static/designs/images/'  # adjust this based on your S3 bucket structure
+
 def get_random_images(label, num_images=10):
     try:
-        base_path = os.path.join(settings.STATIC_ROOT, 'designs', 'images', label)
-        if not os.path.exists(base_path):
-            return []
+        base_url = f'https://s3.amazonaws.com/design-on-demand-static/'  # Adjust this based on your S3 bucket structure
+        images = []
 
-        images = [os.path.join('designs', 'images', label, img)
-                  for img in os.listdir(base_path)
-                  if os.path.isfile(os.path.join(base_path, img))]
+        # List files in the S3 bucket
+        objects = S3ImageStorage().bucket.objects.filter(Prefix=f"static/designs/images/{label}/")
+
+        for obj in objects:
+            if obj.size > 0:
+                image_url = f'{base_url}{obj.key}'
+                images.append(image_url)
 
         if not images:
             return []
@@ -30,13 +37,43 @@ def get_random_images(label, num_images=10):
         return []
 
 
+class S3MLStorage(S3Boto3Storage):
+    location = 'static/designs/models/'  # adjust this based on your S3 bucket structure
+
+
 def classify_image(request):
     """Takes an uploaded image as a query and returns the predictions."""
     image_file = request.FILES["image"]
     
+    aws_access_key_id = AWS_ACCESS_KEY_ID
+    aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+    
+    s3 = boto3.client(
+        's3',
+        aws_access_key_id=aws_access_key_id,
+        aws_secret_access_key=aws_secret_access_key
+    )
+    bucket_name = 'design-on-demand-static'
+    
+    # Download model file
+    model_file_name = 'static/models/Diverse_Model-DoD.tflite'
+    local_model_file_name = os.path.join(os.getcwd(), model_file_name.replace('/', os.sep))
+    os.makedirs(os.path.dirname(local_model_file_name), exist_ok=True)
+    s3.download_file(bucket_name, model_file_name, local_model_file_name)
+
+    # Download label file
+    label_file_name = 'static/models/labels/detailed-labels.txt'
+    local_label_file_name = os.path.join(os.getcwd(), label_file_name.replace('/', os.sep))
+    os.makedirs(os.path.dirname(local_label_file_name), exist_ok=True)
+    s3.download_file(bucket_name, label_file_name, local_label_file_name)
+
+    #Load labels
+    labels = load_labels(local_label_file_name)
+    
     #Load model
-    interpreter = tf.lite.Interpreter(model_path="designs\models\Diverse_Model-DoD.tflite")
-    # interpreter = tf.lite.Interpreter(model_path="designs\models\Second-DoD-Model.tflite")
+    # interpreter = tf.lite.Interpreter(model_path="designs\models\Diverse_Model-DoD.tflite")
+    interpreter = tf.lite.Interpreter(model_path=model_file_name)
+
     interpreter.allocate_tensors()
     
      # Get the input and output details of the model.
@@ -76,9 +113,6 @@ def classify_image(request):
     score = softmax_output.numpy()
     
     top_n = np.argsort(score)[-5:][::-1]
-    
-    # labels = load_labels("designs\models\labels.txt")
-    labels = load_labels("designs\models\detailed-labels.txt")
     
     top_predictions = labels[top_n[0]].replace("_", " ").title()
     top_score = "{:.2f}%".format(score[top_n[0]] * 100)

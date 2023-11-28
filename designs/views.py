@@ -5,13 +5,8 @@ from .forms import RegisterForm, UploadDesignForm, ProfileUpdateForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http import HttpResponse
-# # from .models import UploadDesign
-from designs.forms import *
-# # from django.core.files.storage import FileSystemStorage
-from django.conf import settings
-from PIL import Image # Pillow library for image resizing
+from designs.forms import UploadDesignForm
 from .image_label import classify_image
-# from django.db import models
 from .models import ImageUpload
 
 

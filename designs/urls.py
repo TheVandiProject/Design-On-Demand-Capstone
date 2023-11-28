@@ -1,14 +1,12 @@
 from django.urls import path
-from . import views
-from designs import image_label, views
-from django.urls.conf import include
+from designs import views
 from django.conf import settings
 from django.conf.urls.static import static
 
 # app_name = "designs"
 
 urlpatterns = [
-    #path("", views.index, name="index"),
+    # path("", views.index, name="index"),
     path('', views.main_page_view, name='designs'),
     path('accounts/login/', views.login_view, name='logon'),
     path('login/', views.login_view, name='login'),
@@ -20,7 +18,7 @@ urlpatterns = [
     path('home/settings/password-change/', views.change_password, name='change_password'),
     path('home/settings/profile/', views.update_profile, name='update_profile'),
     path('index/', views.index_view, name='index'),
-]# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]  # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)    
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
