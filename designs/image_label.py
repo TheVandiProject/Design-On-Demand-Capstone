@@ -1,12 +1,15 @@
 import os
+import io
 import random
 
 import numpy as np
 import tensorflow as tf
 import boto3
+import requests
 from PIL import Image
 from storages.backends.s3boto3 import S3Boto3Storage
-from DesignOnDemand.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+from DesignOnDemand.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
+from django.core.files.base import ContentFile
 
 
 def load_labels(filename):
@@ -18,7 +21,7 @@ class S3ImageStorage(S3Boto3Storage):
 
 def get_random_images(label, num_images=10):
     try:
-        base_url = f'https://s3.amazonaws.com/design-on-demand-static/'  # Adjust this based on your S3 bucket structure
+        base_url = f'https://s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/'  # Adjust this based on your S3 bucket structure
         images = []
 
         # List files in the S3 bucket
@@ -36,14 +39,12 @@ def get_random_images(label, num_images=10):
     except Exception as e:
         return []
 
-
 class S3MLStorage(S3Boto3Storage):
-    location = 'static/designs/models/'  # adjust this based on your S3 bucket structure
+    location = 'static/designs/models/'
 
 
-def classify_image(request):
+def classify_image(image_url):
     """Takes an uploaded image as a query and returns the predictions."""
-    image_file = request.FILES["image"]
     
     aws_access_key_id = AWS_ACCESS_KEY_ID
     aws_secret_access_key = AWS_SECRET_ACCESS_KEY
@@ -53,7 +54,7 @@ def classify_image(request):
         aws_access_key_id=aws_access_key_id,
         aws_secret_access_key=aws_secret_access_key
     )
-    bucket_name = 'design-on-demand-static'
+    bucket_name = AWS_STORAGE_BUCKET_NAME
     
     # Download model file
     model_file_name = 'static/models/Diverse_Model-DoD.tflite'
@@ -80,23 +81,16 @@ def classify_image(request):
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
     
-    # floating_model = input_details[0]['dtype'] == np.float32
+    #Get the Image from S3
+    response = requests.get(image_url)
+    response.raise_for_status()
    
     #Prepare the input data
     height = input_details[0]['shape'][1]
     width = input_details[0]['shape'][2]
-    img = Image.open(image_file).resize((width, height))
+    img = Image.open(io.BytesIO(response.content)).resize((width, height))
     img_array = tf.keras.utils.img_to_array(img)
     img_array = tf.expand_dims(img_array, 0) # Create a batch
-
-    # score = tf.nn.softmax(predictions[0])
-    
-    # img = np.frombuffer(img.tobytes(), dtype=np.uint8)
-    
-    # input_data = np.expand_dims(img, axis=0)
-    
-    # if floating_model:
-    #     input_data = (np.float32(img) - 127.5) / 127.5
         
     #Set the inpout tensor of the model
     interpreter.set_tensor(input_details[0]['index'], img_array)
@@ -143,7 +137,7 @@ def classify_image(request):
 
     final_result = {
     "top_predictions": top_predictions,
-    "top_score": top_score,
+    "top_score": top_score, #Used mostly for development reasons
     "top_images": top_images,
     "other_predictions": predictions,
     }

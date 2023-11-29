@@ -8,11 +8,15 @@ from django.conf.urls.static import static
 urlpatterns = [
     # path("", views.index, name="index"),
     path('', views.main_page_view, name='designs'),
+    path('accounts/login/', views.login_view, name='logon'),
     path('login/', views.login_view, name='login'),
     path('signup/', views.signup_view, name='signup'),
-    path('home/', views.render_home_view, name='user_home'),
     path('logout/', views.logout_view, name='logout'),
+    path('home/', views.render_home_view, name='user_home'),
     path('home/upload/', views.upload_design_view, name="upload_design"),
+    path('home/settings/', views.user_settings_view, name='user_settings'),
+    path('home/settings/password-change/', views.change_password, name='change_password'),
+    path('home/settings/profile/', views.update_profile, name='update_profile'),
     path('index/', views.index_view, name='index'),
 ]  # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
