@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.decorators import api_view, permission_classes
+from django.contrib.auth import login, authenticate, logout
 from rest_framework.response import Response
+from designs.forms import *
+from django.contrib import messages
 from rest_framework import status
 from .models import Users
 from .serializers import UsersSerializer
@@ -22,6 +25,18 @@ def users_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET', 'POST'])
+def register_new_user(request):
+    if request.method == 'POST':
+
+        serializer = UsersSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            messages.success(request, f"Account created successfully!", extra_tags='success')
+            return redirect('/home') 
+    
+    return render(request, 'designs/sign_up.html')
+
 @api_view(['GET', 'PUT', 'DELETE'])
 def users_detail(request, pk):
     """
@@ -36,3 +51,17 @@ def users_detail(request, pk):
         return Response(serializer.data)
     elif request.method == 'PUT':
         serializer = UsersSerializer(book, data=request.data)
+
+@api_view(['GET', 'POST'])
+def user_login_view(request):
+
+    if request.method == 'POST':
+        user = request.data['username']
+        passw = request.data['password']
+        books = Users.objects.all().filter(username=user).filter(password=passw)
+        if len(books) == 0:
+            return render(request, 'designs/login_page.html')
+        else:
+            return redirect('/home') 
+   
+    return render(request, 'designs/login_page.html')

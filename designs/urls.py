@@ -4,14 +4,15 @@ from designs import views
 from django.urls.conf import include
 from django.conf import settings
 from django.conf.urls.static import static
+from all_data import views as all_data
 
 # app_name = "designs"
 
 urlpatterns = [
     #path("", views.index, name="index"),
     path('', views.main_page_view, name='designs'),
-    path('login/', views.login_view, name='login'),
-    path('signup/', views.signup_view, name='signup'),
+    path('login/', all_data.user_login_view, name='login'),
+    path('signup/', all_data.register_new_user, name='signup'),
     path('home/', views.user_home_view, name='user_home'),
     path('logout/', views.logout_view, name='logout'),
     path('upload/', views.upload_design_view, name="upload_design"),
