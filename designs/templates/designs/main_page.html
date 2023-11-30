@@ -33,7 +33,11 @@
         <!-- Hero Section -->
         <section class="hero">
             <h1>Design Your Home, Shape Your Story</h1>
+            {% if user.is_authenticated %}
             <a href="{% url 'user_home' %}" class="cta-button">Get Started</a>
+            {% else %}
+            <a href="{% url 'user_home' %}" class="cta-button">Get Started</a>
+            {% endif %}
         </section>
 
         <!-- Featured Categories Section -->

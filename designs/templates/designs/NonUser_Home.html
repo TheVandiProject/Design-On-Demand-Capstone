@@ -18,14 +18,14 @@
     <div class="logo">
         <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
     </div>
-    <!-- Navigation and user profile icon -->
-    <nav>
+    {% comment %} <!-- Navigation and user profile icon --> {% endcomment %}
+    {% comment %} <nav>
         <ul>
             <li><a href="{% url 'designs' %}">Main Page</a></li>
             <li><a href="#">Explore</a></li>
             <li><a href="#">Catalog</a></li>
         </ul>
-    </nav>
+    </nav> {% endcomment %}
     <div class="user-actions">
         <a href="{% url 'login' %}" class="login">Login</a>
         <a href="{% url 'signup' %}" class="signup">Create an Account</a>

@@ -7,8 +7,6 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http import HttpResponse
 from .image_label import classify_image, get_designer_images
 from .models import *
-from DesignOnDemand.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
-
 
 
 def main_page_view(request):

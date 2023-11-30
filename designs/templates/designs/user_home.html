@@ -16,14 +16,14 @@
 {% block content %}
 <header>
     <div class="logo">
-        <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+        <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
     </div>
-    <!-- Navigation and user profile icon -->
+    {% comment %} <!-- Navigation and user profile icon -->
     <nav>
         <ul>
             <li><a href="{% url 'user_home' %}">Main Page</a></li>
         </ul>
-    </nav>
+    </nav> {% endcomment %}
     <!-- User profile icon -->
         <div class="user-profile">
             <img src="{% static 'designs/images/user-icon-default-96.png' %}" alt="User Profile" id="profile-icon" onclick="toggleDropdown()">            

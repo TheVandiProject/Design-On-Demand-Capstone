@@ -8,6 +8,16 @@ body {
     padding: 0;
 }
 
+header {
+    background-color: #0091ff;
+    background-image: linear-gradient(to right, #0091ff, #ad2affe8);
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
 form {
     max-width: 600px;
     margin: 50px auto;
@@ -15,6 +25,12 @@ form {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form h2 {
+    color: black;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 label {
@@ -61,6 +77,7 @@ input[type="submit"]:hover {
 }
 
 h2 {
+    color: white;
     font-size: 24px;
     margin-bottom: 16px;
 }

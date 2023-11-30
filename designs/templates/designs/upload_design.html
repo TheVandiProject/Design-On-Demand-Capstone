@@ -11,6 +11,14 @@
 {% endblock %}
 
 {% block content %}
+<header>
+<div class="logo">
+    <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+</div>
+  <h1>Upload your own Design</h1>
+
+</header>
+
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <h2 for="id_image">Upload your Design:</h2>
@@ -26,7 +34,7 @@
   <input type="submit" value="Upload Image">
 </form>
 
-<div class="uploaded_images">
+
 <h2>Uploaded Images:</h2>
 <ul>
   <div class="swiper">
@@ -37,8 +45,7 @@
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-</div>
+  </div>
 </ul>
-</div>
 <script src="{% static 'designs/js/carousel.js' %}"></script>
 {% endblock %}
