@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import secrets
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,17 +51,21 @@ else:
 
 INSTALLED_APPS = [
     'designs.apps.DesignsConfig',
-    #'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    "whitenoise.runserver_nostatic",
+    # "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
     'rest_framework',
     'bootstrap5',
+    'storages',
     'all_data',
 ]
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -106,6 +111,7 @@ DATABASES = {
         'PORT': '5432',          # Leave empty to use the default PostgreSQL port (usually 5432)
     }
 }
+# DEFAULT_DATABASE = 'postgres_database'
 
 
 # Password validation
@@ -142,20 +148,62 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_URL = 'static/'
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
+
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = ''
 STATIC_URL = 'static/'
+STATIC_ROOT = f's3://{AWS_STORAGE_BUCKET_NAME}/'
+MEDIA_URL = 'media/'
+MEDIA_ROOT=f"s3://{AWS_STORAGE_BUCKET_NAME}/"
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STORAGES = {
+    # 'default' : {
+    #     'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    #     'OPTIONS': {
+    #         'location': BASE_DIR / 'media',
+    #         },
+    # },
+    'default': {
+      'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+        'OPTIONS': {
+            'bucket_name': 'design-on-demand-static',
+            'file_overwrite': False,
+            'location': 'media',
+            'object_parameters': {
+                'ACL': 'public-read',
+                },
+        },
+    },
     # Enable WhiteNoise's GZip and Brotli compression of static assets:
     # https://whitenoise.readthedocs.io/en/latest/django.html#add-compression-and-caching-support
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
+            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+            "OPTIONS": {
+                "bucket_name": "design-on-demand-static",
+                "location": "static",
+                "object_parameters": {
+                    "ACL": "public-read",  # Set ACL for public access
+                },
+            },
+        },
 }
 
 # Don't store the original (un-hashed filename) version of static files, to reduce slug size:
 # https://whitenoise.readthedocs.io/en/latest/django.html#WHITENOISE_KEEP_ONLY_HASHED_FILES
-WHITENOISE_KEEP_ONLY_HASHED_FILES = True
+WHITENOISE_KEEP_ONLY_HASHED_FILES = False
+#Changed when using S3
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
