@@ -165,7 +165,6 @@ STATIC_URL = 'static/'
 STATIC_ROOT = f's3://{AWS_STORAGE_BUCKET_NAME}/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT=f"s3://{AWS_STORAGE_BUCKET_NAME}/"
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STORAGES = {
     # 'default' : {
@@ -185,8 +184,6 @@ STORAGES = {
                 },
         },
     },
-    # Enable WhiteNoise's GZip and Brotli compression of static assets:
-    # https://whitenoise.readthedocs.io/en/latest/django.html#add-compression-and-caching-support
     "staticfiles": {
             "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
             "OPTIONS": {

@@ -17,6 +17,7 @@ urlpatterns = [
     path('home/settings/', views.user_settings_view, name='user_settings'),
     path('home/settings/password-change/', views.change_password, name='change_password'),
     path('home/settings/profile/', views.update_profile, name='update_profile'),
+    path('home/designer-upload/', views.designer_design_upload_view, name='designer-upload'),
     path('index/', views.index_view, name='index'),
 ]  # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -32,7 +32,7 @@ class DesignProduct(models.Model):
             img.save(self.image.path)
             
 class ImageUpload(models.Model):
-    image = models.ImageField(upload_to='uploaded')
+    image = models.ImageField(upload_to='media/uploaded')
 
 class Designer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) # Delete profile when user is deleted
@@ -52,3 +52,17 @@ class Designer(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size) # Resize image
             img.save(self.image.path) # Save it again and override the larger image
+            
+class Category(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.name
+
+class UploadDesignerDesign(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='designer-uploads/')
+    categories = models.ManyToManyField(Category)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.image}'

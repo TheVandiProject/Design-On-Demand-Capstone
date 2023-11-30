@@ -21,17 +21,17 @@
     <!-- Navigation and user profile icon -->
     <nav>
         <ul>
-            <li><a href="{% url 'user_home' %}">Home</a></li>
-            <li><a href="#">Explore</a></li>
-            <li><a href="#">Catalog</a></li>
+            <li><a href="{% url 'user_home' %}">Main Page</a></li>
         </ul>
     </nav>
     <!-- User profile icon -->
         <div class="user-profile">
             <img src="{% static 'designs/images/user-icon-default-96.png' %}" alt="User Profile" id="profile-icon" onclick="toggleDropdown()">            
             <!-- User profile menu -->
-            <div class="profile-menu" id="profile-menu">
+            <div class="profile-menu" id="profile-menu"> 
+                {% comment %} TODO Make a proper side bar if possible {% endcomment %}
                 <ul>
+                    <li><a href="{% url 'designer-upload' %}">Upload Your Design</a></li>
                     <li><a href="{% url 'user_settings' %}">Settings</a></li>
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
                     <!-- Add more menu options (e.g., change password, email) -->

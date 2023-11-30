@@ -3,7 +3,7 @@
 
 
 
-{% block title %}User Home Page{% endblock %}
+{% block title %}User Settings Page{% endblock %}
 
 {% block stylesheet %}
     <script src="{% static 'designs/js/scripts.js' %}"></script>
@@ -15,13 +15,11 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'designs/css/user_settings.css' %}"/>
 <header>
-  <div class="previous_page">
-    <a href="{% url 'user_home' %}">
-      <i class="fas fa-arrow-left"></i>
-      Go Back
-    </a>
-  </div>
 </header>
+
+<div class="goback-container">
+  <a href="{% url 'user_home' %}" class="goback-button">Go Back</a>
+</div>
 
 <div class="content-section">
   <div class="media">

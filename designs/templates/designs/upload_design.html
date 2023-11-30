@@ -1,0 +1,44 @@
+{% extends "designs/base.html" %}
+{% load static %}
+
+{% block title %}User Design Upload Page{% endblock %}
+
+{% block stylesheet%}
+<script src="{% static 'designs/js/scripts.js' %}"></script>
+<link rel="stylesheet" href="{% static 'designs/css/upload_design.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <h2 for="id_image">Upload your Design:</h2>
+  {{ upload_form.image }}
+  <input type="file" name="image" id="image" accept="image/*">
+  
+  <label>Categories:</label>
+  {% for category in categories %}
+    <input type="checkbox" name="categories" id="category_{{ category.id }}" value="{{ category.id }}">
+    <label for="category_{{ category.id }}">{{ category.name }}</label><br>
+  {% endfor %}
+  
+  <input type="submit" value="Upload Image">
+</form>
+
+<div class="uploaded_images">
+<h2>Uploaded Images:</h2>
+<ul>
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {% for image in design_images %}
+                <div class="swiper-slide"><img src="{{ image.image_url }}" class="d-block w-100" alt="..."></div>
+      {% endfor %}
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+</ul>
+</div>
+<script src="{% static 'designs/js/carousel.js' %}"></script>
+{% endblock %}
