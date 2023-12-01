@@ -45,8 +45,18 @@ input[type="file"] {
     box-sizing: border-box;
 }
 
+.checkbox-container {
+    display: flex;
+    align-items: center;
+  }
+  .checkbox-container label {
+    order: 1;
+    margin: 10%;
+  }
+
 input[type="checkbox"] {
     margin-right: 5px;
+    margin-top: 10px;
 }
 
 button {
@@ -74,6 +84,13 @@ input[type="submit"]:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.image{
+    height: 15%;
+    margin: 5%;
+    border-radius: 10%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h2 {

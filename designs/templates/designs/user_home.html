@@ -7,75 +7,12 @@
     <!-- Add the path to your custom user home page stylesheet -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="{% static 'designs/js/scripts.js' %}"></script>
     <link rel="stylesheet" href="{% static 'designs/css/user_home.css' %}"/>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 
 {% endblock %}
 
 {% block content %}
-
-<head>
-    <style>
-        /* The side navigation menu */
-        .sidenav {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            right: 0;
-            background-color: white;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
-        }
-    
-        /* Overlay to darken the rest of the page */
-        .overlay {
-            display: none;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-    
-        /* The navigation menu links */
-        .sidenav a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 25px;
-            color: black;
-            display: block;
-            transition: 0.3s;
-        }
-    
-        /* When you mouse over the navigation links, change their color */
-        .sidenav a:hover {
-            color: #ad2affe8;
-        }
-    
-        /* Position and style the close button (top right corner) */
-        .sidenav .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-    
-        /* Style the hamburger menu */
-        .burger {
-            cursor: pointer;
-            color: white;
-            font-size: 36px; /* Adjust this value to make the icon bigger or smaller */
-        }
-    </style>    
-</head>
 <header>
     <div class="logo">
         <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
@@ -86,6 +23,7 @@
             <li><a href="{% url 'user_home' %}">Main Page</a></li>
         </ul>
     </nav> {% endcomment %}
+    <script src="{% static 'designs/js/scripts.js' %}"></script>
     <!-- User profile icon -->
     <span class="burger" onclick="toggleNav()">&#9776;</span>
     <div id="mySidenav" class="sidenav">
@@ -96,15 +34,6 @@
     </div>
     <div class="overlay" onclick="toggleNav()"></div>
 </header>
-
-<script>
-    function toggleNav() {
-        var sidenav = document.getElementById("mySidenav");
-        var overlay = document.querySelector(".overlay");
-        sidenav.style.width = sidenav.style.width === "250px" ? "0" : "250px";
-        overlay.style.display = overlay.style.display === "block" ? "none" : "block";
-    }
-</script>
 
 <div class="upload-form">
     <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
