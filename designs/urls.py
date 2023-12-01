@@ -2,6 +2,7 @@ from django.urls import path
 from designs import views
 from django.conf import settings
 from django.conf.urls.static import static
+from all_data import views as all_data
 
 # app_name = "designs"
 
@@ -9,8 +10,8 @@ urlpatterns = [
     # path("", views.index, name="index"),
     path('', views.main_page_view, name='designs'),
     path('accounts/login/', views.login_view, name='logon'),
-    path('login/', views.login_view, name='login'),
-    path('signup/', views.signup_view, name='signup'),
+    path('login/', all_data.user_login_view, name='login'),
+    path('signup/', all_data.register_new_user, name='signup'),
     path('logout/', views.logout_view, name='logout'),
     path('upload/', views.render_nonuser_home_view, name='nonuser_home'),
     path('home/', views.render_user_home_view, name='user_home'),
