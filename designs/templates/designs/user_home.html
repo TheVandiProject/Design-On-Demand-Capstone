@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="{% static 'designs/css/user_home.css' %}"/>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <script src="{% static 'designs/js/scripts.js' %}"></script>
 
 {% endblock %}
 
@@ -23,7 +24,6 @@
             <li><a href="{% url 'user_home' %}">Main Page</a></li>
         </ul>
     </nav> {% endcomment %}
-    <script src="{% static 'designs/js/scripts.js' %}"></script>
     <!-- User profile icon -->
     <span class="burger" onclick="toggleNav()">&#9776;</span>
     <div id="mySidenav" class="sidenav">
