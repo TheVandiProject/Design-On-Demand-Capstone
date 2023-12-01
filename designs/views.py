@@ -17,11 +17,11 @@ def index_view(request):
     return render(request, 'designs/index.html')
 
 
-def render_home_view(request):
-    if(request.user.is_authenticated):
-        return render(request, 'designs/user_home.html')
-    else:
-        return render(request, 'designs/NonUser_Home.html')
+def render_user_home_view(request):
+    return render(request, 'designs/user_home.html')
+
+def render_nonuser_home_view(request):
+    return render(request, 'designs/NonUser_Home.html')
 
 @login_required
 def user_settings_view(request):

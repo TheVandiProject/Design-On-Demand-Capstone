@@ -13,7 +13,7 @@
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+            <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
         </div>
     </header>
    <div class="container">
@@ -37,20 +37,9 @@
                </div>
                <button type="submit">Sign Up</button>
            </form>
-            {% comment %} {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    {% if message.tags == 'error' %}
-                        <li class="error-message">{{ message }}</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-            {% endif %} {% endcomment %}
            
            <p>Already have an account? <a href="{% url 'login' %}" class="login-link">Log In</a></p>
            <p>By creating an account you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></p>
-           {% comment %} TODO Would need to add these pages later 
-           {% url 'terms_and_conditions' %} {% url 'privacy_policy' %} {% endcomment %}
        </div>
    </div>
 
@@ -60,7 +49,6 @@
         <nav>
             <ul>
                 <li><a href="#">About Us</a></li>
-                <li><a href="#">FAQ</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">Privacy Policy</a></li>
             </ul>
