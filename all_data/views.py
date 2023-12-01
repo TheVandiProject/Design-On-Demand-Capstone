@@ -33,7 +33,7 @@ def register_new_user(request):
         if serializer.is_valid():
             serializer.save()
             messages.success(request, f"Account created successfully!", extra_tags='success')
-            return redirect('/home') 
+            return redirect('designs/user_home.html') 
     
     return render(request, 'designs/sign_up.html')
 
@@ -62,6 +62,6 @@ def user_login_view(request):
         if len(books) == 0:
             return render(request, 'designs/login_page.html')
         else:
-            return redirect('/home') 
+            return redirect('designs/user_home.html') 
    
     return render(request, 'designs/login_page.html')
