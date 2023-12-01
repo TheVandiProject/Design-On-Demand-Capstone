@@ -102,15 +102,15 @@ input[type="submit"]:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
+h1 {
     color: white;
     font-size: 24px;
     margin-bottom: 16px;
 }
 
 .swiper {
-    width: 50%;
-    height: 25%;
+    width: 75%;
+    height: 50%;
     margin-bottom: 20px;
 }
 

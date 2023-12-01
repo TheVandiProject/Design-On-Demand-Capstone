@@ -46,34 +46,22 @@
 </form>
 
 
-<h2>Uploaded Images:</h2>
+<h1>Uploaded Images:</h1>
 <ul>
-  <div class="uploaded_images">
-  {% comment %} <div class="swiper">
-    <div class="swiper-wrapper"> {% endcomment %}
+{% comment %} <div class="uploaded_images"> {% endcomment %}
+<div class="swiper">
+    <div class="swiper-wrapper">
       {% for image in design_images %}
-                {% comment %} <div class="swiper-slide"> {% endcomment %}
-                  {% comment %} <div class="image">
-                  <img src="{{ image.image_url }}" class="d-block w-100" alt="..." height="400px">
-                  </div> {% endcomment %}
-                {% comment %} </div> {% endcomment %}
+          <div class="swiper-slide"> 
+              {% comment %} <div class="image"> {% endcomment %}
+                <img src="{{ image.image_url }}" class="d-block w-100" alt="..." height = "auto">
+              {% comment %} </div> {% endcomment %}
+          </div>
       {% endfor %}
-      <table>
-        {% for image in design_images|slice:":25" %}
-          {% if forloop.counter0|divisibleby:5 %}
-            <tr>
-          {% endif %}
-            <td>
-              <div class="image">
-                <img src="{{ image.image_url }}" class="d-block w-100" alt="..." height="400px">
-              </div>
-            </td>
-          {% if forloop.counter|divisibleby:5 %}
-            </tr>
-          {% endif %}
-        {% endfor %}
-        </table>
-  </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
 </ul>
 <script src="{% static 'designs/js/carousel.js' %}"></script>
 {% endblock %}
