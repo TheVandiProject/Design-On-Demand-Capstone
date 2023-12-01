@@ -42,12 +42,6 @@
       {% endif %}
     {% endfor %}
     </table>
-  {% comment %} {% for category in categories %}
-  <div class="checkbox-container">
-    <input type="checkbox" name="categories" id="category_{{ category.id }}" value="{{ category.id }}">
-    <label for="category_{{ category.id }}">{{ category.name }}</label>
-  </div>
-{% endfor %} {% endcomment %}
   <input type="submit" value="Upload Image">
 </form>
 
@@ -59,15 +53,26 @@
     <div class="swiper-wrapper"> {% endcomment %}
       {% for image in design_images %}
                 {% comment %} <div class="swiper-slide"> {% endcomment %}
-                  <div class="image">
+                  {% comment %} <div class="image">
                   <img src="{{ image.image_url }}" class="d-block w-100" alt="..." height="400px">
-                  </div>
+                  </div> {% endcomment %}
                 {% comment %} </div> {% endcomment %}
       {% endfor %}
-    {% comment %} </div> {% endcomment %}
-    {% comment %} <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div> {% endcomment %}
-  {% comment %} </div> {% endcomment %}
+      <table>
+        {% for image in design_images|slice:":25" %}
+          {% if forloop.counter0|divisibleby:5 %}
+            <tr>
+          {% endif %}
+            <td>
+              <div class="image">
+                <img src="{{ image.image_url }}" class="d-block w-100" alt="..." height="400px">
+              </div>
+            </td>
+          {% if forloop.counter|divisibleby:5 %}
+            </tr>
+          {% endif %}
+        {% endfor %}
+        </table>
   </div>
 </ul>
 <script src="{% static 'designs/js/carousel.js' %}"></script>

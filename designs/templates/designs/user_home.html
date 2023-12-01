@@ -38,7 +38,7 @@
 <div class="upload-form">
     <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
         {% csrf_token %}
-        <label for="image">Upload an image:</label>
+        <h1><label for="image">Upload your image:</label></h1>
         <input type="file" name="image" id="image" accept="image/*">
         <input type="submit" value="Upload Image">
     </form>

@@ -11,7 +11,7 @@ class UploadDesign(models.Model):
         return self.caption
 
 class ImageUpload(models.Model):
-    image = models.ImageField(upload_to='media/uploaded')
+    image = models.ImageField(upload_to='uploaded')
 
 class Designer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) # Delete profile when user is deleted

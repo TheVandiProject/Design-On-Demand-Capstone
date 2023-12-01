@@ -123,7 +123,13 @@ def designer_design_upload_view(request):
                 uploaded_image.save()
                 form.save_m2m()  # Save the categories
                 
-                return render(request, 'designs/upload_design.html', {'form': form, 'design_images': design_images, 'categories': categories,}) 
+                context={
+                    'form': form, 
+                    'design_images': design_images, 
+                    'categories': categories,
+                }
+                
+                return render(request, 'designs/upload_design.html', context) 
     else:
         form = UploadDesignerDesignForm()
 

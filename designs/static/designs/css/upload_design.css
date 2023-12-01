@@ -68,6 +68,15 @@ button {
     cursor: pointer;
 }
 
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #0091ff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
 input[type="submit"]:hover {
     background-color: #ad2affe8;
     color: #fff;
@@ -87,9 +96,9 @@ input[type="submit"]:hover {
 }
 
 .image{
-    height: 15%;
-    margin: 5%;
-    border-radius: 10%;
+    height: 10%;
+    margin: 1%;
+    border-radius: 5%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
