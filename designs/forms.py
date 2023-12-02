@@ -1,17 +1,18 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
-from .models import UploadDesign, UploadDesignerDesign
-from django.db import models
+# from .models import UploadDesign, UploadDesignerDesign
+# from django.db import models
 from .models import *
+from all_data import models as all_data_models
 
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
 
     class Meta:
-        model = User
+        model = all_data_models.Users
         fields = ("username", "email", "password1", "password2")
     
     def save(self, commit=True):
@@ -32,7 +33,7 @@ class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
 
     class Meta:
-        model = User
+        model = all_data_models.Users
         fields = ['username', 'email']
 
 #ProfileUpdateForm to update image.
@@ -41,16 +42,14 @@ class ProfileUpdateForm(forms.ModelForm):
     email = forms.EmailField(max_length=255, required=True)
 
     class Meta:
-        model = Designer
+        model = all_data_models.Designer
         fields = ['username', 'email']
-        
-        
         
 class UploadDesignerDesignForm(forms.ModelForm):
     categories = forms.ModelMultipleChoiceField(
-    queryset=Category.objects.all(),
+    queryset=all_data_models.Category.objects.all(),
     widget=forms.CheckboxSelectMultiple
     )
     class Meta:
-        model = UploadDesignerDesign
+        model = all_data_models.UploadDesignerDesign
         fields = ['image', 'categories']

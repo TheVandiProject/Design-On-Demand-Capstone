@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http import HttpResponse
 from .image_label import classify_image, get_designer_images
 from .models import *
+from all_data.models import *
 
 
 def main_page_view(request):
@@ -107,7 +108,7 @@ def upload_design_view(request):
         
     return render(request, template_name, {'form': form})
 
-@login_required
+# @login_required
 def designer_design_upload_view(request):
     categories = Category.objects.all()
     design_images = get_designer_images(request)

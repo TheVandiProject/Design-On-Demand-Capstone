@@ -9,7 +9,7 @@ from all_data import views as all_data
 urlpatterns = [
     # path("", views.index, name="index"),
     path('', views.main_page_view, name='designs'),
-    path('accounts/login/', views.login_view, name='logon'),
+    path('accounts/login/', all_data.user_login_view, name='logon'),
     path('login/', all_data.user_login_view, name='login'),
     path('signup/', all_data.register_new_user, name='signup'),
     path('logout/', views.logout_view, name='logout'),
