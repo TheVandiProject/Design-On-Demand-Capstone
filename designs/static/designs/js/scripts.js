@@ -11,3 +11,8 @@ function toggleNav() {
     overlay.style.display = overlay.style.display === "block" ? "none" : "block";
 }
 
+var btn = document.getElementById("mybtn");
+var loader = new ldLoader({ root: btn });
+btn.addEventListener("click", function() {
+  loader.toggle();
+});

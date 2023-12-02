@@ -36,7 +36,7 @@ nav a {
     font-weight: bold;
   }
 
-.navbar-logo a {
+.logo a {
     color: white;
     text-decoration: none;
     font-weight: bold;
@@ -220,6 +220,13 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
+    object-fit: cover;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 @media (max-width: 760px) {

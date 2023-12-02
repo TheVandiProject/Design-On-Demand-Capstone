@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{% static 'designs/css/user_home.css' %}"/>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <script src="{% static 'designs/js/scripts.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
+
 
 {% endblock %}
 
@@ -44,8 +46,8 @@
     </form>
 </div>
 
-{% if form.errors.image %}
-    <h2><p class="error-message">{{ form.errors.image }}</p></h2>
+{% if form.errors %}
+    <h2><p class="error-message">{{ form.errors }}</p></h2>
 {% endif %}
 
 <!-- ML Model Results -->
@@ -89,43 +91,6 @@
     </div>
     {% endif %}
 </div>
-
-
-
- {% comment %} <!-- Slider main container -->
- <div class="swiper">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/31f?text=1" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/e66?text=2" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/7d2?text=3" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400?text=4" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/aba?text=5" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/fc0?text=6" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/800000/fff.jpg&text=7" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ced1/fff.jpg&text=8" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ff7f/fff.jpg&text=9" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/66cdaa/fff.jpg&text=10" class="d-block w-100" alt="..."></div>
-    </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</div>
-<!-- Slider main container -->
-<div class="swiper">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/31f?text=1" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/e66?text=2" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/7d2?text=3" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400?text=4" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/aba?text=5" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/fc0?text=6" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/800000/fff.jpg&text=7" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ced1/fff.jpg&text=8" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ff7f/fff.jpg&text=9" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/66cdaa/fff.jpg&text=10" class="d-block w-100" alt="..."></div>
-    </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</div> {% endcomment %}
 <script src="{% static 'designs/js/carousel.js' %}"></script>
     {% comment %} <footer>
         <!-- Footer content here -->

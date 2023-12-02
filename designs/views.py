@@ -86,7 +86,6 @@ def upload_design_view(request):
         
         if not request.FILES.get('image'):
             form.errors['image'] = 'Please select an image to upload.'
-            return render(request, template_name, {'form': form})
             
         if form.is_valid():
             # file = request.FILES["image"]
@@ -104,7 +103,7 @@ def upload_design_view(request):
             }
             return render(request, template_name, context)
         else:
-            return HttpResponse("Error uploading image")
+            form.errors['upload'] = 'Error uploading image'
         
     return render(request, template_name, {'form': form})
 
