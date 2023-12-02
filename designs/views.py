@@ -24,7 +24,7 @@ def render_user_home_view(request):
 def render_nonuser_home_view(request):
     return render(request, 'designs/NonUser_Home.html')
 
-@login_required
+# @login_required
 def user_settings_view(request):
     return render(request, 'designs/user_settings.html')
 
@@ -136,7 +136,7 @@ def designer_design_upload_view(request):
 
     return render(request, 'designs/upload_design.html', {'form': form, 'design_images': design_images, 'categories': categories,})  
     
-@login_required
+# @login_required
 def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -151,7 +151,7 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     return render(request, 'designs/user_settings.html', {'form': form})
 
-@login_required
+# @login_required
 def update_profile(request):
     if request.method == 'POST':
         new_username = request.POST.get('username')
