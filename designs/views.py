@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .forms import RegisterForm, UploadDesignForm, ProfileUpdateForm
+from .forms import RegisterForm, UploadDesignForm, UploadDesignForm, UploadDesignerDesignForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http import HttpResponse
-from designs.forms import UploadDesignForm
-from .image_label import classify_image
-from .models import ImageUpload
+from .image_label import classify_image, get_designer_images
+from .models import *
+from all_data.models import *
 
 
 def main_page_view(request):
@@ -18,14 +18,18 @@ def index_view(request):
     return render(request, 'designs/index.html')
 
 
-def render_home_view(request):
-    if(request.user.is_authenticated):
-        return render(request, 'designs/user_home.html')
-    else:
-        return render(request, 'designs/NonUser_Home.html')
+def render_user_home_view(request):
+    return render(request, 'designs/user_home.html')
 
+def render_nonuser_home_view(request):
+    return render(request, 'designs/NonUser_Home.html')
+
+@login_required
 def user_settings_view(request):
     return render(request, 'designs/user_settings.html')
+
+# def designer_upload_view(request):
+#     return render(request, 'designs/upload_design.html')
 
 def login_view(request):
     if request.method == "POST":
@@ -69,6 +73,7 @@ def logout_view(request):
     messages.info(request, "You have successfully logged out.", extra_tags='success')
     return redirect("/") 
 
+# NOT RELATED TO UPLOAD DESIGN PAGE
 def upload_design_view(request):
     form = UploadDesignForm()
     if request.user.is_authenticated:
@@ -102,6 +107,34 @@ def upload_design_view(request):
             return HttpResponse("Error uploading image")
         
     return render(request, template_name, {'form': form})
+
+# @login_required
+def designer_design_upload_view(request):
+    categories = Category.objects.all()
+    design_images = get_designer_images(request)
+    if request.method == 'POST':
+            form = UploadDesignerDesignForm(request.POST, request.FILES)
+            if not request.FILES.get('image'):
+                form.errors['image'] = 'Please select an image to upload.'
+                return render(request,"upload_design.html", {'form': form, 'design_images': design_images, 'categories': categories})
+            
+            if form.is_valid():
+                uploaded_image = form.save(commit=False)
+                uploaded_image.user = request.user
+                uploaded_image.save()
+                form.save_m2m()  # Save the categories
+                
+                context={
+                    'form': form, 
+                    'design_images': design_images, 
+                    'categories': categories,
+                }
+                
+                return render(request, 'designs/upload_design.html', context) 
+    else:
+        form = UploadDesignerDesignForm()
+
+    return render(request, 'designs/upload_design.html', {'form': form, 'design_images': design_images, 'categories': categories,})  
     
 @login_required
 def change_password(request):

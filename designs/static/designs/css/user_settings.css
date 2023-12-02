@@ -1,18 +1,61 @@
+
 body {
     background: linear-gradient(to right, #0091ff, #ad2affe8);
     color: white;
-    font-family: Arial, sans-serif;
+    font-family: 'Lato', sans-serif;
   }
+
+  header {
+    background-color: #0091ff;
+    background-image: linear-gradient(to right, #0091ff, #ad2affe8);
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+/* Add your styles here */
+
+body {
+  margin: 0;
+  padding: 0;
+  /* Add any other styles you need for the body */
+}
+
+.goback-container {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+}
+
+.goback-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-decoration: none;
+  background-color: #3498db; /* Use your preferred background color */
+  color: #fff; /* Use your preferred text color */
+  border: 1px solid #2980b9; /* Add a border */
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.goback-button:hover {
+  background-color: #2980b9; /* Change the background color on hover */
+  color: #fff; /* Change the text color on hover */
+  text-decoration: none; /* Remove underline on hover */
+}
+
 
   .profile-section {
     margin-bottom: 20px;
   }
   
-  .profile-picture {
+  /* .profile-picture {
     width: 100px;
     height: 100px;
     border-radius: 50px;
-  }
+  } */
   
   .change-profile-picture-btn {
     display: block;

@@ -1,0 +1,67 @@
+{% extends "designs/base.html" %}
+{% load static %}
+
+{% block title %}User Design Upload Page{% endblock %}
+
+{% block stylesheet%}
+<script src="{% static 'designs/js/scripts.js' %}"></script>
+<link rel="stylesheet" href="{% static 'designs/css/upload_design.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<header>
+<div class="logo">
+    <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+</div>
+  <h1>Upload your own Design</h1>
+
+</header>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <h2 for="id_image">Upload your Design:</h2>
+  {{ upload_form.image }}
+  <input type="file" name="image" id="image" accept="image/*">
+  
+  <label>Categories:</label>
+  <table>
+    {% for i in categories|slice:":25" %}
+      {% if forloop.counter0|divisibleby:5 %}
+        <tr>
+      {% endif %}
+        <td>
+          <div class="checkbox-container">
+            <input type="checkbox" name="categories" id="category_{{ i.id }}" value="{{ i.id }}">
+            <label for="category_{{ i.id }}">{{ i.name }}</label>
+          </div>
+        </td>
+      {% if forloop.counter|divisibleby:5 %}
+        </tr>
+      {% endif %}
+    {% endfor %}
+    </table>
+  <input type="submit" value="Upload Image">
+</form>
+
+
+<h1>Uploaded Images:</h1>
+{% comment %} <ul> {% endcomment %}
+{% comment %} <div class="uploaded_images"> {% endcomment %}
+<div class="swiper">
+    <div class="swiper-wrapper">
+      {% for image in design_images %}
+          <div class="swiper-slide"> 
+              {% comment %} <div class="image"> {% endcomment %}
+                <img src="{{ image.image_url }}" class="d-block w-100" alt="..." height = "auto">
+              {% comment %} </div> {% endcomment %}
+          </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+</div>
+{% comment %} </ul> {% endcomment %}
+<script src="{% static 'designs/js/carousel.js' %}"></script>
+{% endblock %}

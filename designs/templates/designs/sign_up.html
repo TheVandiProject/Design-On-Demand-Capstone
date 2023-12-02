@@ -13,44 +13,32 @@
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+            <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
         </div>
     </header>
    <div class="container">
        <div class="login-form">
            <h2 class="login-title">Sign Up</h2>
            <form action="" method="post"> 
-                {% csrf_token %}
                 {{ form.username.label_tag }} {{ form.username }}
                 {{ form.password.label_tag }} {{ form.password }}
                 <div class="form-group">
-                    <input type="text" name="username" placeholder="Username">
+                    <input type="text" name="email_address" placeholder="Email Address">
                 </div>
                <div class="form-group">
-                   <input type="text" name="email" placeholder="Email">
+                   <input type="text" name="username" placeholder="Username">
                </div>
                <div class="form-group">
-                   <input type="password" name="password1" placeholder="Password">
+                   <input type="password" name="password" placeholder="Password">
                </div>
-               <div class="form-group">
-                   <input type="password" name="password2" placeholder="Confirm Password">
-               </div>
+               {% comment %} {% if form.non_field_errors %}
+                    <p style="color: red;">{{ form.non_field_errors }}</p>
+                {% endif %} {% endcomment %}
                <button type="submit">Sign Up</button>
            </form>
-            {% comment %} {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    {% if message.tags == 'error' %}
-                        <li class="error-message">{{ message }}</li>
-                    {% endif %}
-                {% endfor %}
-            </ul>
-            {% endif %} {% endcomment %}
            
            <p>Already have an account? <a href="{% url 'login' %}" class="login-link">Log In</a></p>
            <p>By creating an account you agree to our <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a></p>
-           {% comment %} TODO Would need to add these pages later 
-           {% url 'terms_and_conditions' %} {% url 'privacy_policy' %} {% endcomment %}
        </div>
    </div>
 
@@ -60,7 +48,6 @@
         <nav>
             <ul>
                 <li><a href="#">About Us</a></li>
-                <li><a href="#">FAQ</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">Privacy Policy</a></li>
             </ul>

@@ -7,43 +7,38 @@
     <!-- Add the path to your custom user home page stylesheet -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="{% static 'designs/js/scripts.js' %}"></script>
     <link rel="stylesheet" href="{% static 'designs/css/user_home.css' %}"/>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+    <script src="{% static 'designs/js/scripts.js' %}"></script>
 
 {% endblock %}
 
 {% block content %}
 <header>
     <div class="logo">
-        <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+        <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
     </div>
-    <!-- Navigation and user profile icon -->
+    {% comment %} <!-- Navigation and user profile icon -->
     <nav>
         <ul>
-            <li><a href="{% url 'user_home' %}">Home</a></li>
-            <li><a href="#">Explore</a></li>
-            <li><a href="#">Catalog</a></li>
+            <li><a href="{% url 'user_home' %}">Main Page</a></li>
         </ul>
-    </nav>
+    </nav> {% endcomment %}
     <!-- User profile icon -->
-        <div class="user-profile">
-            <img src="{% static 'designs/images/user-icon-default-96.png' %}" alt="User Profile" id="profile-icon" onclick="toggleDropdown()">            
-            <!-- User profile menu -->
-            <div class="profile-menu" id="profile-menu">
-                <ul>
-                    <li><a href="{% url 'user_settings' %}">Settings</a></li>
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
-                    <!-- Add more menu options (e.g., change password, email) -->
-                </ul>
-            </div>
-        </div>
+    <span class="burger" onclick="toggleNav()">&#9776;</span>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">&times;</a>
+        <a href="{% url 'designer-upload' %}">Upload Your Design</a>
+        <a href="{% url 'user_settings' %}">Settings</a>
+        <a href="{% url 'logout' %}">Log Out</a>
+    </div>
+    <div class="overlay" onclick="toggleNav()"></div>
 </header>
 
 <div class="upload-form">
     <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
         {% csrf_token %}
-        <label for="image">Upload an image:</label>
+        <h1><label for="image">Upload your image:</label></h1>
         <input type="file" name="image" id="image" accept="image/*">
         <input type="submit" value="Upload Image">
     </form>
@@ -97,7 +92,7 @@
 
 
 
- <!-- Slider main container -->
+ {% comment %} <!-- Slider main container -->
  <div class="swiper">
     <div class="swiper-wrapper">
         <div class="swiper-slide"><img src="//via.placeholder.com/500x400/31f?text=1" class="d-block w-100" alt="..."></div>
@@ -130,7 +125,7 @@
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-</div>
+</div> {% endcomment %}
 <script src="{% static 'designs/js/carousel.js' %}"></script>
     {% comment %} <footer>
         <!-- Footer content here -->

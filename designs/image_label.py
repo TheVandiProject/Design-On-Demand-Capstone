@@ -9,8 +9,26 @@ import requests
 from PIL import Image
 from storages.backends.s3boto3 import S3Boto3Storage
 from DesignOnDemand.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
-from django.core.files.base import ContentFile
 
+
+class S3DesignerDesignsStorage(S3Boto3Storage):
+    location = 'media/designer-uploads/'
+    
+
+def get_designer_images(request):
+    try:
+        base_url = f'https://s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/'
+        
+        # List files in the S3 bucket
+        objects = S3DesignerDesignsStorage().bucket.objects.filter(Prefix=f"media/designer-uploads/")
+
+        # Extract image URLs directly from S3 storage
+        images = [{'image_url': f'{base_url}{obj.key}'} for obj in objects if obj.size > 0]
+
+        return images
+    except Exception as e:
+        return []
+    
 
 def load_labels(filename):
   with open(filename, 'r') as f:
@@ -38,7 +56,7 @@ def get_random_images(label, num_images=10):
         return random.sample(images, min(num_images, len(images)))
     except Exception as e:
         return []
-
+    
 class S3MLStorage(S3Boto3Storage):
     location = 'static/designs/models/'
 
@@ -141,7 +159,7 @@ def classify_image(image_url):
     "top_images": top_images,
     "other_predictions": predictions,
     }
-    return final_result    
+    return final_result
     # """Takes an uploaded image as a query and returns the predictions for two models."""
     # image_file = request.FILES["image"]
     
