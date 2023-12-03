@@ -112,6 +112,13 @@ def update_profile(request):
         # if not new_username and not new_email_address:
         #     messages.error(request, 'Please enter a valid username or email.')
 
+        if 'update_password' in request.POST:
+            this_email_address = request.data['email_address']
+            this_username = request.data['username']
+            old_password = request.data['old_password']
+            new_password = request.data['new_password']
+            Users.objects.all().filter(email_address=this_email_address).filter(username=this_username).filter(password=old_password).update(password=new_password)
+
         return redirect('user_home')
         #return print()#redirect('user_settings')
     

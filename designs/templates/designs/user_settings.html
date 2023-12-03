@@ -34,7 +34,7 @@
     <input type="email" name="old_email_address">
     <label for="email">New Email Address:</label>
     <input type="email" name="new_email_address">
-    <button type="submit" name="update_email" class="profile-btn">Update Email</button>
+    <button type="submit" name="update_email" class="profile-btn">Update Email Address</button>
   </div>
 </form>
 
@@ -54,8 +54,29 @@
     <button type="submit" name="update_username"class="profile-btn">Update Username</button>
   </div>
 </form>
+
+<div class="media">
+  <div class="media-body">
+    <legend class="border-bottom mb-4">Change Password</legend>
+  </div>
 </div>
 
+<!-- Update Username Form -->
+<form method="post" action="{% url 'update_profile' %}">
+  <div class="setting">
+    <label for="username">Current Email Address:</label>
+    <input type="text" name="email_address" >
+    <label for="username">Current Username:</label>
+    <input type="text" name="username" >
+    <label for="username">Current Password:</label>
+    <input type="text" name="old_password" >
+    <label for="username">New Password:</label>
+    <input type="text" name="new_password" >
+    <button type="submit" name="update_password"class="password-btn">Update Password</button>
+  </div>
+</form>
+</div>
+</div>
 
 <div class="settings">
   <legend class="border-bottom mb-4">Privacy</legend>
