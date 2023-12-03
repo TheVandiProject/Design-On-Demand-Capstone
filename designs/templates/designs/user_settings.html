@@ -72,48 +72,33 @@
     <input type="text" name="old_password" >
     <label for="username">New Password:</label>
     <input type="text" name="new_password" >
-    <button type="submit" name="update_password"class="password-btn">Update Password</button>
+    <button type="submit" name="update_password" class="password-btn">Update Password</button>
+  </div>
+</form>
+
+
+<div class="media">
+  <div class="media-body">
+    <legend class="border-bottom mb-4">Delete Account</legend>
+  </div>
+</div>
+
+<form method="post" action="{% url 'update_profile' %}">
+  <div class="setting">
+    <p>Do you want to delete your account?</p>
+    <p>This action cannot be undone.</p>
+    <label for="username">Email Address:</label>
+    <input type="text" name="email_address" >
+    <label for="username">Username:</label>
+    <input type="text" name="username" >
+    <label for="username">Password:</label>
+    <input type="text" name="password" >
+    <p></p>
+    <p>Press the button to delete account</p>
+    <button type="submit" name="delete_account" class="delete-btn">Delete Account</button>
   </div>
 </form>
 </div>
 </div>
-
-<div class="settings">
-  <legend class="border-bottom mb-4">Privacy</legend>
-  <form method="post" action="{% url 'change_password' %}">
-    {{ form.non_field_errors }}
-    <div class="setting">
-      <label for="{{ form.old_password.id_for_label }}">Old Password:</label>
-      <input type="password" id="{{ form.old_password.id_for_label }}" name="{{ form.old_password.html_name }}" required>
-      {{ form.old_password.errors }}
-    </div>
-
-    <div class="setting">
-      <label for="{{ form.new_password1.id_for_label }}">New Password:</label>
-      <input type="password" id="{{ form.new_password1.id_for_label }}" name="{{ form.new_password1.html_name }}" required>
-      {{ form.new_password1.errors }}
-    </div>
-
-    <div class="setting">
-      <label for="{{ form.new_password2.id_for_label }}">Confirm New Password:</label>
-      <input type="password" id="{{ form.new_password2.id_for_label }}" name="{{ form.new_password2.html_name }}" required>
-      {{ form.new_password2.errors }}
-    </div>
-
-    <button type="submit" class="password-btn">Update Password</button>
-  </form>
-  
-    <form action="#" method="post" class="delete-account-form">
-      {% csrf_token %}
-  
-      <div class="setting">
-        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
-        <input type="checkbox" id="delete_confirmation" name="delete_confirmation" required>
-        <label for="delete_confirmation">I confirm that I want to delete my account.</label>
-  
-        <button type="submit" class="delete-btn">Delete Account</button>
-      </div>
-    </form>
-</div>  
 
 {% endblock %}

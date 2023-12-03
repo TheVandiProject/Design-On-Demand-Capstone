@@ -119,21 +119,13 @@ def update_profile(request):
             new_password = request.data['new_password']
             Users.objects.all().filter(email_address=this_email_address).filter(username=this_username).filter(password=old_password).update(password=new_password)
 
+
+        if 'delete_account' in request.POST:
+            this_email_address = request.data['email_address']
+            this_username = request.data['username']
+            this_password = request.data['password']
+            Users.objects.all().filter(email_address=this_email_address).filter(username=this_username).filter(password=this_password).update(is_deleted=True)
+            return redirect('designs')
+
         return redirect('user_home')
         #return print()#redirect('user_settings')
-    
-
-def change_password(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
-            return redirect('user_settings')
-        else:
-            messages.error(request, 'Please correct the error below.')
-    else:
-        form = PasswordChangeForm(request.user)
-    return render(request, 'designs/user_settings.html', {'form': form})
-
