@@ -19,10 +19,11 @@
   <div class="goback-container">
     <a href="{% url 'user_home' %}" class="goback-button">Go Back</a>
   </div>
-  <h1>Upload your own Design</h1>
+  <div class="title-container">
+    <h1>Upload your own Design</h1>
+  </div>
 
 </header>
-
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <h2 for="id_image">Upload your Design:</h2>

@@ -192,6 +192,37 @@ h2 {
     }
 }
 
+.pre-upload-content {
+    background-color: white;
+    padding: 30px;
+    text-align: center;
+  }
+  
+  .pre-upload-content h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #0091ff;
+  }
+  
+  .pre-upload-content p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .pre-upload-content a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ad2affe8;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+  }  
+
 /* Footer Styles (customize as needed) */
 footer {
     background-color: #333333;

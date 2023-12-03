@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, UploadDesignForm, UploadDesignForm, UploadDesignerDesignForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
-from django.http import HttpResponse
 from .image_label import classify_image, get_designer_images
 from .models import *
 from all_data.models import *
@@ -86,7 +85,7 @@ def upload_user_content_view(request):
         form = UploadDesignForm(request.POST, request.FILES)
         
         if not request.FILES.get('image'):
-            form.errors['image'] = 'Please select an image to upload.'
+            form.errors['image'] = 'Please upload an image'
             
         if form.is_valid():
             # file = request.FILES["image"]
@@ -121,7 +120,7 @@ def upload_nonuser_content_view(request):
         form = UploadDesignForm(request.POST, request.FILES)
         
         if not request.FILES.get('image'):
-            form.errors['image'] = 'Please select an image to upload.'
+            form.errors['image'] = 'Please upload an image'
             
         if form.is_valid():
             # file = request.FILES["image"]
@@ -185,11 +184,11 @@ def designer_design_upload_view(request):
     if request.method == 'POST':
             form = UploadDesignerDesignForm(request.POST, request.FILES)
             if not request.FILES.get('image'):
-                form.errors['image'] = 'Please select an image to upload.'
+                form.errors['image'] = 'Please upload an image'
             
             if form.is_valid():
                 if not form.cleaned_data['categories']:
-                    form.errors['categories'] = 'Please select at least one category.'
+                    form.errors['categories'] = 'Please select at least one category'
             
             if form.is_valid():                    
                 uploaded_image = form.save(commit=False)

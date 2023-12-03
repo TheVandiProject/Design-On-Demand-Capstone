@@ -7,8 +7,6 @@
     <!-- Add the path to your custom user home page stylesheet -->
     <link rel="stylesheet" href="{% static 'designs/css/nonuser_home.css' %}"/>
     <script src="{% static 'designs/js/scripts.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{%static 'designs/css/loading-bar.css'%}"/>
-    <script type="text/javascript" src="{%static 'designs/css/loading-bar.js'%}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
@@ -24,14 +22,6 @@
     <div class="logo">
         <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
     </div>
-    {% comment %} <!-- Navigation and user profile icon --> {% endcomment %}
-    {% comment %} <nav>
-        <ul>
-            <li><a href="{% url 'designs' %}">Main Page</a></li>
-            <li><a href="#">Explore</a></li>
-            <li><a href="#">Catalog</a></li>
-        </ul>
-    </nav> {% endcomment %}
     <div class="user-actions">
         <a href="{% url 'login' %}" class="login">Login</a>
         <a href="{% url 'signup' %}" class="signup">Create an Account</a>
@@ -102,5 +92,61 @@
     </div>
 <script src="{% static 'designs/js/carousel.js' %}"></script>
 {% endif %}
+<div class="pre-upload-content">
+    <h2>Unleash the Power of Artificial Intelligence for Home Design Inspiration</h2>
+    <p>
+      Welcome to <strong> Design on Demand</strong>, the revolutionary tool that harnesses the power of artificial intelligence to transform your home décor aspirations into reality. Our cutting-edge TensorFlow image classification model seamlessly identifies and classifies images, enabling you to find the perfect design inspiration simply by uploading a picture.
+    </p>
+    <p>
+      Gone are the days of endlessly browsing through countless design catalogs or websites. With Design on Demand, simply upload an image that captures your desired style, and our intelligent system will instantly present you with a curated selection of matching designs. Whether you're seeking inspiration for a complete home makeover or refreshing a specific room, our tool simplifies the search process and eliminates the guesswork.
+    </p>
+    <p>
+      Design on Demand is not just for finding inspiration; it's also a platform for aspiring designers to showcase their creativity. By creating an account and uploading your own designs, you can gain exposure, build your portfolio, and potentially connect with clients seeking your expertise.
+    </p>
+    <p>
+      Our user-friendly application supports a wide range of file formats, including PNG, JPEG, and GIF, eliminating the need to worry about file type compatibility. Simply upload your desired image, and our system will automatically detect and process it.
+    </p>
+    <p>
+      Design on Demand is your gateway to a world of design possibilities. With its easy-to-use interface and powerful image classification model, our tool empowers you to find the perfect design inspiration for your home. Additionally, aspiring designers can use the platform to showcase their talent and connect with potential clients.
+    </p>
+    <a href="{% url 'signup' %}">
+      <h2>Sign Up Today and Start Exploring</h2>
+    </a>
+  </div>      
+
+  <style>
+    .pre-upload-content {
+        background-color: white;
+        padding: 50px 20px;
+        margin: 0 auto;
+        max-width: 800px;
+        text-align: center;
+      }
+      
+      .pre-upload-content h2 {
+        font-size: 32px;
+        font-weight: bold;
+        color: white;
+      }
+      
+      .pre-upload-content p {
+        font-size: 20px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      
+      .pre-upload-content a {
+        display: inline-block;
+        padding: 15px;
+        background: linear-gradient(to right, #0091ff, #ad2affe8);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+</style>
 
 {% endblock %}
