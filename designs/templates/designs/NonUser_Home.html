@@ -7,12 +7,12 @@
     <!-- Add the path to your custom user home page stylesheet -->
     <link rel="stylesheet" href="{% static 'designs/css/nonuser_home.css' %}"/>
     <script src="{% static 'designs/js/scripts.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="loading-bar.css"/>
-    <script type="text/javascript" src="loading-bar.js"></script>
+    <link rel="stylesheet" type="text/css" href="{%static 'designs/css/loading-bar.css'%}"/>
+    <script type="text/javascript" src="{%static 'designs/css/loading-bar.js'%}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/loadingio/ldLoader@v1.0.0/dist/ldld.min.css"/>
-    <script src="https://cdn.jsdelivr.net/gh/loadingio/ldLoader@v1.0.0/dist/ldld.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
+    <link rel="stylesheet" href="{% static 'designs/css/loading-anim.css' %}"/>
 
 
 {% endblock %}
@@ -36,30 +36,13 @@
         <a href="{% url 'signup' %}" class="signup">Create an Account</a>
     </div>
 </header>
-<style>
-    .ld {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateY(-50%);
-    }
-</style>
-<script>
-    var btn = document.getElementById("mybtn");
-    var form = document.getElementById("design-form");
-    var loader = new ldLoader({ root: btn });
-    
-    form.addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent the form from submitting immediately
-        loader.toggle(); // Start the loading animation
-    });
-</script>
 <div class="upload-form">
-    <form id="design-form" method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
+    <form method="post" enctype="multipart/form-data" action="{% url 'upload_design' %}">
         {% csrf_token %}
-        <h1><label for="image">Upload your image:</label> </h1>
+        <h1><label for="image">Upload your image:</label></h1>
         <input type="file" name="image" id="image" accept="image/*">
-        <input type="submit" id="mybtn" class="btn btn-primary ld-ext-right ld-ring ld-spin" value="Upload Image" onclick="this.classList.toggle('running')">
+        <input type="submit" value="Upload Image" class="btn btn-primary ld-ext-right">
+        <div class="ld ld-ring ld-spin"></div>
     </form>
 </div>
 
