@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="{% static 'designs/css/user_home.css' %}"/>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <script src="{% static 'designs/js/scripts.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
+    <link
+  rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
 
 
 {% endblock %}
@@ -38,16 +39,26 @@
 </header>
 
 <div class="upload-form">
-    <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
+    <form method="post" enctype="multipart/form-data" action="{% url 'upload_design' %}">
         {% csrf_token %}
         <h1><label for="image">Upload your image:</label></h1>
         <input type="file" name="image" id="image" accept="image/*">
-        <input type="submit" value="Upload Image">
+        <button type="submit" id="mybtn" class="btn ld-ext-right">
+            Upload Image
+            <div class="ld ld-ring ld-spin"></div>
+        </button>
     </form>
 </div>
+<script>
+    var btn = document.getElementById("mybtn");
+    var loader = new ldLoader({ root: btn });
+    btn.addEventListener("click", function() {
+      loader.toggle();
+    });
+  </script>
 
-{% if form.errors %}
-    <h2><p class="error-message">{{ form.errors }}</p></h2>
+{% if form.errors.image %}
+    <h2><p class="error-message">{{ form.errors.image }}</p></h2>
 {% endif %}
 
 <!-- ML Model Results -->

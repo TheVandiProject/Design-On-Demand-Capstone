@@ -126,7 +126,7 @@ nav a {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.upload-form input[type="submit"] {
+.upload-form button[type="submit"] {
     padding: 10px 20px;
     background-color: #fff;
     color: #0091ff;
@@ -136,7 +136,7 @@ nav a {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.upload-form input[type="submit"]:hover {
+.upload-form button[type="submit"]:hover {
     background-color: #ad2affe8;
     color: #fff;
 }

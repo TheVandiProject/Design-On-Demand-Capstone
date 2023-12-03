@@ -43,11 +43,6 @@ nav a {
     font-size: 20px;
 }
 
-.logo img{
-    width: 150px;
-    height: 150px;
-}
-
 .user-actions {
     display: flex;
   }
@@ -83,7 +78,7 @@ nav a {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.upload-form input[type="submit"] {
+.upload-form button[type="submit"] {
     padding: 10px 20px;
     background-color: #fff;
     color: #0091ff;
@@ -93,18 +88,10 @@ nav a {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.upload-form input[type="submit"]:hover {
+.upload-form button[type="submit"]:hover {
     background-color: #ad2affe8;
     color: #fff;
 }
-
-/* Style the loading animation */
-/* .upload-form .ld {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-} */
 
 .error-message {
     color: #ff0000;
@@ -116,7 +103,7 @@ nav a {
 
 /* Model Predictions styles
     * Note: the model predictions are displayed in a carousel
-    *       with 3-5 items per slide
+    *       with 10 items per slide
     */
 .top-result{
     text-align: center;
