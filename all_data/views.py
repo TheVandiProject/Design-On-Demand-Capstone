@@ -58,7 +58,7 @@ def user_login_view(request):
     if request.method == 'POST':
         user = request.data['username']
         passw = request.data['password']
-        books = Users.objects.all().filter(username=user).filter(password=passw)
+        books = Users.objects.all().filter(username=user).filter(password=passw).filter(is_deleted=False)
         if len(books) == 0:
             return render(request, 'designs/login_page.html')
         else:
