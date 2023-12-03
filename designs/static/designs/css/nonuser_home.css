@@ -99,12 +99,12 @@ nav a {
 }
 
 /* Style the loading animation */
-.upload-form .ld {
+/* .upload-form .ld {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
-}
+} */
 
 .error-message {
     color: #ff0000;

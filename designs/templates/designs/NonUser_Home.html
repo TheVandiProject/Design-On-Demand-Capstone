@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
-    <link rel="stylesheet" href="{% static 'designs/css/loading-anim.css' %}"/>
+    <script src="https://cdn.jsdelivr.net/gh/loadingio/ldLoader@v1.0.0/dist/ldld.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/loadingio/loading.css@v2.0.0/dist/loading.css">
 
 
 {% endblock %}
@@ -41,10 +42,40 @@
         {% csrf_token %}
         <h1><label for="image">Upload your image:</label></h1>
         <input type="file" name="image" id="image" accept="image/*">
-        <input type="submit" value="Upload Image" class="btn btn-primary ld-ext-right">
+        <input type="submit" value="Upload Image" id="mybtn" class="btn ld-ext-right">
         <div class="ld ld-ring ld-spin"></div>
     </form>
 </div>
+<script>
+    var btn = document.getElementById("mybtn");
+    var loader = new ldLoader({ root: btn });
+    btn.addEventListener("click", function() {
+      loader.toggle();
+    });
+  </script>
+{% comment %} <style>
+    .upload-form .btn {
+        padding: 10px 20px;
+        background-color: #fff;
+        color: #0091ff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    
+    .upload-form .btn:hover {
+        background-color: #ad2affe8;
+        color: #fff;
+    }
+</style>
+<script>
+    var btn = document.getElementById("mybtn");
+    var loader = new ldLoader({ root: btn });
+    btn.addEventListener("click", function() {
+        loader.toggle();
+    });
+</script> {% endcomment %}
 
 {% if form.errors.image %}
     <h2><p class="error-message">{{ form.errors.image }}</p></h2>
