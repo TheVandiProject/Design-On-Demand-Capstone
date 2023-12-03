@@ -5,15 +5,15 @@
 
 {% block stylesheet %}
     <!-- Add the path to your custom user home page stylesheet -->
+    <link rel="stylesheet" href="{% static 'designs/css/user_home.css' %}"/>
+    <script src="{% static 'designs/js/scripts.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{%static 'designs/css/loading-bar.css'%}"/>
+    <script type="text/javascript" src="{%static 'designs/css/loading-bar.js'%}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="{% static 'designs/css/user_home.css' %}"/>
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-    <script src="{% static 'designs/js/scripts.js' %}"></script>
-    <link
-  rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
-
-
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/loadingio/ldLoader@v1.0.0/dist/ldld.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/loadingio/loading.css@v2.0.0/dist/loading.css">
 {% endblock %}
 
 {% block content %}
@@ -39,7 +39,7 @@
 </header>
 
 <div class="upload-form">
-    <form method="post" enctype="multipart/form-data" action="{% url 'upload_design' %}">
+    <form method="post" enctype="multipart/form-data" action="{% url 'upload_user_content' %}">
         {% csrf_token %}
         <h1><label for="image">Upload your image:</label></h1>
         <input type="file" name="image" id="image" accept="image/*">
@@ -49,13 +49,14 @@
         </button>
     </form>
 </div>
+{% comment %} CANNOT BE MOVED TO SEPERATE JS FILE {% endcomment %}
 <script>
     var btn = document.getElementById("mybtn");
-    var loader = new ldLoader({ root: btn });
+    var loader = new ldLoader({ root: btn }); {% comment %} This prevents it from working outside of the template {% endcomment %}
     btn.addEventListener("click", function() {
       loader.toggle();
     });
-  </script>
+</script>
 
 {% if form.errors.image %}
     <h2><p class="error-message">{{ form.errors.image }}</p></h2>

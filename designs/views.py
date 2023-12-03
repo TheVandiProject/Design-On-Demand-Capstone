@@ -74,12 +74,84 @@ def logout_view(request):
     return redirect("/") 
 
 # NOT RELATED TO UPLOAD DESIGN PAGE
+def upload_user_content_view(request):
+    form = UploadDesignForm()
+    # if request.user.is_authenticated:
+    template_name = 'designs/user_home.html'
+    #     redirect_name = 'user_home'
+    # else:
+    #     template_name = 'designs/NonUser_Home.html'
+    #     redirect_name = 'nonuser_home'
+    
+    if request.method == "POST":
+        form = UploadDesignForm(request.POST, request.FILES)
+        
+        if not request.FILES.get('image'):
+            form.errors['image'] = 'Please select an image to upload.'
+            
+        if form.is_valid():
+            # file = request.FILES["image"]
+            file = ImageUpload(image = request.FILES['image'])  
+            file.save()
+            image_url = file.image.url
+            
+            uploaded_image_url = f"{image_url}"
+            classification_result = classify_image(image_url)
+            
+            context = {
+                'form': form,
+                'classification_result': classification_result,
+                'uploaded_image_url': uploaded_image_url,
+            }
+            return render(request, template_name, context)
+        else:
+            form.errors['upload'] = 'Error uploading image'
+        
+    return render(request, template_name, {'form': form})
+
+def upload_nonuser_content_view(request):
+    form = UploadDesignForm()
+    # if request.user.is_authenticated:
+    # template_name = 'designs/user_home.html'
+    #     redirect_name = 'user_home'
+    # else:
+    template_name = 'designs/NonUser_Home.html'
+    #     redirect_name = 'nonuser_home'
+    
+    if request.method == "POST":
+        form = UploadDesignForm(request.POST, request.FILES)
+        
+        if not request.FILES.get('image'):
+            form.errors['image'] = 'Please select an image to upload.'
+            
+        if form.is_valid():
+            # file = request.FILES["image"]
+            file = ImageUpload(image = request.FILES['image'])  
+            file.save()
+            image_url = file.image.url
+            
+            uploaded_image_url = f"{image_url}"
+            classification_result = classify_image(image_url)
+            
+            context = {
+                'form': form,
+                'classification_result': classification_result,
+                'uploaded_image_url': uploaded_image_url,
+            }
+            return render(request, template_name, context)
+        else:
+            form.errors['upload'] = 'Error uploading image'
+        
+    return render(request, template_name, {'form': form})
+
 def upload_design_view(request):
     form = UploadDesignForm()
-    if request.user.is_authenticated:
-        template_name = 'designs/user_home.html'
-    else:
-        template_name = 'designs/NonUser_Home.html'
+    # if request.user.is_authenticated:
+    template_name = 'designs/user_home.html'
+    #     redirect_name = 'user_home'
+    # else:
+    #     template_name = 'designs/NonUser_Home.html'
+    #     redirect_name = 'nonuser_home'
     
     if request.method == "POST":
         form = UploadDesignForm(request.POST, request.FILES)

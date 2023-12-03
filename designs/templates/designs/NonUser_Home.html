@@ -38,7 +38,7 @@
     </div>
 </header>
 <div class="upload-form">
-    <form method="post" enctype="multipart/form-data" action="{% url 'upload_design' %}">
+    <form method="post" enctype="multipart/form-data" action="{% url 'upload_nonuser_content' %}">
         {% csrf_token %}
         <h1><label for="image">Upload your image:</label></h1>
         <input type="file" name="image" id="image" accept="image/*">
@@ -48,13 +48,14 @@
         </button>
     </form>
 </div>
+{% comment %} CANNOT BE MOVED TO SEPERATE JS FILE {% endcomment %}
 <script>
     var btn = document.getElementById("mybtn");
-    var loader = new ldLoader({ root: btn });
+    var loader = new ldLoader({ root: btn }); {% comment %} This prevents it from working outside of the template {% endcomment %}
     btn.addEventListener("click", function() {
       loader.toggle();
     });
-  </script>
+</script>
 
 {% if form.errors.image %}
     <h2><p class="error-message">{{ form.errors.image }}</p></h2>
