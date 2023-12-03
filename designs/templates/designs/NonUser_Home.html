@@ -52,13 +52,12 @@
 {% endif %}
 
 <!-- ML Model Results -->
-<!-- ML Model Results -->
 <div class="top-result" id="top-result">
     {% if classification_result %}
     <div id="top-prediction" class="top-prediction">
         <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
         <h2>Classification Results:</h2>
-        <p><strong>Our Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
+        <h3>Our Top Prediction: <strong> {{ classification_result.top_predictions }}</strong></h3>
         {% comment %} <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p> {% endcomment %}
         <!-- Swiper main container for top prediction -->
         <div class="swiper">
