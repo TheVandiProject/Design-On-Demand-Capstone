@@ -98,15 +98,13 @@
                 </div>
             {% endfor %}
         </ul>
-    </div>
+        <div id="feedback-section">
+            <h4>Did you find what you were looking for? Let us know!</h4>
+            <button id="thumbs-up" onclick="vote('up')">👍</button>
+            <button id="thumbs-down" onclick="vote('down')">👎</button>
+            <h5 id="vote-message" class="vote-message"></h5>
+        </div>
     {% endif %}
-</div>
-
-<div id="feedback-section">
-    <h4>Did you find what you were looking for? Let us know!</h4>
-    <button id="thumbs-up" onclick="vote('up')">👍</button>
-    <button id="thumbs-down" onclick="vote('down')">👎</button>
-    <h5 id="vote-message"></h5>
 </div>
 
 <script src="{% static 'designs/js/carousel.js' %}"></script>

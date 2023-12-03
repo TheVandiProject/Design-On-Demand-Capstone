@@ -52,13 +52,14 @@
 {% endif %}
 
 <!-- ML Model Results -->
+<!-- ML Model Results -->
 <div class="top-result" id="top-result">
     {% if classification_result %}
     <div id="top-prediction" class="top-prediction">
         <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
-        <h1>Classification Results:</h2>
-        <h3><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</h3>
-        <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
+        <h2>Classification Results:</h2>
+        <p><strong>Our Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
+        {% comment %} <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p> {% endcomment %}
         <!-- Swiper main container for top prediction -->
         <div class="swiper">
             <div class="swiper-wrapper">
@@ -72,11 +73,11 @@
     </div>
 
     <div class="other-predictions" id="other-predictions">
-        <h1>Other Options</h1>
+        <h1>Other Options and Suggestions</h1>
         <ul>
             {% for prediction in classification_result.other_predictions %}
                 <li><h3><strong>{{ prediction.label }} </strong></h3></li>
-                <li>Confidence: {{ prediction.confidence }}</li>
+                {% comment %} <li>Confidence: {{ prediction.confidence }}</li> {% endcomment %}
                 <!-- Swiper main container for other predictions -->
                 <div class="swiper">
                     <div class="swiper-wrapper">
@@ -89,17 +90,17 @@
                 </div>
             {% endfor %}
         </ul>
-    </div>
-
-    <div id="feedback-section">
-        <h4>Did you find what you were looking for? Let us know!</h4>
-        <button id="thumbs-up" onclick="vote('up')">👍</button>
-        <button id="thumbs-down" onclick="vote('down')">👎</button>
-        <h5 id="vote-message"></h5>
-    </div>
+        <div id="feedback-section">
+            <h4>Did you find what you were looking for? Let us know!</h4>
+            <button id="thumbs-up" onclick="vote('up')">👍</button>
+            <button id="thumbs-down" onclick="vote('down')">👎</button>
+            <h5 id="vote-message" class="vote-message"></h5>
+        </div>
+    {% endif %}
+</div>
 
 <script src="{% static 'designs/js/carousel.js' %}"></script>
-{% endif %}
+
 <div class="pre-upload-content">
     <h2>Unleash the Power of Artificial Intelligence for Home Design Inspiration</h2>
     <p>
@@ -121,5 +122,4 @@
       <h2>Sign Up Today and Start Exploring</h2>
     </a>
   </div>      
-
 {% endblock %}
