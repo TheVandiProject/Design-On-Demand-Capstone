@@ -56,8 +56,8 @@
     {% if classification_result %}
     <div id="top-prediction" class="top-prediction">
         <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
-        <h2>Classification Results:</h2>
-        <p><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
+        <h1>Classification Results:</h2>
+        <h3><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</h3>
         <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
         <!-- Swiper main container for top prediction -->
         <div class="swiper">

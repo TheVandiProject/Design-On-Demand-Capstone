@@ -72,7 +72,7 @@ def logout_view(request):
     return redirect("/") 
 
 # NOT RELATED TO UPLOAD DESIGN PAGE
-def upload_user_content_view(request):
+def upload_user_content(request):
     form = UploadDesignForm()
     # if request.user.is_authenticated:
     template_name = 'designs/user_home.html'
