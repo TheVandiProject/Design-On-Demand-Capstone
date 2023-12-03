@@ -16,9 +16,9 @@
 
 {% block content %}
 <header>
-<div class="logo">
-    <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
-</div>
+  <div class="goback-container">
+    <a href="{% url 'user_home' %}" class="goback-button">Go Back</a>
+  </div>
   <h1>Upload your own Design</h1>
 
 </header>
@@ -61,6 +61,19 @@
   });
 </script>
 
+<h2 class="success-message">{{ success_message }}</h2>
+
+{% if form.errors.image and not form.errors.categories %}
+    <h2><p class="error-message">{{ form.errors.image }}</p></h2>
+{% endif %}
+
+{% if form.errors.categories and not form.errors.image %}
+    <h2><p class="error-message">Please select at least one category</p></h2>
+{% endif %}
+
+{% if form.errors.image and form.errors.categories %}
+    <h2><p class="error-message">Please upload an image and select at least one category</p></h2>
+{% endif %}
 
 <h1>Uploaded Images:</h1>
 {% comment %} <ul> {% endcomment %}

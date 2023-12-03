@@ -59,14 +59,13 @@ def signup_view(request):
             user = form.save()
             login(request, user)
             messages.success(request, f"Account created successfully!", extra_tags='success')
-            return redirect('user_home') #TODO change later to the user home page       
+            return redirect('user_home')      
         # form.add_error(None, "Unsuccessful registration. Invalid information.")
     else:
         messages.error(request, "Unsuccessful registration. Invalid information.", extra_tags='error')
         form = RegisterForm()
       
     return render(request, 'designs/sign_up.html', {'signin_form': form})
-
 
 def logout_view(request):
     logout(request)
@@ -144,7 +143,7 @@ def upload_nonuser_content_view(request):
         
     return render(request, template_name, {'form': form})
 
-def upload_design_view(request):
+# def upload_design_view(request):
     form = UploadDesignForm()
     # if request.user.is_authenticated:
     template_name = 'designs/user_home.html'
@@ -187,11 +186,13 @@ def designer_design_upload_view(request):
             form = UploadDesignerDesignForm(request.POST, request.FILES)
             if not request.FILES.get('image'):
                 form.errors['image'] = 'Please select an image to upload.'
-                return render(request,"upload_design.html", {'form': form, 'design_images': design_images, 'categories': categories})
             
             if form.is_valid():
+                if not form.cleaned_data['categories']:
+                    form.errors['categories'] = 'Please select at least one category.'
+            
+            if form.is_valid():                    
                 uploaded_image = form.save(commit=False)
-                uploaded_image.user = request.user
                 uploaded_image.save()
                 form.save_m2m()  # Save the categories
                 
@@ -199,6 +200,7 @@ def designer_design_upload_view(request):
                     'form': form, 
                     'design_images': design_images, 
                     'categories': categories,
+                    'success_message': 'Your design has been uploaded!',
                 }
                 
                 return render(request, 'designs/upload_design.html', context) 

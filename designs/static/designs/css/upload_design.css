@@ -18,6 +18,30 @@ header {
     align-items: center;
   }
 
+  .goback-container {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+  }
+  
+  .goback-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    background-color: #ad2affe8; /* Use your preferred background color */
+    color: #fff; /* Use your preferred text color */
+    border: 1px solid #ad2affe8; /* Add a border */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .goback-button:hover {
+    background-color: rgba(104, 0, 168, 0.91); /* Change the background color on hover */
+    color: #fff; /* Change the text color on hover */
+    text-decoration: none; /* Remove underline on hover */
+  }
+
 form {
     max-width: 600px;
     margin: 50px auto;
@@ -84,6 +108,13 @@ button[type="submit"]:hover {
 
 .error-message {
     color: #ff0000;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.success-message {
+    color: #4caf50;
     font-weight: bold;
     margin-top: 10px;
     text-align: center;
