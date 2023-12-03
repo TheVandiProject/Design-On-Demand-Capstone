@@ -90,6 +90,14 @@
             {% endfor %}
         </ul>
     </div>
+
+    <div id="feedback-section">
+        <h4>Did you find what you were looking for? Let us know!</h4>
+        <button id="thumbs-up" onclick="vote('up')">👍</button>
+        <button id="thumbs-down" onclick="vote('down')">👎</button>
+        <h5 id="vote-message"></h5>
+    </div>
+
 <script src="{% static 'designs/js/carousel.js' %}"></script>
 {% endif %}
 <div class="pre-upload-content">
@@ -113,40 +121,5 @@
       <h2>Sign Up Today and Start Exploring</h2>
     </a>
   </div>      
-
-  <style>
-    .pre-upload-content {
-        background-color: white;
-        padding: 50px 20px;
-        margin: 0 auto;
-        max-width: 800px;
-        text-align: center;
-      }
-      
-      .pre-upload-content h2 {
-        font-size: 32px;
-        font-weight: bold;
-        color: white;
-      }
-      
-      .pre-upload-content p {
-        font-size: 20px;
-        line-height: 1.6;
-        margin-bottom: 10px;
-        color: #333;
-      }
-      
-      .pre-upload-content a {
-        display: inline-block;
-        padding: 15px;
-        background: linear-gradient(to right, #0091ff, #ad2affe8);
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 16px;
-        font-weight: bold;
-        margin-top: 20px;
-      }
-</style>
 
 {% endblock %}

@@ -241,6 +241,25 @@ h2 {
     }
 }
 
+.feedback-section {
+    text-align: center;
+    padding: 20px;
+}
+
+.feedback-section button {
+    font-size: 24px;
+    margin: 10px;
+}
+
+.feedback-section button.clicked {
+    background-color: #ddd;
+}
+
+.vote-message {
+    font-size: 18px;
+    color: green;
+}
+
 /* Footer Styles (customize as needed) */
 footer {
     background-color: #333333;

@@ -16,3 +16,19 @@ var loader = new ldLoader({ root: btn });
 btn.addEventListener("click", function() {
   loader.toggle();
 });
+
+function vote(type) {
+  var messageElement = document.getElementById('vote-message');
+  var thumbsUpButton = document.getElementById('thumbs-up');
+  var thumbsDownButton = document.getElementById('thumbs-down');
+  
+  if (type === 'up') {
+      thumbsUpButton.classList.add('clicked');
+      thumbsDownButton.classList.remove('clicked');
+      messageElement.textContent = 'Thank you for your feedback!';
+  } else if (type === 'down') {
+      thumbsDownButton.classList.add('clicked');
+      thumbsUpButton.classList.remove('clicked');
+      messageElement.textContent = 'Thank you for your feedback!';
+  }
+}

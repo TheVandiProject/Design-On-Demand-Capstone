@@ -66,8 +66,8 @@
     <div id="top-prediction" class="top-prediction">
         <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
         <h2>Classification Results:</h2>
-        <p><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
-        <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
+        <p><strong>Our Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
+        {% comment %} <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p> {% endcomment %}
         <!-- Swiper main container for top prediction -->
         <div class="swiper">
             <div class="swiper-wrapper">
@@ -81,11 +81,11 @@
     </div>
 
     <div class="other-predictions" id="other-predictions">
-        <h1>Other Options</h1>
+        <h1>Other Options and Suggestions</h1>
         <ul>
             {% for prediction in classification_result.other_predictions %}
                 <li><h3><strong>{{ prediction.label }} </strong></h3></li>
-                <li>Confidence: {{ prediction.confidence }}</li>
+                {% comment %} <li>Confidence: {{ prediction.confidence }}</li> {% endcomment %}
                 <!-- Swiper main container for other predictions -->
                 <div class="swiper">
                     <div class="swiper-wrapper">
@@ -101,6 +101,14 @@
     </div>
     {% endif %}
 </div>
+
+<div id="feedback-section">
+    <h4>Did you find what you were looking for? Let us know!</h4>
+    <button id="thumbs-up" onclick="vote('up')">👍</button>
+    <button id="thumbs-down" onclick="vote('down')">👎</button>
+    <h5 id="vote-message"></h5>
+</div>
+
 <script src="{% static 'designs/js/carousel.js' %}"></script>
     {% comment %} <footer>
         <!-- Footer content here -->

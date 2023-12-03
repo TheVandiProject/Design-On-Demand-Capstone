@@ -192,38 +192,57 @@ h2 {
     }
 }
 
-.pre-upload-content {
-    background: linear-gradient(270deg, #2f54eb, #722ed1);
-    background-size: 800% 800%;
-    animation: Gradient 15s ease infinite;
-    padding: 30px;
+.feedback-section {
     text-align: center;
+    padding: 20px;
 }
 
-.pre-upload-content h2 {
+.feedback-section button {
     font-size: 24px;
+    margin: 10px;
+}
+
+.feedback-section button.clicked {
+    background-color: #ddd;
+}
+
+.vote-message {
+    font-size: 18px;
+    color: green;
+}
+
+.pre-upload-content {
+    background-color: white;
+    padding: 50px 20px;
+    margin: 0 auto;
+    max-width: 800px;
+    text-align: center;
+  }
+  
+  .pre-upload-content h2 {
+    font-size: 32px;
     font-weight: bold;
-    margin-bottom: 20px;
-    color: #0091ff;
-}
-
-.pre-upload-content p {
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 10px;
     color: white;
-}
-
-.pre-upload-content a {
+  }
+  
+  .pre-upload-content p {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .pre-upload-content a {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: #ad2affe8;
+    padding: 15px;
+    background: linear-gradient(to right, #0091ff, #ad2affe8);
     color: white;
     text-decoration: none;
     border-radius: 5px;
     font-size: 16px;
     font-weight: bold;
-}
+    margin-top: 20px;
+  }
 
 
 /* .pre-upload-content {
