@@ -24,37 +24,42 @@
 <div class="content-section">
   <div class="media">
     <div class="media-body">
-      <legend class="border-bottom mb-4">Profile Info</legend>
-      <h2 class="username">{{ user.username }}</h2>
-      <p class="email">{{ user.email }}</p>
+      <legend class="border-bottom mb-4">Change Email Address</legend>
     </div>
   </div>
-<!-- Update Username Form -->
+<!-- Update Email Form -->
 <form method="post" action="{% url 'update_profile' %}">
-  {% csrf_token %}
   <div class="setting">
-    <label for="username">Enter New Username:</label>
-    <input type="text" id="username" name="username" value="{{ user.username }}" required>
-    <button type="submit" class="profile-btn">Update Username</button>
+    <label for="email">Current Email Address:</label>
+    <input type="email" name="old_email_address">
+    <label for="email">New Email Address:</label>
+    <input type="email" name="new_email_address">
+    <button type="submit" name="update_email" class="profile-btn">Update Email</button>
   </div>
 </form>
 
+<div class="media">
+  <div class="media-body">
+    <legend class="border-bottom mb-4">Change Username</legend>
+  </div>
+</div>
 
-<!-- Update Email Form -->
+<!-- Update Username Form -->
 <form method="post" action="{% url 'update_profile' %}">
-  {% csrf_token %}
   <div class="setting">
-    <label for="email">Enter New Email:</label>
-    <input type="email" id="email" name="email" value="{{ user.email }}" required>
-    <button type="submit" class="profile-btn">Update Email</button>
+    <label for="username">Current Username:</label>
+    <input type="text" name="old_username" >
+    <label for="username">New Username:</label>
+    <input type="text" name="new_username" >
+    <button type="submit" name="update_username"class="profile-btn">Update Username</button>
   </div>
 </form>
 </div>
 
+
 <div class="settings">
   <legend class="border-bottom mb-4">Privacy</legend>
   <form method="post" action="{% url 'change_password' %}">
-    {% csrf_token %}
     {{ form.non_field_errors }}
     <div class="setting">
       <label for="{{ form.old_password.id_for_label }}">Old Password:</label>
