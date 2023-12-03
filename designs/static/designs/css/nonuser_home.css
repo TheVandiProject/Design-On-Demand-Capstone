@@ -244,6 +244,10 @@ h2 {
     margin-top: 20px;
   }
 
+  .pre-upload-content a h2{
+    color: white;
+  }
+
 
 /* .pre-upload-content {
     background-color: white;
