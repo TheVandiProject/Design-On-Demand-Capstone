@@ -251,7 +251,7 @@ h2 {
 footer {
     background-color: #333333;
     color: white;
-    position: relative;
+    position: absolute;
     bottom: 0;
     padding: 10px;
     display: flex;

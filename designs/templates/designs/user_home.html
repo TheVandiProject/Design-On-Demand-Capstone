@@ -52,49 +52,49 @@
         <!-- ML Model Results -->
         <div class="top-result" id="top-result">
             {% if classification_result %}
-            <div id="top-prediction" class="top-prediction">
-                <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
-                <h2>Classification Results:</h2>
-                <p><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
-                <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
-                <!-- Swiper main container for top prediction -->
-                <div class="swiper">
-                    <div class="swiper-wrapper">
-                            {% for image_url in classification_result.top_images %}
-                                <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
-                            {% endfor %}
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
-            </div>
-
-            <div class="other-predictions" id="other-predictions">
-                <h1>Other Options</h1>
-                <ul>
-                    {% for prediction in classification_result.other_predictions %}
-                        <li><h3><strong>{{ prediction.label }} </strong></h3></li>
-                        <li>Confidence: {{ prediction.confidence }}</li>
-                        <!-- Swiper main container for other predictions -->
-                        <div class="swiper">
-                            <div class="swiper-wrapper">
-                                    {% for image_url in prediction.images %}
-                                        <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
-                                    {% endfor %}
-                            </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
+                <div id="top-prediction" class="top-prediction">
+                    <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
+                    <h2>Classification Results:</h2>
+                    <p><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
+                    <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
+                    <!-- Swiper main container for top prediction -->
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                                {% for image_url in classification_result.top_images %}
+                                    <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
+                                {% endfor %}
                         </div>
-                    {% endfor %}
-                </ul>
-            </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+
+                <div class="other-predictions" id="other-predictions">
+                    <h1>Other Options</h1>
+                    <ul>
+                        {% for prediction in classification_result.other_predictions %}
+                            <li><h3><strong>{{ prediction.label }} </strong></h3></li>
+                            <li>Confidence: {{ prediction.confidence }}</li>
+                            <!-- Swiper main container for other predictions -->
+                            <div class="swiper">
+                                <div class="swiper-wrapper">
+                                        {% for image_url in prediction.images %}
+                                            <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
+                                        {% endfor %}
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+                        {% endfor %}
+                    </ul>
+                </div>
             {% endif %}
         </div>
         <script src="{% static 'designs/js/carousel.js' %}"></script>
         <!-- Footer Section -->
         <footer class="sticky-bottom">
             <div class="footer-logo">
-                <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+                <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
             </div>
             <nav>
                 <ul>
@@ -110,6 +110,7 @@
             </div>
         </footer>
     </section>
+{% endblock %}
  {% comment %} <!-- Slider main container -->
  <div class="swiper">
     <div class="swiper-wrapper">
@@ -145,4 +146,4 @@
     <div class="swiper-button-prev"></div>
 </div> {% endcomment %}
 
-{% endblock %}
+
