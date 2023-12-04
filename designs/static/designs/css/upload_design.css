@@ -31,17 +31,17 @@ header {
     padding: 12px 25px;
     font-size: 18px;
     text-decoration: none;
-    background-color: #0091ff; /* Use a lighter shade of blue */
-    color: #fff; /* Use your preferred text color */
-    border: 1px solid #0091ff; /* Add a border */
-    border-radius: 5px; /* Add a border radius */
+    background-color: #0091ff; 
+    color: #fff; 
+    border: 1px solid #0091ff;
+    border-radius: 5px; 
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   .goback-button:hover {
-    background-color: #ad2aff; /* Change the background color on hover */
-    color: #fff; /* Change the text color on hover */
-    text-decoration: none; /* Remove underline on hover */
+    background-color: #ad2aff; 
+    color: #fff;
+    text-decoration: none; 
   }
   
 

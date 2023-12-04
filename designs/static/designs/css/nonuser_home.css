@@ -21,21 +21,6 @@ header {
     align-items: center;
 }
 
-/* nav ul {
-    list-style: none;
-    display: flex;
-  }
-
-nav li {
-    margin-right: 20px; 
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  } */
-
 .logo a {
     color: white;
     text-decoration: none;
@@ -247,38 +232,6 @@ h2 {
   .pre-upload-content a h2{
     color: white;
   }
-
-
-/* .pre-upload-content {
-    background-color: white;
-    padding: 30px;
-    text-align: center;
-  }
-  
-  .pre-upload-content h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #0091ff;
-  }
-  
-  .pre-upload-content p {
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .pre-upload-content a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ad2affe8;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-  }   */
 
 /* Footer Styles (customize as needed) */
 footer {
