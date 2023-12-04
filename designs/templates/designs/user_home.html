@@ -7,6 +7,7 @@
     <!-- Add the path to your custom user home page stylesheet -->
     <link rel="stylesheet" href="{% static 'designs/css/user_home.css' %}"/>
     <script src="{% static 'designs/js/scripts.js' %}"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
@@ -98,7 +99,7 @@
                 </div>
             {% endfor %}
         </ul>
-        <div id="feedback-section">
+        <div id="feedback-section" class="feedback-section">
             <h4>Did you find what you were looking for? Let us know!</h4>
             <button id="thumbs-up" onclick="vote('up')">👍</button>
             <button id="thumbs-down" onclick="vote('down')">👎</button>
