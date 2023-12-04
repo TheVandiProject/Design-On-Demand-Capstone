@@ -243,12 +243,13 @@ h2 {
 footer {
     background-color: #333333;
     color: white;
-    position: absolute;
+    position: relative;
     bottom: 0;
     padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
   
 footer ul {

@@ -10,30 +10,35 @@
 {% endblock %}
 
 {% block content %}
-    <!-- Header Section -->
-    <header>
-        <div class="logo">
-            <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
-        </div>
-    </header>
 
-   <div class="container">
-       <div class="login-form">
-           <h2 class="login-title">Log In</h2>
-           <form method="post"> 
-               {% csrf_token %}
-               <div class="form-group">
-                   <input type="text" name="username" placeholder="Username">
-               </div>
-               <div class="form-group">
-                   <input type="password" name="password" placeholder="Password">
-               </div>
-               {%comment%} TODO Add error messages when login fails {%endcomment%}
-               <button type="submit">Login</button>
-           </form>
-           <p>Don't have an account? <a href="{% url 'signup' %}" class="login-link">Sign Up</a></p>
-       </div>
-   </div>
+    <!-- Background -->
+    <section class="background-main">
+        
+        <!-- Header Section -->
+        <header>
+            <div class="logo">
+                <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+            </div>
+        </header>
+
+        <div class="container position-absolute top-50 start-50 translate-middle">
+            <div class="login-form d-flex flex-column justify-content-center">
+                <h2 class="login-title">Log In</h2>
+                <form method="post"> 
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" name="username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                    {%comment%} TODO Add error messages when login fails {%endcomment%}
+                    <button type="submit">Login</button>
+                </form>
+                <p>Don't have an account? <a href="{% url 'signup' %}" class="login-link">Sign Up</a></p>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer Section -->
     <footer class="sticky-bottom">

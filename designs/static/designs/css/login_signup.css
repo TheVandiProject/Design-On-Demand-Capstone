@@ -70,10 +70,12 @@ button:hover {
 
 /* Styles specific to the login page */
 .login-form {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  height: 500px;
+  width: 400px;
 }
 
 .login-title {
@@ -106,6 +108,18 @@ button:hover {
     margin-top: 10px;
 }
 
+/* Background main page color */
+.background-main {
+  background-color: rgb(255, 253, 250);
+  min-height: 100%;
+  margin-bottom: -109px;
+}
+
+.background-main:after {
+  content: "";
+  display: block;
+  height: 109px;
+}
 
 /* Footer Styles */
 footer {
