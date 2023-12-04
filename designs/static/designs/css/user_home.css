@@ -24,7 +24,7 @@ header {
 nav ul {
     list-style: none;
     display: flex;
-  }
+}
 
 nav li {
     margin-right: 20px; 
@@ -34,7 +34,7 @@ nav a {
     color: white;
     text-decoration: none;
     font-weight: bold;
-  }
+}
 
 /* Background main page color */
 .background-main {
@@ -251,10 +251,13 @@ h2 {
 footer {
     background-color: #333333;
     color: white;
+    position: relative;
+    bottom: 0;
     padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
   
 footer ul {
@@ -271,12 +274,6 @@ footer a {
     text-decoration: none;
     font-weight: bold;
 }
-
-footer div a img {
-    width: 111px;
-    height: 89px;
-    object-fit: fill;
-}  
 
 .social-icons a {
     margin-right: 10px;
