@@ -4,8 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     {% load bootstrap5 %}
+    {% load static %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'designs\images\DoD_logo-small.png' %}"/>
    {% block stylesheet %}
    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
    <!-- insert default stylesheet for every page -->
@@ -16,7 +18,7 @@
       <!-- insert default navigation text for every page -->
     {% endblock %}
     {% block content %}
-      <!-- default content text (typically empty) -->
+      <!-- insert default content text for every page -->
     {% endblock %}
   </body>
 </html>

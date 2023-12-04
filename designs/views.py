@@ -4,11 +4,16 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, UploadDesignForm, UploadDesignForm, UploadDesignerDesignForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
-from django.http import HttpResponse
 from .image_label import classify_image, get_designer_images
 from .models import *
 from all_data.models import *
+from django.template import RequestContext
+from django.template.response import TemplateResponse
 
+
+def handler404(request, exception):
+    response = TemplateResponse(request,'404.html', {})
+    return response
 
 def main_page_view(request):
     return render(request, 'designs/main_page.html')
@@ -30,6 +35,8 @@ def user_settings_view(request):
 
 # def designer_upload_view(request):
 #     return render(request, 'designs/upload_design.html')
+
+
 
 def login_view(request):
     if request.method == "POST":
@@ -59,7 +66,7 @@ def signup_view(request):
             user = form.save()
             login(request, user)
             messages.success(request, f"Account created successfully!", extra_tags='success')
-            return redirect('user_home') #TODO change later to the user home page       
+            return redirect('user_home')      
         # form.add_error(None, "Unsuccessful registration. Invalid information.")
     else:
         messages.error(request, "Unsuccessful registration. Invalid information.", extra_tags='error')
@@ -67,26 +74,26 @@ def signup_view(request):
       
     return render(request, 'designs/sign_up.html', {'signin_form': form})
 
-
 def logout_view(request):
     logout(request)
     messages.info(request, "You have successfully logged out.", extra_tags='success')
     return redirect("/") 
 
 # NOT RELATED TO UPLOAD DESIGN PAGE
-def upload_design_view(request):
+def upload_user_content(request):
     form = UploadDesignForm()
-    if request.user.is_authenticated:
-        template_name = 'designs/user_home.html'
-    else:
-        template_name = 'designs/NonUser_Home.html'
+    # if request.user.is_authenticated:
+    template_name = 'designs/user_home.html'
+    #     redirect_name = 'user_home'
+    # else:
+    #     template_name = 'designs/NonUser_Home.html'
+    #     redirect_name = 'nonuser_home'
     
     if request.method == "POST":
         form = UploadDesignForm(request.POST, request.FILES)
         
         if not request.FILES.get('image'):
-            form.errors['image'] = 'Please select an image to upload.'
-            return render(request, template_name, {'form': form})
+            form.errors['image'] = 'Please upload an image'
             
         if form.is_valid():
             # file = request.FILES["image"]
@@ -104,7 +111,77 @@ def upload_design_view(request):
             }
             return render(request, template_name, context)
         else:
-            return HttpResponse("Error uploading image")
+            form.errors['upload'] = 'Error uploading image'
+        
+    return render(request, template_name, {'form': form})
+
+def upload_nonuser_content_view(request):
+    form = UploadDesignForm()
+    # if request.user.is_authenticated:
+    # template_name = 'designs/user_home.html'
+    #     redirect_name = 'user_home'
+    # else:
+    template_name = 'designs/NonUser_Home.html'
+    #     redirect_name = 'nonuser_home'
+    
+    if request.method == "POST":
+        form = UploadDesignForm(request.POST, request.FILES)
+        
+        if not request.FILES.get('image'):
+            form.errors['image'] = 'Please upload an image'
+            
+        if form.is_valid():
+            # file = request.FILES["image"]
+            file = ImageUpload(image = request.FILES['image'])  
+            file.save()
+            image_url = file.image.url
+            
+            uploaded_image_url = f"{image_url}"
+            classification_result = classify_image(image_url)
+            
+            context = {
+                'form': form,
+                'classification_result': classification_result,
+                'uploaded_image_url': uploaded_image_url,
+            }
+            return render(request, template_name, context)
+        else:
+            form.errors['upload'] = 'Error uploading image'
+        
+    return render(request, template_name, {'form': form})
+
+# def upload_design_view(request):
+    form = UploadDesignForm()
+    # if request.user.is_authenticated:
+    template_name = 'designs/user_home.html'
+    #     redirect_name = 'user_home'
+    # else:
+    #     template_name = 'designs/NonUser_Home.html'
+    #     redirect_name = 'nonuser_home'
+    
+    if request.method == "POST":
+        form = UploadDesignForm(request.POST, request.FILES)
+        
+        if not request.FILES.get('image'):
+            form.errors['image'] = 'Please select an image to upload.'
+            
+        if form.is_valid():
+            # file = request.FILES["image"]
+            file = ImageUpload(image = request.FILES['image'])  
+            file.save()
+            image_url = file.image.url
+            
+            uploaded_image_url = f"{image_url}"
+            classification_result = classify_image(image_url)
+            
+            context = {
+                'form': form,
+                'classification_result': classification_result,
+                'uploaded_image_url': uploaded_image_url,
+            }
+            return render(request, template_name, context)
+        else:
+            form.errors['upload'] = 'Error uploading image'
         
     return render(request, template_name, {'form': form})
 
@@ -115,12 +192,14 @@ def designer_design_upload_view(request):
     if request.method == 'POST':
             form = UploadDesignerDesignForm(request.POST, request.FILES)
             if not request.FILES.get('image'):
-                form.errors['image'] = 'Please select an image to upload.'
-                return render(request,"upload_design.html", {'form': form, 'design_images': design_images, 'categories': categories})
+                form.errors['image'] = 'Please upload an image'
             
             if form.is_valid():
+                if not form.cleaned_data['categories']:
+                    form.errors['categories'] = 'Please select at least one category'
+            
+            if form.is_valid():                    
                 uploaded_image = form.save(commit=False)
-                uploaded_image.user = request.user
                 uploaded_image.save()
                 form.save_m2m()  # Save the categories
                 
@@ -128,6 +207,7 @@ def designer_design_upload_view(request):
                     'form': form, 
                     'design_images': design_images, 
                     'categories': categories,
+                    'success_message': 'Your design has been uploaded!',
                 }
                 
                 return render(request, 'designs/upload_design.html', context) 
@@ -153,6 +233,7 @@ def change_password(request):
 
 # @login_required
 def update_profile(request):
+    context = {}
     if request.method == 'POST':
         new_username = request.POST.get('username')
         new_email = request.POST.get('email')
@@ -160,16 +241,17 @@ def update_profile(request):
         if new_username:
             request.user.username = new_username
             request.user.save()
-            messages.success(request, 'Your username has been updated!')
+            context['username_message'] = 'Your username has been updated!'
+        else: 
+            context['username_error'] = 'Please enter a valid username'
 
         if new_email:
             request.user.email = new_email
             request.user.save()
-            messages.success(request, 'Your email has been updated!')
+            context['email_message'] = 'Your email has been updated!'
+        else:
+            context['email_error'] = 'Please enter a valid email'
 
-        if not new_username and not new_email:
-            messages.error(request, 'Please enter a valid username or email.')
+        return render(request, 'user_settings.html', context)
 
-        return redirect('user_settings')
-
-        
+    

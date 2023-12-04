@@ -11,6 +11,23 @@ from storages.backends.s3boto3 import S3Boto3Storage
 from DesignOnDemand.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME
 
 
+class S3GetMediaUploadsStorage(S3Boto3Storage):
+    location = 'media/uploads/'
+
+def get_uploaded_images(request):
+    try:
+        base_url = f'https://s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/'
+        
+        # List files in the S3 bucket
+        objects = S3DesignerDesignsStorage().bucket.objects.filter(Prefix=f"media/uploads/")
+
+        # Extract image URLs directly from S3 storage
+        images = [{'image_url': f'{base_url}{obj.key}'} for obj in objects if obj.size > 0]
+
+        return images
+    except Exception as e:
+        return []
+
 class S3DesignerDesignsStorage(S3Boto3Storage):
     location = 'media/designer-uploads/'
     

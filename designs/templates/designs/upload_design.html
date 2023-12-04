@@ -8,17 +8,22 @@
 <link rel="stylesheet" href="{% static 'designs/css/upload_design.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
+<script src="https://cdn.jsdelivr.net/gh/loadingio/ldLoader@v1.0.0/dist/ldld.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/loadingio/loading.css@v2.0.0/dist/loading.css">
+
 {% endblock %}
 
 {% block content %}
 <header>
-<div class="logo">
-    <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
-</div>
-  <h1>Upload your own Design</h1>
+  <div class="goback-container">
+    <a href="{% url 'user_home' %}" class="goback-button">Go Back</a>
+  </div>
+  <div class="title-container">
+    <h1>Upload your own Design</h1>
+  </div>
 
 </header>
-
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <h2 for="id_image">Upload your Design:</h2>
@@ -42,11 +47,36 @@
       {% endif %}
     {% endfor %}
     </table>
-  <input type="submit" value="Upload Image">
+    <button type="submit" id="mybtn" class="btn ld-ext-right">
+      Upload Image
+      <div class="ld ld-ring ld-spin"></div>
+  </button>
 </form>
 
+{% comment %} CANNOT BE MOVED TO SEPERATE JS FILE {% endcomment %}
+<script>
+  var btn = document.getElementById("mybtn");
+  var loader = new ldLoader({ root: btn }); {% comment %} This prevents it from working outside of the template {% endcomment %}
+  btn.addEventListener("click", function() {
+    loader.toggle();
+  });
+</script>
 
-<h1>Uploaded Images:</h1>
+<h2 class="success-message">{{ success_message }}</h2>
+
+{% if form.errors.image and not form.errors.categories %}
+    <h2><p class="error-message">{{ form.errors.image }}</p></h2>
+{% endif %}
+
+{% if form.errors.categories and not form.errors.image %}
+    <h2><p class="error-message">Please select at least one category</p></h2>
+{% endif %}
+
+{% if form.errors.image and form.errors.categories %}
+    <h2><p class="error-message">Please upload an image and select at least one category</p></h2>
+{% endif %}
+
+<h1>Uploaded Designs:</h1>
 {% comment %} <ul> {% endcomment %}
 {% comment %} <div class="uploaded_images"> {% endcomment %}
 <div class="swiper">

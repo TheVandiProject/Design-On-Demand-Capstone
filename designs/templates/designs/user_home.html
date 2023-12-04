@@ -5,12 +5,14 @@
 
 {% block stylesheet %}
     <!-- Add the path to your custom user home page stylesheet -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="{% static 'designs/css/user_home.css' %}"/>
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     <script src="{% static 'designs/js/scripts.js' %}"></script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/loadingio/ldLoader@v1.0.0/dist/ldld.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/loadingio/loading.css@v2.0.0/dist/loading.css">
 {% endblock %}
 
 {% block content %}
@@ -18,12 +20,7 @@
     <div class="logo">
         <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
     </div>
-    {% comment %} <!-- Navigation and user profile icon -->
-    <nav>
-        <ul>
-            <li><a href="{% url 'user_home' %}">Main Page</a></li>
-        </ul>
-    </nav> {% endcomment %}
+    
     <!-- User profile icon -->
     <span class="burger" onclick="toggleNav()">&#9776;</span>
     <div id="mySidenav" class="sidenav">
@@ -36,13 +33,24 @@
 </header>
 
 <div class="upload-form">
-    <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
+    <form method="post" enctype="multipart/form-data" action="{% url 'upload_user_content' %}">
         {% csrf_token %}
         <h1><label for="image">Upload your image:</label></h1>
         <input type="file" name="image" id="image" accept="image/*">
-        <input type="submit" value="Upload Image">
+        <button type="submit" id="mybtn" class="btn ld-ext-right">
+            Upload Image
+            <div class="ld ld-ring ld-spin"></div>
+        </button>
     </form>
 </div>
+{% comment %} CANNOT BE MOVED TO SEPERATE JS FILE {% endcomment %}
+<script>
+    var btn = document.getElementById("mybtn");
+    var loader = new ldLoader({ root: btn }); {% comment %} This prevents it from working outside of the template {% endcomment %}
+    btn.addEventListener("click", function() {
+      loader.toggle();
+    });
+</script>
 
 {% if form.errors.image %}
     <h2><p class="error-message">{{ form.errors.image }}</p></h2>
@@ -54,8 +62,8 @@
     <div id="top-prediction" class="top-prediction">
         <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
         <h2>Classification Results:</h2>
-        <p><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
-        <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
+        <h3><strong>Our Top Prediction:</strong> {{ classification_result.top_predictions }}</h3>
+        {% comment %} <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p> {% endcomment %}
         <!-- Swiper main container for top prediction -->
         <div class="swiper">
             <div class="swiper-wrapper">
@@ -69,11 +77,11 @@
     </div>
 
     <div class="other-predictions" id="other-predictions">
-        <h1>Other Options</h1>
+        <h1>Other Options and Suggestions</h1>
         <ul>
             {% for prediction in classification_result.other_predictions %}
                 <li><h3><strong>{{ prediction.label }} </strong></h3></li>
-                <li>Confidence: {{ prediction.confidence }}</li>
+                {% comment %} <li>Confidence: {{ prediction.confidence }}</li> {% endcomment %}
                 <!-- Swiper main container for other predictions -->
                 <div class="swiper">
                     <div class="swiper-wrapper">
@@ -86,46 +94,15 @@
                 </div>
             {% endfor %}
         </ul>
-    </div>
+        <div id="feedback-section" class="feedback-section">
+            <h4>Did you find what you were looking for? Let us know!</h4>
+            <button id="thumbs-up" onclick="vote('up')">👍</button>
+            <button id="thumbs-down" onclick="vote('down')">👎</button>
+            <h5 id="vote-message" class="vote-message"></h5>
+        </div>
     {% endif %}
 </div>
 
-
-
- {% comment %} <!-- Slider main container -->
- <div class="swiper">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/31f?text=1" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/e66?text=2" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/7d2?text=3" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400?text=4" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/aba?text=5" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/fc0?text=6" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/800000/fff.jpg&text=7" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ced1/fff.jpg&text=8" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ff7f/fff.jpg&text=9" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/66cdaa/fff.jpg&text=10" class="d-block w-100" alt="..."></div>
-    </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</div>
-<!-- Slider main container -->
-<div class="swiper">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/31f?text=1" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/e66?text=2" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/7d2?text=3" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400?text=4" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/aba?text=5" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="//via.placeholder.com/500x400/fc0?text=6" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/800000/fff.jpg&text=7" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ced1/fff.jpg&text=8" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/00ff7f/fff.jpg&text=9" class="d-block w-100" alt="..."></div>
-        <div class="swiper-slide"><img src="https://dummyimage.com/500x400/66cdaa/fff.jpg&text=10" class="d-block w-100" alt="..."></div>
-    </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</div> {% endcomment %}
 <script src="{% static 'designs/js/carousel.js' %}"></script>
     {% comment %} <footer>
         <!-- Footer content here -->
