@@ -13,14 +13,14 @@
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+            <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
         </div>
     </header>
 
    <div class="container">
        <div class="login-form">
            <h2 class="login-title">Log In</h2>
-           <form action="" method="post"> 
+           <form method="post"> 
                {% csrf_token %}
                <div class="form-group">
                    <input type="text" name="username" placeholder="Username">
@@ -28,9 +28,7 @@
                <div class="form-group">
                    <input type="password" name="password" placeholder="Password">
                </div>
-                {% comment %} {% if form.non_field_errors %}
-                    <p style="color: red;">{{ form.non_field_errors }}</p>
-                {% endif %} {% endcomment %}
+               {%comment%} TODO Add error messages when login fails {%endcomment%}
                <button type="submit">Login</button>
            </form>
            <p>Don't have an account? <a href="{% url 'signup' %}" class="login-link">Sign Up</a></p>

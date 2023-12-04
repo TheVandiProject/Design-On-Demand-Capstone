@@ -1,15 +1,18 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
-from .models import UploadDesign
+# from .models import UploadDesign, UploadDesignerDesign
+# from django.db import models
+from .models import *
+from all_data import models as all_data_models
 
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
 
     class Meta:
-        model = User
+        model = all_data_models.Users
         fields = ("username", "email", "password1", "password2")
     
     def save(self, commit=True):
@@ -22,12 +25,31 @@ class RegisterForm(UserCreationForm):
 class UploadDesignForm(forms.Form):
     class Meta:
         model = UploadDesign
-        fields = ("caption", "image")
-    
-    # def save(self, commit=True):
-    #     design = super(UploadDesignForm, self).save(commit=False)
-    #     design.caption = self.cleaned_data["caption"]
-    #     design.image = self.cleaned_data["image"]
-    #     if commit:
-    #         design.save()
-    #     return design
+        fields = '__all__'
+
+        
+#UserUpdateForm to update a username and email
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = all_data_models.Users
+        fields = ['username', 'email']
+
+#ProfileUpdateForm to update image.
+class ProfileUpdateForm(forms.ModelForm):
+    username = forms.CharField(max_length=255, required=True)
+    email = forms.EmailField(max_length=255, required=True)
+
+    class Meta:
+        model = all_data_models.Designer
+        fields = ['username', 'email']
+        
+class UploadDesignerDesignForm(forms.ModelForm):
+    categories = forms.ModelMultipleChoiceField(
+    queryset=all_data_models.Category.objects.all(),
+    widget=forms.CheckboxSelectMultiple
+    )
+    class Meta:
+        model = all_data_models.UploadDesignerDesign
+        fields = ['image', 'categories']

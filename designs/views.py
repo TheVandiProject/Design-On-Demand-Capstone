@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
-from .forms import RegisterForm, UploadDesignForm
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from .forms import RegisterForm, UploadDesignForm, UploadDesignForm, UploadDesignerDesignForm
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http import HttpResponse
-from designs.forms import UploadDesignForm
-from .image_label import classify_image
-from .models import ImageUpload
+from .image_label import classify_image, get_designer_images
+from .models import *
+from all_data.models import *
 
 
 def main_page_view(request):
@@ -25,12 +26,18 @@ def privacypolicy_view(request):
     return render(request, 'designs/privacy_policy.html')
 
 
-def render_home_view(request):
-    if(request.user.is_authenticated):
-        return render(request, 'designs/user_home.html')
-    else:
-        return render(request, 'designs/NonUser_Home.html')
+def render_user_home_view(request):
+    return render(request, 'designs/user_home.html')
 
+def render_nonuser_home_view(request):
+    return render(request, 'designs/NonUser_Home.html')
+
+# @login_required
+def user_settings_view(request):
+    return render(request, 'designs/user_settings.html')
+
+# def designer_upload_view(request):
+#     return render(request, 'designs/upload_design.html')
 
 def login_view(request):
     if request.method == "POST":
@@ -74,6 +81,7 @@ def logout_view(request):
     messages.info(request, "You have successfully logged out.", extra_tags='success')
     return redirect("/") 
 
+# NOT RELATED TO UPLOAD DESIGN PAGE
 def upload_design_view(request):
     form = UploadDesignForm()
     if request.user.is_authenticated:
@@ -92,9 +100,10 @@ def upload_design_view(request):
             # file = request.FILES["image"]
             file = ImageUpload(image = request.FILES['image'])  
             file.save()
+            image_url = file.image.url
             
-            uploaded_image_url = f"{file.image.url}"
-            classification_result = classify_image(request)
+            uploaded_image_url = f"{image_url}"
+            classification_result = classify_image(image_url)
             
             context = {
                 'form': form,
@@ -106,3 +115,69 @@ def upload_design_view(request):
             return HttpResponse("Error uploading image")
         
     return render(request, template_name, {'form': form})
+
+# @login_required
+def designer_design_upload_view(request):
+    categories = Category.objects.all()
+    design_images = get_designer_images(request)
+    if request.method == 'POST':
+            form = UploadDesignerDesignForm(request.POST, request.FILES)
+            if not request.FILES.get('image'):
+                form.errors['image'] = 'Please select an image to upload.'
+                return render(request,"upload_design.html", {'form': form, 'design_images': design_images, 'categories': categories})
+            
+            if form.is_valid():
+                uploaded_image = form.save(commit=False)
+                uploaded_image.user = request.user
+                uploaded_image.save()
+                form.save_m2m()  # Save the categories
+                
+                context={
+                    'form': form, 
+                    'design_images': design_images, 
+                    'categories': categories,
+                }
+                
+                return render(request, 'designs/upload_design.html', context) 
+    else:
+        form = UploadDesignerDesignForm()
+
+    return render(request, 'designs/upload_design.html', {'form': form, 'design_images': design_images, 'categories': categories,})  
+    
+# @login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('user_settings')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'designs/user_settings.html', {'form': form})
+
+# @login_required
+def update_profile(request):
+    if request.method == 'POST':
+        new_username = request.POST.get('username')
+        new_email = request.POST.get('email')
+
+        if new_username:
+            request.user.username = new_username
+            request.user.save()
+            messages.success(request, 'Your username has been updated!')
+
+        if new_email:
+            request.user.email = new_email
+            request.user.save()
+            messages.success(request, 'Your email has been updated!')
+
+        if not new_username and not new_email:
+            messages.error(request, 'Please enter a valid username or email.')
+
+        return redirect('user_settings')
+
+        
