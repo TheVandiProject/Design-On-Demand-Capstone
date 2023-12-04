@@ -1,0 +1,131 @@
+{% extends "designs/base.html" %}
+
+{% load static %}
+
+{% block title %}About us{% endblock %}
+{% block stylesheet%}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'designs/css/about_us.css' %}">
+
+    <style>
+        .background-main {
+            background-color: rgb(255, 253, 250);
+            min-height: 100%;
+            margin-bottom: -109px;
+        }
+
+        .background-main:after {
+            content: "";
+            display: block;
+            height: 109px;
+        }
+
+        .row {
+            --bs-gutter-x: 0rem;
+            --bs-gutter-y: 0;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: calc(-1 * var(--bs-gutter-y));
+            margin-right: calc(-.5 * var(--bs-gutter-x));
+            margin-left: calc(-.5 * var(--bs-gutter-x));
+            width: 100%;
+        }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        footer {
+            background-color: #333333;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- Background -->
+    <section class="background-main">
+        <!-- Header Section -->
+        <header>
+            <div class="logo">
+                <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Explore</a></li>
+                    <li><a href="#">Categories</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="{% url 'login' %}" class="login">Login</a>
+                <a href="{% url 'signup' %}" class="signup">Sign Up</a>
+            </div>
+        </header>
+        <div class="row justify-content-md-center align-items-center">
+            <div class="col-sm-6" style="padding:30px">
+                <h1 style="text-align:center; padding: 20px">Privacy Policy</h1>
+                <h3>Information Collection</h3>
+                <p>
+                    At Design On Demand, we may collect the following types of information from users:
+                    <li>Personal Information: When users interact with certain features of our website, such as placing an order or contacting customer support, <br>
+                        &emsp;&nbsp;we may collect personal information such as names, email addresses, and shipping addresses.
+                    </li>
+                    <li>Non-Personal Information: We may also collect non-personal information such as IP addresses, browser types, and device information to <br>
+                        &emsp;&nbsp;improve our website's functionality and user experience.
+                    </li>
+                </p>
+                <h3>Use of Information</h3>
+                <p>
+                    The information we collect may be used for the following purposes:
+                    <li>Personal Information: We use personal information to process orders, communicate with users, and provide customer support. We may also use this <br>
+                        &emsp;&nbsp;information to send promotional materials with the user's explicit consent.
+                    </li>
+                    <li>Non-Personal Information: Non-personal information is used for analytics, tracking website performance, and making improvements to our services.</li>
+                </p>
+                <h3>Data Security</h3>
+                <p>We take reasonable measures to protect the information collected from unauthorized access, disclosure, alteration, or destruction. These measures may <br>
+                    include encryption, secure servers, and regular security audits.
+                </p>
+                <h3>Cookies and Tracking</h3>
+                <p>We may use cookies and similar tracking technologies to enhance user experience. Users can manage their cookie preferences through their <br>
+                    web browser settings.
+                </p>
+                <h3>Third-Party Disclosure</h3>
+                <p>We do not sell, trade, or otherwise transfer users' information to third parties without their consent, except for trusted third parties who assist us <br>
+                    in operating our website or conducting our business, as long as those parties agree to keep this information confidential.
+                </p>
+                <h3>User Rights</h3>
+                <p>Users have the right to access, correct, or delete their personal information. They may also opt out of receiving promotional communications from us.</p>
+                <h3>Changes to the Privacy Policy</h3>
+                <p>We reserve the right to modify this privacy policy at any time. Changes and clarifications will take effect immediately upon their posting on the website.</p>
+            </div>
+        </div>
+
+    </section>
+    <!-- Footer Section -->
+    <footer class="sticky-bottom">
+        <div class="footer-logo">
+            <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                <li><a href="{% url 'about_us' %}">Contact</a></li>
+                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+            </ul>
+        </nav>
+        <div class="social-icons">
+            <a href="#"><img src="{% static "designs/images/facebook-logo-secondary.png" %}" alt="Facebook" class="resize" ></a>
+            <a href="#"><img src="{% static "designs/images/x-logo-white.png" %}" alt="Twitter" class="resize" ></a>
+            <!-- Add more social icons as needed -->
+        </div>
+    </footer>
+{% endblock %}

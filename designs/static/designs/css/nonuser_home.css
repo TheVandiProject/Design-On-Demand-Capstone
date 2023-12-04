@@ -8,7 +8,7 @@ body, header, nav, ul, li, a {
 body {
     /* font-family: Arial, sans-serif; */
     font-family: 'Lato', sans-serif;
-  }
+}
 
 /* Header Styles */
 header {
@@ -24,7 +24,7 @@ header {
 nav ul {
     list-style: none;
     display: flex;
-  }
+}
 
 nav li {
     margin-right: 20px; 
@@ -34,7 +34,7 @@ nav a {
     color: white;
     text-decoration: none;
     font-weight: bold;
-  }
+}
 
 .navbar-logo a {
     color: white;
@@ -44,14 +44,14 @@ nav a {
 }
 .user-actions {
     display: flex;
-  }
+}
   
-  .login, .signup {
+.login, .signup {
     color: white;
     margin-right: 20px;
     text-decoration: none;
     font-weight: bold;
-  }
+}
 /* Upload Buttons Styles */
 
 .upload-form {
@@ -185,13 +185,96 @@ h2 {
     }
 }
 
-/* Footer Styles (customize as needed) */
+/* Background main page color */
+.background-main {
+    background-color: rgb(255, 253, 250);
+    min-height: 100%;
+    margin-bottom: -109px;
+}
+
+.background-main:after {
+    content: "";
+    display: block;
+    height: 109px;
+}
+
+/* Ad Popup Styles */
+.popup {
+    background-color: #ffffff;
+    width: 420px;
+    padding: 30px 40px;
+    position: fixed;
+    transform: translate(-50%,-50%);
+    left: 11.5%;
+    bottom: 1%;
+    border-radius: 8px;
+    font-family: "Poppins",sans-serif;
+    display: none; 
+    text-align: center;
+}
+  
+.popup button {
+    display: block;
+    margin:  0 0 20px auto;
+    background-color: transparent;
+    font-size: 25px;
+    color: #ffffff;
+    background: #03549a;
+    border-radius: 100%;
+    width: 35px;
+    height: 35px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+  
+.popup h2 {
+    margin-top: -20px;
+}
+  
+.popup p {
+    font-size: 14px;
+    text-align: justify;
+    margin: 20px 0;
+    line-height: 25px;
+}
+
+/* Footer Styles */
 footer {
     background-color: #333333;
     color: white;
-    padding: 20px 0;
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    margin-top: auto;
+}
+  
+footer ul {
+    list-style: none;
+    display: flex;
+}
+  
+footer li {
+    margin-right: 20px;
+}
+  
+footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+} 
+
+.social-icons a {
+    margin-right: 10px;
+}
+  
+.resize {
+    width: 20px;
+    height: 20px;
+}
+  
+.footer-logo {
+    padding: 0px 10px;
 }

@@ -8,7 +8,7 @@ body, header, nav, ul, li, a {
 body {
     /* font-family: Arial, sans-serif; */
     font-family: 'Latos', sans-serif;
-  }
+}
 
 /* Header Styles */
 header {
@@ -35,6 +35,19 @@ nav a {
     text-decoration: none;
     font-weight: bold;
   }
+
+/* Background main page color */
+.background-main {
+    background-color: rgb(255, 253, 250);
+    min-height: 100%;
+    margin-bottom: -109px;
+}
+
+.background-main:after {
+    content: "";
+    display: block;
+    height: 109px;
+}
 
 .navbar-logo a {
     color: white;
@@ -224,13 +237,46 @@ h2 {
     }
 }
 
-/* Footer Styles (customize as needed) */
+/* Footer Styles */
 footer {
     background-color: #333333;
     color: white;
-    padding: 20px 0;
+    padding: 10px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    margin-top: auto;
+}
+  
+footer ul {
+    list-style: none;
+    display: flex;
+}
+  
+footer li {
+    margin-right: 20px;
+}
+  
+footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer div a img {
+    width: 111px;
+    height: 89px;
+    object-fit: fill;
+}  
+
+.social-icons a {
+    margin-right: 10px;
+}
+  
+.resize {
+    width: 20px;
+    height: 20px;
+}
+  
+.footer-logo {
+    padding: 0px 10px;
 }

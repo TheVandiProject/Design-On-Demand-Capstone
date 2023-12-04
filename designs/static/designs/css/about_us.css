@@ -1,0 +1,170 @@
+/* Reset some default styles for consistency */
+body, ul, li {
+    margin: 0;
+    padding: 0;
+}
+  
+  /* Global Styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+}
+  
+  /* Header Styles */
+header {
+    background-color: #0091ff;
+    background-image: linear-gradient(to right, #0091ff, #ad2affe8);
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+nav ul {
+    list-style: none;
+    display: flex;
+}
+  
+nav li {
+    margin-right: 20px;
+}
+  
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+  
+.user-actions {
+    display: flex;
+}
+  
+.login, .signup {
+    color: white;
+    margin-right: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Background main page color */
+.background-main {
+    background-color: rgb(255, 253, 250);
+    min-height: 100%;
+    margin-bottom: -109px;
+}
+
+.background-main:after {
+    content: "";
+    display: block;
+    height: 109px;
+}
+
+/* About us section */
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+  
+.column {
+    float: left;
+    width: 30%;
+    margin-bottom: 16px;
+    padding: 0 8px;
+}
+  
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin: 8px;
+    height:700px;
+}
+  
+.about-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #474e5d;
+    color: white;
+}
+
+section h2 {
+    text-align: center;
+    padding: 10px;
+    margin-top: .5rem;
+}
+
+.container {
+    padding: 0 16px;
+}
+  
+.container::after, .row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+@media (min-width: 576px) {
+    .container, .container-sm {
+    max-width: 540px;
+    }
+} 
+
+.title {
+    color: grey;
+}
+  
+@media screen and (max-width: 650px) {
+    .column {
+        width: 100%;
+        display: block;
+    }
+}
+
+.row {
+    --bs-gutter-x: 0rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-.5 * var(--bs-gutter-x));
+    margin-left: calc(-.5 * var(--bs-gutter-x));
+    width: 100%;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333333;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+footer ul {
+    list-style: none;
+    display: flex;
+}
+  
+footer li {
+    margin-right: 20px;
+}
+  
+footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.social-icons a {
+    margin-right: 10px;
+}
+  
+.resize {
+    width: 20px;
+    height: 20px;
+}
+  
+.footer-logo {
+    padding: 0px 10px;
+}

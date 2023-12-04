@@ -1,0 +1,105 @@
+{% extends "designs/base.html" %}
+
+{% load static %}
+
+{% block title %}About us{% endblock %}
+{% block stylesheet%}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'designs/css/about_us.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- Background -->
+    <section class="background-main">
+
+        <!-- Header Section -->
+        <header>
+            <div class="logo">
+                <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Explore</a></li>
+                    <li><a href="#">Categories</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="{% url 'login' %}" class="login">Login</a>
+                <a href="{% url 'signup' %}" class="signup">Sign Up</a>
+            </div>
+        </header>
+
+        <div class="about-section">
+            <h1>About Us</h1>
+            <p>
+                We are students currently enrolled at the University of Puerto Rico Mayagüez, participating as a Capstone team. <br>
+                This project serves as the culmination of our Software Engineering Bachelor's Degree program, representing our Capstone class endeavor.
+            </p>
+        </div>
+        
+        <h2>Our Team</h2>
+        <div class="row justify-content-md-center align-items-center">
+            
+            <div class="column">
+                <div class="card">
+                    <img src="{% static "designs/images/Kelvin-contact-us.jpg" %}" alt="Kelvin" style="height:400px; object-fit:contain;">
+                    <div class="container">
+                        <h2>Kelvin O. Lima Rosado</h2>
+                        <p class="title">Full Stack Developer</p>
+                        <p>
+                            I'm a student in the University of Puerto Rico of Mayagüez. For this project I have mostly worked in the front-end but 
+                            also I have odne some work with the hosting and setting up Django framework.
+                        </p>
+                        <p>kelvin.lima@upr.com</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="column">
+                <div class="card">
+                    <img src="{% static "designs/images/Vandiel-contact-us.jpg" %}" alt="Vandiel" style="height:400px; object-fit:contain;">
+                    <div class="container">
+                        <h2>Vandiel González Rivera</h2>
+                        <p class="title">Full Stack Developer</p>
+                        <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                        <p>vandiel.gonzalez@upr.com</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="column">
+                <div class="card">
+                    <img src="..." class="placeholder" alt="Daniel" style="width:100%">
+                    <div class="container">
+                        <h2>Daniel E. Rodríguez Olivera</h2>
+                        <p class="title">Full Stack Developer</p>
+                        <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                        <p>daniel.rodriguez55@upr.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="sticky-bottom">
+        <div class="footer-logo">
+            <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                <li><a href="{% url 'about_us' %}">Contact</a></li>
+                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+            </ul>
+        </nav>
+        <div class="social-icons">
+            <a href="#"><img src="{% static "designs/images/facebook-logo-secondary.png" %}" alt="Facebook" class="resize" ></a>
+            <a href="#"><img src="{% static "designs/images/x-logo-white.png" %}" alt="Twitter" class="resize" ></a>
+            <!-- Add more social icons as needed -->
+        </div>
+    </footer>  
+    
+{% endblock %}

@@ -17,6 +17,14 @@ def index_view(request):
     return render(request, 'designs/index.html')
 
 
+def aboutus_view(request):
+    return render(request, 'designs/about_us.html')
+
+
+def privacypolicy_view(request):
+    return render(request, 'designs/privacy_policy.html')
+
+
 def render_home_view(request):
     if(request.user.is_authenticated):
         return render(request, 'designs/user_home.html')

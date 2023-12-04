@@ -13,6 +13,8 @@ urlpatterns = [
     path('home/', views.render_home_view, name='user_home'),
     path('logout/', views.logout_view, name='logout'),
     path('home/upload/', views.upload_design_view, name="upload_design"),
+    path('aboutus/', views.aboutus_view, name='about_us'),
+    path('privacypolicy/', views.privacypolicy_view, name='privacy_policy'),
     path('index/', views.index_view, name='index'),
 ]  # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -10,32 +10,32 @@
 {% endblock %}
 
 {% block content %}
-    <!-- Header Section -->
-    <header>
-        <div class="logo">
-            <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">Explore</a></li>
-                <li><a href="#">Categories</a></li>
-            </ul>
-        </nav>
-        <div class="user-actions">
-            <a href="{% url 'login' %}" class="login">Login</a>
-            <a href="{% url 'signup' %}" class="signup">Sign Up</a>
-        </div>
-    </header>
 
     <!-- Background -->
     <section class="background-main">
+        <!-- Header Section -->
+        <header>
+            <div class="logo">
+                <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Explore</a></li>
+                    <li><a href="#">Categories</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="{% url 'login' %}" class="login">Login</a>
+                <a href="{% url 'signup' %}" class="signup">Sign Up</a>
+            </div>
+        </header>
 
         <!-- Hero Section -->
         <section class="hero">
             <h1>Design Your Home, Shape Your Story</h1>
             <a href="{% url 'user_home' %}" class="cta-button">Get Started</a>
         </section>
-
+        
         <!-- Featured Categories Section -->
         <section class="featured-categories">
 
@@ -100,7 +100,6 @@
                             <div class="card-body align-middle">
                                 <h3 class="card-title">Modern Sofa Set</h3>
                                 <p class="card-text pb-2">Elevate your home with a stylish sofa set that combines contemporary design and luxurious comfort.</p>
-                                <a href="#" class="btn btn-primary">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -110,7 +109,6 @@
                             <div class="card-body align-middle">
                                 <h3 class="card-title">Minimalist Dining Table</h3>
                                 <p class="card-text pb-2">Discover minimalist dining tables for a stylish and uncluttered dining space.</p>
-                                <a href="#" class="btn btn-primary">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -120,7 +118,6 @@
                             <div class="card-body align-middle">
                                 <h3 class="card-title">Rustic Livingroom</h3>
                                 <p class="card-text pb-2">A slipcovered sofa, comfy armchair and neutral traditional rug provide an extra cozy touch.</p>
-                                <a href="#" class="btn btn-primary">View Details</a>
                             </div>
                         </div>
                     </div>
@@ -136,11 +133,13 @@
                 </button>
             </div>
         </section>
+
+        <!-- Ad pop up section -->
         <div class="popup">
             <button id="close">&times;</button>
-            <h2>Automatic Pop-Up</h2>
+            <h2>Ad Pop-Up</h2>
             <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita distinctio fugiat alias iure qui, commodi minima magni ullam aliquam dignissimos?
+                New Product Launch: Introducing our latest collection! Shop now for exclusive deals.
             </p>
             <a href="#">Let's Go</a>
         </div>
@@ -149,22 +148,21 @@
     </section>
     
     <!-- Footer Section -->
-    <footer>
+    <footer class="sticky-bottom">
         <div class="footer-logo">
             <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
         </div>
         <nav>
             <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                <li><a href="{% url 'about_us' %}">Contact</a></li>
+                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
             </ul>
         </nav>
         <div class="social-icons">
-            <a href="#"><img src="static/designs/images/facebook-logo-secondary.png" alt="Facebook" class="resize" ></a>
-            <a href="#"><img src="static/designs/images/x-logo-white.png" alt="Twitter" class="resize" ></a>
+            <a href="#"><img src="{% static "designs/images/facebook-logo-secondary.png" %}" alt="Facebook" class="resize" ></a>
+            <a href="#"><img src="{% static "designs/images/x-logo-white.png" %}" alt="Twitter" class="resize" ></a>
             <!-- Add more social icons as needed -->
         </div>
     </footer>
-    {% endblock %}
+{% endblock %}

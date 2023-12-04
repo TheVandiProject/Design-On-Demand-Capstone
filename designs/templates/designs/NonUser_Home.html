@@ -9,82 +9,126 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{% static 'designs/js/scripts.js' %}"></script>
     <link rel="stylesheet" href="{% static 'designs/css/nonuser_home.css' %}"/>
+    <style>
+        footer {
+            background-color: #333333;
+            color: white;
+            position: absolute;
+            bottom: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
+    </style>
 {% endblock %}
 
 {%block content%}
-
-<header>
-    <div class="logo">
-        <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
-    </div>
-    <!-- Navigation and user profile icon -->
-    <nav>
-        <ul>
-            <li><a href="{% url 'designs' %}">Main Page</a></li>
-            <li><a href="#">Explore</a></li>
-            <li><a href="#">Catalog</a></li>
-        </ul>
-    </nav>
-    <div class="user-actions">
-        <a href="{% url 'login' %}" class="login">Login</a>
-        <a href="{% url 'signup' %}" class="signup">Create an Account</a>
-    </div>
-</header>
-
-<div class="upload-form">
-    <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
-        {% csrf_token %}
-        <h2><label for="image">Upload an image:</label> </h2>
-        <input type="file" name="image" id="image" accept="image/*">
-        <input type="submit" value="Upload Image">
-    </form>
-</div>
-
-{% if form.errors.image %}
-    <h2><p class="error-message">{{ form.errors.image }}</p></h2>
-{% endif %}
-
-<!-- ML Model Results -->
-<div class="top-result" id="top-result">
-    {% if classification_result %}
-    <div id="top-prediction" class="top-prediction">
-        <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
-        <h2>Classification Results:</h2>
-        <p><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
-        <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
-        <!-- Swiper main container for top prediction -->
-        <div class="swiper">
-            <div class="swiper-wrapper">
-                    {% for image_url in classification_result.top_images %}
-                        <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
-                    {% endfor %}
+    <!-- Background -->
+    <section class="background-main">
+        <header>
+            <div class="logo">
+                <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
             </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+            <!-- Navigation and user profile icon -->
+            <nav>
+                <ul>
+                    <li><a href="{% url 'designs' %}">Main Page</a></li>
+                    <li><a href="#">Explore</a></li>
+                    <li><a href="#">Catalog</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="{% url 'login' %}" class="login">Login</a>
+                <a href="{% url 'signup' %}" class="signup">Create an Account</a>
+            </div>
+        </header>
+
+        <div class="upload-form">
+            <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
+                {% csrf_token %}
+                <h2><label for="image">Upload an image:</label> </h2>
+                <input type="file" name="image" id="image" accept="image/*">
+                <input type="submit" value="Upload Image">
+            </form>
         </div>
-    </div>
 
-    <div class="other-predictions" id="other-predictions">
-        <h1>Other Options</h1>
-        <ul>
-            {% for prediction in classification_result.other_predictions %}
-                <li><h3><strong>{{ prediction.label }} </strong></h3></li>
-                <li>Confidence: {{ prediction.confidence }}</li>
-                <!-- Swiper main container for other predictions -->
-                <div class="swiper">
-                    <div class="swiper-wrapper">
-                            {% for image_url in prediction.images %}
-                                <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
-                            {% endfor %}
+        {% if form.errors.image %}
+            <h2><p class="error-message">{{ form.errors.image }}</p></h2>
+        {% endif %}
+
+        <!-- ML Model Results -->
+        <div class="top-result" id="top-result">
+            {% if classification_result %}
+                <div id="top-prediction" class="top-prediction">
+                    <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
+                    <h2>Classification Results:</h2>
+                    <p><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
+                    <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
+                    <!-- Swiper main container for top prediction -->
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                                {% for image_url in classification_result.top_images %}
+                                    <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
+                                {% endfor %}
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
                 </div>
-            {% endfor %}
-        </ul>
-    </div>
-<script src="{% static 'designs/js/carousel.js' %}"></script>
-{% endif %}
 
+                <div class="other-predictions" id="other-predictions">
+                    <h1>Other Options</h1>
+                    <ul>
+                        {% for prediction in classification_result.other_predictions %}
+                            <li><h3><strong>{{ prediction.label }} </strong></h3></li>
+                            <li>Confidence: {{ prediction.confidence }}</li>
+                            <!-- Swiper main container for other predictions -->
+                            <div class="swiper">
+                                <div class="swiper-wrapper">
+                                        {% for image_url in prediction.images %}
+                                            <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
+                                        {% endfor %}
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <script src="{% static 'designs/js/carousel.js' %}"></script>
+            {% endif %}
+        </div>
+
+        <!-- Ad pop up section -->
+        <div class="popup">
+            <button id="close">&times;</button>
+            <h2>Ad Pop-Up</h2>
+            <p>
+                New Product Launch: Introducing our latest collection! Shop now for exclusive deals.
+            </p>
+            <a href="#">Let's Go</a>
+        </div>
+        <script src="{% static 'designs/js/ad_popup.js' %}"></script>
+
+    </section>
+    <!-- Footer Section -->
+    <footer class="sticky-bottom">
+        <div class="footer-logo">
+            <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                <li><a href="{% url 'about_us' %}">Contact</a></li>
+                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+            </ul>
+        </nav>
+        <div class="social-icons">
+            <a href="#"><img src="{% static "designs/images/facebook-logo-secondary.png" %}" alt="Facebook" class="resize" ></a>
+            <a href="#"><img src="{% static "designs/images/x-logo-white.png" %}" alt="Twitter" class="resize" ></a>
+            <!-- Add more social icons as needed -->
+        </div>
+    </footer>
 {% endblock %}

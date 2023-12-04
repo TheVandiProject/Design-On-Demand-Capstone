@@ -132,7 +132,23 @@
     <div class="swiper-button-prev"></div>
 </div>
 <script src="{% static 'designs/js/carousel.js' %}"></script>
-    {% comment %} <footer>
-        <!-- Footer content here -->
-    </footer> {% endcomment %}
+
+<!-- Footer Section -->
+<footer class="sticky-bottom">
+    <div class="footer-logo">
+        <a href="{% url 'user_home' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{% url 'about_us' %}">About Us</a></li>
+            <li><a href="{% url 'about_us' %}">Contact</a></li>
+            <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+        </ul>
+    </nav>
+    <div class="social-icons">
+        <a href="#"><img src="{% static "designs/images/facebook-logo-secondary.png" %}" alt="Facebook" class="resize" ></a>
+        <a href="#"><img src="{% static "designs/images/x-logo-white.png" %}" alt="Twitter" class="resize" ></a>
+        <!-- Add more social icons as needed -->
+    </div>
+</footer>
 {% endblock %}

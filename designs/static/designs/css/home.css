@@ -78,6 +78,14 @@ nav a {
 /* Background main page color */
 .background-main {
   background-color: rgb(255, 253, 250);
+  min-height: 100%;
+  margin-bottom: -109px;
+}
+
+.background-main:after {
+  content: "";
+  display: block;
+  height: 109px;
 }
 
 /* Hero Section Styles */
@@ -94,7 +102,7 @@ nav a {
 .hero h1 {
   color: white;
   text-shadow: 0px 0px 10px black;
-  font-size: 36px;
+  font-size: 44px;
   margin-bottom: 40px;
   padding-top: 70px;
 }
@@ -103,7 +111,8 @@ nav a {
   background-color: #22a3ff;
   text-shadow: 0px 0px 5px black;
   color: white;
-  padding: 10px 20px;
+  font-size: 24px;
+  padding: 12px 22px;
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
@@ -171,37 +180,40 @@ nav a {
 }
 
 /* Ad Popup Styles */
-.popup{
+.popup {
   background-color: #ffffff;
   width: 420px;
   padding: 30px 40px;
-  position: absolute;
+  position: fixed;
   transform: translate(-50%,-50%);
-  left: 50%;
-  top: 50%;
+  left: 11.5%;
+  bottom: 1%;
   border-radius: 8px;
   font-family: "Poppins",sans-serif;
   display: none; 
   text-align: center;
 }
-.popup button{
+
+.popup button {
   display: block;
   margin:  0 0 20px auto;
   background-color: transparent;
-  font-size: 30px;
+  font-size: 25px;
   color: #ffffff;
-background: #03549a;
-border-radius: 100%;
-width: 40px;
-height: 40px;
+  background: #03549a;
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
   border: none;
   outline: none;
   cursor: pointer;
 }
-.popup h2{
-margin-top: -20px;
+
+.popup h2 {
+  margin-top: -20px;
 }
-.popup p{
+
+.popup p {
   font-size: 14px;
   text-align: justify;
   margin: 20px 0;
@@ -212,11 +224,12 @@ margin-top: -20px;
 footer {
   background-color: #333333;
   color: white;
+  position: absolute;
+  bottom: 0;
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 
 footer ul {
@@ -244,5 +257,5 @@ footer a {
 }
 
 .footer-logo{
-  padding: 10px;
+  padding: 0px 10px;
 }
