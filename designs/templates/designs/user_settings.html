@@ -21,70 +21,81 @@
 <div class="content-section">
   <div class="media">
     <div class="media-body">
-      <legend class="border-bottom mb-4">Profile Info</legend>
-      <h2 class="username">{{ user.username }}</h2>
-      <p class="email">{{ user.email }}</p>
+      <legend class="border-bottom mb-4">Change Email Address</legend>
     </div>
   </div>
+<!-- Update Email Form -->
+<form method="post" action="{% url 'update_profile' %}">
+  <div class="setting">
+    <label for="email">Current Email Address:</label>
+    <input type="email" name="old_email_address">
+    <label for="email">New Email Address:</label>
+    <input type="email" name="new_email_address">
+    <button type="submit" name="update_email" class="profile-btn">Update Email Address</button>
+  </div>
+</form>
+
+<div class="media">
+  <div class="media-body">
+    <legend class="border-bottom mb-4">Change Username</legend>
+  </div>
+</div>
+
 <!-- Update Username Form -->
 <form method="post" action="{% url 'update_profile' %}">
-  {% csrf_token %}
   <div class="setting">
-    <label for="username">Enter New Username:</label>
-    <input type="text" id="username" name="username" value="{{ user.username }}" required>
-    <button type="submit" class="profile-btn">Update Username</button>
+    <label for="username">Current Username:</label>
+    <input type="text" name="old_username" >
+    <label for="username">New Username:</label>
+    <input type="text" name="new_username" >
+    <button type="submit" name="update_username"class="profile-btn">Update Username</button>
+  </div>
+</form>
+
+<div class="media">
+  <div class="media-body">
+    <legend class="border-bottom mb-4">Change Password</legend>
+  </div>
+</div>
+
+<!-- Update Username Form -->
+<form method="post" action="{% url 'update_profile' %}">
+  <div class="setting">
+    <label for="username">Current Email Address:</label>
+    <input type="text" name="email_address" >
+    <label for="username">Current Username:</label>
+    <input type="text" name="username" >
+    <label for="username">Current Password:</label>
+    <input type="text" name="old_password" >
+    <label for="username">New Password:</label>
+    <input type="text" name="new_password" >
+    <button type="submit" name="update_password" class="password-btn">Update Password</button>
   </div>
 </form>
 
 
-<!-- Update Email Form -->
+<div class="media">
+  <div class="media-body">
+    <legend class="border-bottom mb-4">Delete Account</legend>
+  </div>
+</div>
+
 <form method="post" action="{% url 'update_profile' %}">
-  {% csrf_token %}
   <div class="setting">
-    <label for="email">Enter New Email:</label>
-    <input type="email" id="email" name="email" value="{{ user.email }}" required>
-    <button type="submit" class="profile-btn">Update Email</button>
+    <p>Do you want to delete your account?</p>
+    <p>This action cannot be undone.</p>
+    <label for="username">Email Address:</label>
+    <input type="text" name="email_address" >
+    <label for="username">Username:</label>
+    <input type="text" name="username" >
+    <label for="username">Password:</label>
+    <input type="text" name="password" >
+    <p></p>
+    <p>Press the button to delete account</p>
+    <button type="submit" name="delete_account" class="delete-btn">Delete Account</button>
   </div>
 </form>
 </div>
-
-<div class="settings">
-  <legend class="border-bottom mb-4">Privacy</legend>
-  <form method="post" action="{% url 'change_password' %}">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
-    <div class="setting">
-      <label for="{{ form.old_password.id_for_label }}">Old Password:</label>
-      <input type="password" id="{{ form.old_password.id_for_label }}" name="{{ form.old_password.html_name }}" required>
-      {{ form.old_password.errors }}
-    </div>
-
-    <div class="setting">
-      <label for="{{ form.new_password1.id_for_label }}">New Password:</label>
-      <input type="password" id="{{ form.new_password1.id_for_label }}" name="{{ form.new_password1.html_name }}" required>
-      {{ form.new_password1.errors }}
-    </div>
-
-    <div class="setting">
-      <label for="{{ form.new_password2.id_for_label }}">Confirm New Password:</label>
-      <input type="password" id="{{ form.new_password2.id_for_label }}" name="{{ form.new_password2.html_name }}" required>
-      {{ form.new_password2.errors }}
-    </div>
-
-    <button type="submit" class="password-btn">Update Password</button>
-  </form>
-  
-    <form action="#" method="post" class="delete-account-form">
-      {% csrf_token %}
-  
-      <div class="setting">
-        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
-        <input type="checkbox" id="delete_confirmation" name="delete_confirmation" required>
-        <label for="delete_confirmation">I confirm that I want to delete my account.</label>
-  
-        <button type="submit" class="delete-btn">Delete Account</button>
-      </div>
-    </form>
-</div>  
+</div>
 
 {% endblock %}
