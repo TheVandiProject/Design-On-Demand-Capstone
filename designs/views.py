@@ -7,7 +7,13 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from .image_label import classify_image, get_designer_images
 from .models import *
 from all_data.models import *
+from django.template import RequestContext
+from django.template.response import TemplateResponse
 
+
+def handler404(request, exception):
+    response = TemplateResponse(request,'404.html', {})
+    return response
 
 def main_page_view(request):
     return render(request, 'designs/main_page.html')
@@ -29,6 +35,8 @@ def user_settings_view(request):
 
 # def designer_upload_view(request):
 #     return render(request, 'designs/upload_design.html')
+
+
 
 def login_view(request):
     if request.method == "POST":
@@ -225,6 +233,7 @@ def change_password(request):
 
 # @login_required
 def update_profile(request):
+    context = {}
     if request.method == 'POST':
         new_username = request.POST.get('username')
         new_email = request.POST.get('email')
@@ -232,16 +241,17 @@ def update_profile(request):
         if new_username:
             request.user.username = new_username
             request.user.save()
-            messages.success(request, 'Your username has been updated!')
+            context['username_message'] = 'Your username has been updated!'
+        else: 
+            context['username_error'] = 'Please enter a valid username'
 
         if new_email:
             request.user.email = new_email
             request.user.save()
-            messages.success(request, 'Your email has been updated!')
+            context['email_message'] = 'Your email has been updated!'
+        else:
+            context['email_error'] = 'Please enter a valid email'
 
-        if not new_username and not new_email:
-            messages.error(request, 'Please enter a valid username or email.')
+        return render(request, 'user_settings.html', context)
 
-        return redirect('user_settings')
-
-        
+    

@@ -18,6 +18,14 @@
   <a href="{% url 'user_home' %}" class="goback-button">Go Back</a>
 </div>
 
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <div class="content-section">
   <div class="media">
     <div class="media-body">
@@ -58,7 +66,7 @@
   </div>
 </div>
 
-<!-- Update Username Form -->
+<!-- Update Password Form -->
 <form method="post" action="{% url 'update_profile' %}">
   <div class="setting">
     <label for="username">Current Email Address:</label>

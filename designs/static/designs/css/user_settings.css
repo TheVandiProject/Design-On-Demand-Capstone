@@ -46,16 +46,34 @@ body {
   text-decoration: none; /* Remove underline on hover */
 }
 
+ul.messages {
+  list-style-type: none;
+  padding-left: 0;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+ul.messages li.success, ul.messages li.error {
+  width: 25%; /* Set the width of the list items */
+  margin: 10px auto; /* Center the list items */
+  padding: 12px;
+  border-radius: 5px;
+}
+
+ul.messages li.success {
+  color: green;
+  background-color: white;
+}
+
+ul.messages li.error {
+  color: #D8000C; /* red */
+  background-color: white;
+}
 
   .profile-section {
     margin-bottom: 20px;
   }
-  
-  /* .profile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
-  } */
   
   .change-profile-picture-btn {
     display: block;
@@ -84,18 +102,6 @@ body {
     padding: 20px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
 }
-
-  /* .media {
-      display: flex;
-      align-items: center;
-  }
-
-  .media img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin-right: 20px;
-  } */
 
   .media-body h2 {
       margin: 0;

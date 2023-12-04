@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from all_data import views as all_data
 
 # app_name = "designs"
+handler404 = 'designs.views.handler404'
 
 urlpatterns = [
     # path("", views.index, name="index"),
