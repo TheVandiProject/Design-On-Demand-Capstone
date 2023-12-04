@@ -20,12 +20,7 @@
     <div class="logo">
         <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
     </div>
-    {% comment %} <!-- Navigation and user profile icon -->
-    <nav>
-        <ul>
-            <li><a href="{% url 'user_home' %}">Main Page</a></li>
-        </ul>
-    </nav> {% endcomment %}
+    
     <!-- User profile icon -->
     <span class="burger" onclick="toggleNav()">&#9776;</span>
     <div id="mySidenav" class="sidenav">

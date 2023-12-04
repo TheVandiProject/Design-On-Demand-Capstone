@@ -196,6 +196,8 @@ h2 {
     }
 }
 
+/* Introduction Message */
+
 .pre-upload-content {
     background-color: white;
     padding: 50px 20px;
@@ -232,6 +234,7 @@ h2 {
   .pre-upload-content a h2{
     color: white;
   }
+
 
 /* Footer Styles (customize as needed) */
 footer {
