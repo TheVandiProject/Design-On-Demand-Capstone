@@ -1,0 +1,149 @@
+{% extends "designs/base.html" %}
+
+{% load static %}
+
+{% block title %}About us{% endblock %}
+{% block stylesheet%}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'designs/css/about_us.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- Background -->
+    <section class="background-main">
+        <!-- Header Section -->
+        <header>
+            <div class="logo">
+                <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+            </div>
+            <div class="user-actions">
+                <a href="{% url 'login' %}" class="login">Login</a>
+                <a href="{% url 'signup' %}" class="signup">Sign Up</a>
+            </div>
+        </header>
+        <div class="row justify-content-md-center align-items-center" style="padding: 30px 0px;">
+            <div class="col-sm-6 border border-3 border-dark-subtle rounded" style="padding:30px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); min-width: 950px;">
+                <h1 style="text-align:center; padding: 20px">Terms and Conditions</h1>
+                
+                <h3>1. Acceptance of Terms</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    By accessing and using this website or web application (collectively, the "Site"), you agree to be bound by these Terms of Use 
+                    (the "Terms"). If you do not agree to these Terms, you may not access or use the Site.
+                </p>
+
+                <h3>2. Definitions</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    "Company" means Design on Demand, a [Type of Company] with its principal place of business at [Your Company Address].<br>
+
+                    "Content" means any and all data, text, images, audio, video, or other materials that are displayed on, transmitted through, or linked to from the Site.<br>
+
+                    "User" means any person or entity that accesses or uses the Site.<br>
+                </p>
+
+                <h3>3. License to Use</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    Company grants you a non-exclusive, non-transferable license to access and use the Site for your personal, non-commercial 
+                    use only. You may not use the Site for any other purpose without the prior written consent of Company.
+                </p>
+
+                <h3>4. Restrictions on Use</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    You agree not to:<br>
+
+                    Access or use the Site in any unlawful manner or for any unlawful purpose.<br>
+                    Access or use the Site in any manner that could damage, disable, overburden, or impair the Site or interfere with any other party's use of the Site.<br>
+                    Access or use the Site without your authorization.<br>
+                    Attempt to gain unauthorized access to the Site or any portion of the Site.<br>
+                    Modify, adapt, or translate any portion of the Site.<br>
+                    Create derivative works based on the Site.<br>
+                    Remove any copyright, trademark, or other proprietary notices from the Site.<br>
+                    Use any automated device or software to access or use the Site.<br>
+                    Distribute or disseminate any Content from the Site without the prior written consent of Company.<br>
+                </p>
+
+                <h3>5. User Accounts</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    You may create a user account on the Site. You are responsible for maintaining the confidentiality of your account information and password, and you agree to 
+                    accept responsibility for all activities that occur under your account. You agree to notify Company immediately of any unauthorized use of your account.
+                </p>
+
+                <h3>6. Intellectual Property</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    All Content on the Site is the property of Company or its licensors and is protected by copyright and other intellectual property laws. 
+                    You may not copy, distribute, modify, transmit, display, perform, publish, create derivative works from, or otherwise exploit any 
+                    Content without the prior written consent of Company or the respective copyright owner.
+                </p>
+
+                <h3>7. Third-Party Links</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    The Site may contain links to third-party websites or resources. Company does not endorse and is not responsible for the availability 
+                    or accuracy of these external sites or resources. You acknowledge and agree that Company is not liable for any direct or indirect damage 
+                    or loss caused or alleged to be caused by or in connection with your use of any such websites or resources.
+                </p>
+
+                <h3>8. Disclaimer of Warranties</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    THE SITE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+                    WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. COMPANY DOES NOT WARRANT THAT THE SITE WILL BE 
+                    UNINTERRUPTED OR ERROR-FREE, THAT THE SITE IS FREE FROM VIRUSES OR OTHER HARMFUL COMPONENTS, OR THAT THE SITE WILL MEET YOUR REQUIREMENTS.
+                </p>
+
+                <h3>9. Limitation of Liability</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    IN NO EVENT SHALL COMPANY BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR EXEMPLARY DAMAGES, INCLUDING, BUT NOT 
+                    LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF 
+                    THE SITE, EVEN IF COMPANY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+                </p>
+
+                <h3>10. Indemnification</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    You agree to indemnify, defend, and hold harmless Company and its officers, directors, employees, agents, and licensors from and against 
+                    any and all claims, losses, damages, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or in connection 
+                    with your use of the Site or your violation of these Terms.
+                </p>
+
+                <h3>11. Governing Law</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    These Terms shall be governed by and construed in accordance with the laws of the State of [Your State] without regard to its conflict of laws principles.
+                </p>
+
+                <h3>12. Entire Agreement</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    These Terms constitute the entire agreement between you and Company with respect to the Site and supersede all prior or contemporaneous communications, 
+                    representations, or agreements, whether oral or written.
+                </p>
+
+                <h3>13. Amendment</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    Company may amend these Terms at any time upon notice to you. You may terminate your use of the Site if you do not agree to any amended Terms.
+                </p>
+
+                <h3>14. Waiver</h3>
+                <p class="fs-5 text-break" style="padding: 0px 35px; text-align: justify;">
+                    No failure or delay by Company in enforcing any provision of these Terms shall be deemed a waiver of such provision or of any
+                </p>
+            </div>
+        </div>
+
+    </section>
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-logo">
+            <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'about_us' %}">About Us</a></li>
+                <li><a href="{% url 'about_us' %}">Contact</a></li>
+                <li><a href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+            </ul>
+        </nav>
+        <div class="social-icons">
+            <a href="#"><img src="{% static "designs/images/facebook-logo-secondary.png" %}" alt="Facebook" class="resize" ></a>
+            <a href="#"><img src="{% static "designs/images/x-logo-white.png" %}" alt="Twitter" class="resize" ></a>
+            <!-- Add more social icons as needed -->
+        </div>
+    </footer>
+{% endblock %}

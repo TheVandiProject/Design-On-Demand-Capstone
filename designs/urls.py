@@ -20,6 +20,7 @@ urlpatterns = [
     path('upload/image-upload/', views.upload_nonuser_content_view, name="upload_nonuser_content"),
     path('aboutus/', views.aboutus_view, name='about_us'),
     path('privacypolicy/', views.privacypolicy_view, name='privacy_policy'),
+    path('termsconditions/', views.termsconditions_view, name='terms_conditions'),
     path('home/settings/', views.user_settings_view, name='user_settings'),
     #path('home/settings/password-change/', all_data.change_password, name='change_password'),
     path('home/settings/profile/', all_data.update_profile, name='update_profile'),

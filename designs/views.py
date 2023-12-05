@@ -30,6 +30,8 @@ def aboutus_view(request):
 def privacypolicy_view(request):
     return render(request, 'designs/privacy_policy.html')
 
+def termsconditions_view(request):
+    return render(request, 'designs/terms_conditions.html')
 
 def render_user_home_view(request):
     return render(request, 'designs/user_home.html')
