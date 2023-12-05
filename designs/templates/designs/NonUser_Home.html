@@ -5,23 +5,15 @@
 
 {% block stylesheet %}
     <!-- Add the path to your custom user home page stylesheet -->
+    <link rel="stylesheet" href="{% static 'designs/css/nonuser_home.css' %}"/>
+    <script src="{% static 'designs/js/scripts.js' %}"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="{% static 'designs/js/scripts.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'designs/css/nonuser_home.css' %}"/>
-    <style>
-        footer {
-            background-color: #333333;
-            color: white;
-            position: absolute;
-            bottom: 0;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/loadingio/ldbutton@v1.0.1/dist/ldbtn.min.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/loadingio/ldLoader@v1.0.0/dist/ldld.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/loadingio/loading.css@v2.0.0/dist/loading.css">
+
+
 {% endblock %}
 
 {%block content%}
@@ -31,28 +23,30 @@
             <div class="logo">
                 <a href="{% url 'designs' %}"><img src="{% static 'designs/images/DoD_logo-small.png' %}" alt="Logo"></a>
             </div>
-            {% comment %} <!-- Navigation and user profile icon --> {% endcomment %}
-            {% comment %} <nav>
-                <ul>
-                    <li><a href="{% url 'designs' %}">Main Page</a></li>
-                    <li><a href="#">Explore</a></li>
-                    <li><a href="#">Catalog</a></li>
-                </ul>
-            </nav> {% endcomment %}
             <div class="user-actions">
                 <a href="{% url 'login' %}" class="login">Login</a>
                 <a href="{% url 'signup' %}" class="signup">Create an Account</a>
             </div>
         </header>
-
         <div class="upload-form">
-            <form method = "post" enctype="multipart/form-data" action= "{% url 'upload_design' %}">
+            <form method="post" enctype="multipart/form-data" action="{% url 'upload_nonuser_content' %}">
                 {% csrf_token %}
-                <h1><label for="image">Upload your image:</label> </h1>
+                <h1><label for="image">Upload your image:</label></h1>
                 <input type="file" name="image" id="image" accept="image/*">
-                <input type="submit" value="Upload Image">
+                <button type="submit" id="mybtn" class="btn ld-ext-right">
+                    Upload Image
+                    <div class="ld ld-ring ld-spin"></div>
+                </button>
             </form>
         </div>
+        {% comment %} CANNOT BE MOVED TO SEPERATE JS FILE {% endcomment %}
+        <script>
+            var btn = document.getElementById("mybtn");
+            var loader = new ldLoader({ root: btn }); {% comment %} This prevents it from working outside of the template {% endcomment %}
+            btn.addEventListener("click", function() {
+            loader.toggle();
+            });
+        </script>
 
         {% if form.errors.image %}
             <h2><p class="error-message">{{ form.errors.image }}</p></h2>
@@ -64,14 +58,14 @@
                 <div id="top-prediction" class="top-prediction">
                     <img src="{{ uploaded_image_url }}" alt="Uploaded Image" width="300">
                     <h2>Classification Results:</h2>
-                    <p><strong>Top Prediction:</strong> {{ classification_result.top_predictions }}</p>
-                    <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p>
+                    <h3>Our Top Prediction: <strong> {{ classification_result.top_predictions }}</strong></h3>
+                    {% comment %} <p><strong>Top Score:</strong> {{ classification_result.top_score }}</p> {% endcomment %}
                     <!-- Swiper main container for top prediction -->
                     <div class="swiper">
                         <div class="swiper-wrapper">
-                                {% for image_url in classification_result.top_images %}
-                                    <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
-                                {% endfor %}
+                            {% for image_url in classification_result.top_images %}
+                                <div class="swiper-slide"><img src="{{ image_url }}" class="d-block w-100" alt="..."></div>
+                            {% endfor %}
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
@@ -79,11 +73,11 @@
                 </div>
 
                 <div class="other-predictions" id="other-predictions">
-                    <h1>Other Options</h1>
+                    <h1>Other Options and Suggestions</h1>
                     <ul>
                         {% for prediction in classification_result.other_predictions %}
                             <li><h3><strong>{{ prediction.label }} </strong></h3></li>
-                            <li>Confidence: {{ prediction.confidence }}</li>
+                            {% comment %} <li>Confidence: {{ prediction.confidence }}</li> {% endcomment %}
                             <!-- Swiper main container for other predictions -->
                             <div class="swiper">
                                 <div class="swiper-wrapper">
@@ -96,9 +90,39 @@
                             </div>
                         {% endfor %}
                     </ul>
+                    <div id="feedback-section">
+                        <h4>Did you find what you were looking for? Let us know!</h4>
+                        <button id="thumbs-up" onclick="vote('up')">👍</button>
+                        <button id="thumbs-down" onclick="vote('down')">👎</button>
+                        <h5 id="vote-message" class="vote-message"></h5>
+                    </div>
                 </div>
-                <script src="{% static 'designs/js/carousel.js' %}"></script>
             {% endif %}
+        </div>
+                
+            <script src="{% static 'designs/js/carousel.js' %}"></script>
+            
+            <div class="pre-upload-content">
+                <h2>Unleash the Power of Artificial Intelligence for Home Design Inspiration</h2>
+                <p>
+                Welcome to <strong> Design on Demand</strong>, the revolutionary tool that harnesses the power of artificial intelligence to transform your home décor aspirations into reality. Our cutting-edge TensorFlow image classification model seamlessly identifies and classifies images, enabling you to find the perfect design inspiration simply by uploading a picture.
+                </p>
+                <p>
+                Gone are the days of endlessly browsing through countless design catalogs or websites. With Design on Demand, simply upload an image that captures your desired style, and our intelligent system will instantly present you with a curated selection of matching designs. Whether you're seeking inspiration for a complete home makeover or refreshing a specific room, our tool simplifies the search process and eliminates the guesswork.
+                </p>
+                <p>
+                Design on Demand is not just for finding inspiration; it's also a platform for aspiring designers to showcase their creativity. By creating an account and uploading your own designs, you can gain exposure, build your portfolio, and potentially connect with clients seeking your expertise.
+                </p>
+                <p>
+                Our user-friendly application supports a wide range of file formats, including PNG, JPEG, and GIF, eliminating the need to worry about file type compatibility. Simply upload your desired image, and our system will automatically detect and process it.
+                </p>
+                <p>
+                Design on Demand is your gateway to a world of design possibilities. With its easy-to-use interface and powerful image classification model, our tool empowers you to find the perfect design inspiration for your home. Additionally, aspiring designers can use the platform to showcase their talent and connect with potential clients.
+                </p>
+                <a href="{% url 'signup' %}">
+                <h2>Sign Up Today and Start Exploring</h2>
+                </a>
+            </div>              
         </div>
 
         <!-- Ad pop up section -->

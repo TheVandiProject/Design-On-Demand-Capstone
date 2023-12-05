@@ -48,7 +48,9 @@ def register_new_user(request):
         if serializer.is_valid():
             serializer.save()
             messages.success(request, f"Account created successfully!", extra_tags='success')
-            return redirect('user_home') 
+            return redirect('user_home')
+        else:
+            messages.error(request, "Invalid information", extra_tags='error')
     
     return render(request, 'designs/sign_up.html')
 
@@ -60,9 +62,10 @@ def user_login_view(request):
         passw = request.data['password']
         books = Users.objects.all().filter(username=user).filter(password=passw).filter(is_deleted=False)
         if len(books) == 0:
+            messages.error(request, "Invalid username or password", extra_tags='error') 
             return render(request, 'designs/login_page.html')
         else:
-            return redirect('user_home') 
+            return redirect('user_home')
    
     return render(request, 'designs/login_page.html')
 
@@ -96,36 +99,44 @@ def user_change_email(request):
 def update_profile(request):
     
     if request.method == 'POST':
-
         if 'update_email' in request.POST:
             new_email_address = request.data['new_email_address']
             old_email_address = request.data['old_email_address']
-            Users.objects.all().filter(email_address=old_email_address).update(email_address=new_email_address)
-            messages.success(request, 'Your email has been updated!')
+            updated = Users.objects.all().filter(email_address=old_email_address).update(email_address=new_email_address)
+            if updated:
+                messages.success(request, 'Your email has been updated')
+            else:
+                messages.error(request, 'Failed to update your email')
 
         if 'update_username' in request.POST:
             new_username = request.data['new_username']
             old_username = request.data['old_username']
-            Users.objects.all().filter(username=old_username).update(username=new_username)
-            messages.success(request, 'Your username has been updated!')        
-
-        # if not new_username and not new_email_address:
-        #     messages.error(request, 'Please enter a valid username or email.')
+            updated = Users.objects.all().filter(username=old_username).update(username=new_username)
+            if updated:
+                messages.success(request, 'Your username has been updated')
+            else:
+                messages.error(request, 'Failed to update your username')
 
         if 'update_password' in request.POST:
             this_email_address = request.data['email_address']
             this_username = request.data['username']
             old_password = request.data['old_password']
             new_password = request.data['new_password']
-            Users.objects.all().filter(email_address=this_email_address).filter(username=this_username).filter(password=old_password).update(password=new_password)
-
+            updated = Users.objects.all().filter(email_address=this_email_address).filter(username=this_username).filter(password=old_password).update(password=new_password)
+            if updated:
+                messages.success(request, 'Your password has been updated')
+            else:
+                messages.error(request, 'Failed to update your password')
 
         if 'delete_account' in request.POST:
             this_email_address = request.data['email_address']
             this_username = request.data['username']
             this_password = request.data['password']
-            Users.objects.all().filter(email_address=this_email_address).filter(username=this_username).filter(password=this_password).update(is_deleted=True)
-            return redirect('designs')
+            deleted = Users.objects.all().filter(email_address=this_email_address).filter(username=this_username).filter(password=this_password).update(is_deleted=True)
+            if deleted:
+                messages.success(request, 'Your account has been deleted')
+                return redirect('designs')
+            else:
+                messages.error(request, 'Failed to delete your account')
 
-        return redirect('user_home')
-        #return print()#redirect('user_settings')
+        return redirect('user_settings')

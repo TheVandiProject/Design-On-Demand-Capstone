@@ -9,6 +9,10 @@ class Users(models.Model):
     password = models.CharField(max_length=100)
     is_deleted = models.BooleanField(default=False)
     
+    # USERNAME_FIELD = 'username'
+    # EMAIL_FIELD = 'email_address'
+    # REQUIRED_FIELDS = ['email_address']
+    
     # def save(self, *args, **kwargs):
     #     self.password = make_password(self.password)
     #     super().save(*args, **kwargs)
@@ -39,9 +43,9 @@ class Category(models.Model):
         return self.name
             
 class UploadDesignerDesign(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    # user = models.ForeignKey(Users, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='designer-uploads/')
     categories = models.ManyToManyField(Category)
 
-    def __str__(self):
-        return f'{self.user.username} - {self.image}'
+    # def __str__(self):
+    #     return f'{self.user.username} - {self.image}'
