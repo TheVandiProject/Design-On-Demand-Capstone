@@ -75,7 +75,7 @@ nav a {
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin: 8px;
-    height:700px;
+    height: 750px;
 }
   
 .about-section {
@@ -133,7 +133,7 @@ section h2 {
 footer {
     background-color: #333333;
     color: white;
-    position: absolute;
+    position: relative;
     bottom: 0;
     padding: 10px;
     display: flex;

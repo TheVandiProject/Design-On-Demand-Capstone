@@ -187,11 +187,12 @@ nav a {
   position: fixed;
   transform: translate(-50%,-50%);
   left: 11.5%;
-  bottom: 1%;
+  bottom: -100px;
   border-radius: 8px;
   font-family: "Poppins",sans-serif;
   display: none; 
   text-align: center;
+  z-index: 100;
 }
 
 .popup button {
@@ -224,7 +225,7 @@ nav a {
 footer {
   background-color: #333333;
   color: white;
-  position: absolute;
+  position: relative;
   bottom: 0;
   padding: 10px;
   display: flex;

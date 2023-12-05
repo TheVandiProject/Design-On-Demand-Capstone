@@ -199,7 +199,7 @@ h2 {
 /* Introduction Message */
 
 .pre-upload-content {
-    background-color: white;
+    background-color: rgb(255, 253, 250);
     padding: 50px 20px;
     margin: 0 auto;
     max-width: 800px;
@@ -257,11 +257,12 @@ h2 {
     position: fixed;
     transform: translate(-50%,-50%);
     left: 11.5%;
-    bottom: 1%;
+    bottom: -100px;
     border-radius: 8px;
     font-family: "Poppins",sans-serif;
     display: none; 
     text-align: center;
+    z-index: 100;
 }
   
 .popup button {
@@ -300,7 +301,6 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
 }
   
 footer ul {

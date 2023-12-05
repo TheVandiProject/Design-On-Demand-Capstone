@@ -140,7 +140,7 @@ button:hover {
 footer {
   background-color: #333333;
   color: white;
-  position: absolute;
+  position: relative;
   bottom: 0;
   padding: 10px;
   display: flex;
