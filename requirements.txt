@@ -3,7 +3,7 @@ djangorestframework==3.14.0
 boto3==1.33.0
 django-storages==1.11.1
 django-bootstrap-v5==1.0.11
-Pillow==10.1.0
+Pillow==10.2.0
 psycopg2==2.9.9
 python-decouple==3.8
 tensorflow-cpu==2.15.0
